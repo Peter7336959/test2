@@ -5,8 +5,8 @@ date: '`r Sys.Date()`'
 output: html_document
 ---
 ### 1.切割夾捲
-  - case 1 [夾捲案1_演練](cases/捲夾案1_演練.pdf)
-  - case 2 [夾捲案2_演練](cases/A切割夾捲/捲夾案2_演練.pdf)
+  - case 1 [夾捲案1_演練](捲夾案1_演練.pdf)
+  - case 2 [夾捲案2_演練](A切割夾捲/捲夾案2_演練.pdf)
   
 ### 2.火災爆炸
 ### 3.局限空間
