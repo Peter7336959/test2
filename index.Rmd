@@ -103,7 +103,7 @@ knitr::include_graphics('images/指引封面.jpg')
 
 > 以下案例來自官方公布之職災資訊，應用本指引分析方法，運用AI產出，僅供參考用。
 
- - [個案實例演練 請新開網頁](https://rpubs.com/PeterHo/1307347)
+ - [個案實例演練 請新開網頁](cases/捲夾案1_演練.pdf)
  
  
 
