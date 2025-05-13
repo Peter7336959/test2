@@ -13,8 +13,13 @@ knitr::include_graphics('images/指引封面.jpg')
 ```
 
 > "If you think safety is expensive, try an accident."
->
-> --- Chairman of Easy Group
+> --- (Chairman of Easy Group)
+
+> "what-you-look-for-is-what-you-find" 
+> --- (Dekker, 2006; Lundberg et al., 2009, 2010).
+
+> “Errors are seen as consequences rather than causes.”
+> ‐-- (James Reason, 2000)
 
 
 > [本指引主要國內外相關指引，並結合實際案例製作。]
