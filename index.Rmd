@@ -27,9 +27,8 @@ output:
 - **宣導會報名成功名單 (點選各區查看確認)**
 
 
-
 ### 南區(0805週二)
-```{r, echo = FALSE, out.width='100%', fig.align='left', fig.cap='...'}
+```{r, echo = FALSE, out.width='50%', fig.align='left', fig.cap='...'}
 knitr::include_graphics('images/南區報名成功名單.jpg')
 ```
 
@@ -47,7 +46,7 @@ knitr::include_graphics('images/南區報名成功名單.jpg')
 ## 二、宣導會(工作坊)資訊 {.tabset .tabset-fade .tabset-pills}
 
 ###  課程表
-```{r, echo = FALSE, out.width='100%', fig.align='left', fig.cap='...'}
+```{r, echo = FALSE, out.width='60%', fig.align='left', fig.cap='...'}
 knitr::include_graphics('images/課程表.jpg')
 ``` 
 
@@ -56,6 +55,16 @@ knitr::include_graphics('images/課程表.jpg')
 
 ### 事故調查分析方法圖卡
 - [事故調查分析方法圖卡：電子檔下載](事故調查制度實務指南-分析方法圖卡.pdf)
+
+### 提醒事項
+- **課程調整權-**	主辦單位保留課程進行與調整權利。
+-	**節能減碳-** 為因應減碳政策，本活動盡量不發放紙本教材與教具，電子檔將提供下載連結。
+-	**在職教育訓練時數證明-** 全程參與本活動者，合辦單位於活動結束後，依規定核發在職教育訓練時數6小時證明。參加者需於報到時簽到退，遲到或早退15分鐘以上者，不予發放時數條。
+-	**突發事件因應-** 如遇不可抗力之特殊狀況（如颱風、地震、疫情等），活動將配合政府公告延期或取消，執行單位事後將以電子郵件通知報名人員改期辦理。
+-	**建議學員自備Pen與筆電-** 方便進行案例演練與發表分享，或以A4紙本演練。
+- **配合事項-** 活動期間請遵守會場規定，若有飲食灑落造成設備損壞，學員須自負賠償責任。
+
+
 
 ---
 
