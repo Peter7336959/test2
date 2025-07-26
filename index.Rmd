@@ -26,9 +26,37 @@ output:
 - 若遇有颱風將至或重大事故等，延期或變更事宜將於此處公告。
 - **宣導會報名成功名單 (點選各區查看確認)**
 
-
 ### 南區(0805週二)
 (**報名48人**，將甄選40人)
+```{r echo = FALSE, warning=FALSE}
+library(readxl)
+南區 <- read_excel("報名資訊/成功報名名單.xlsx",
+sheet = "南區分組")
+View(南區)
+
+library(kableExtra)
+#  kable(南區) 
+南區 %>%
+  kbl() %>%
+  kable_classic(bootstrap_options = c("striped", "hover"), 
+    position =  "left", fixed_thead = T,full_width = F) %>%
+    row_spec(0, bold = T)%>%
+    column_spec(1, bold = T )%>%
+    column_spec(2, bold = T, background = "lightyellow")%>%
+    pack_rows("第1組", 1, 4,label_row_css = "background-color: #666; color: #fff;") %>%
+    pack_rows("第2組", 5, 8,label_row_css = "background-color: #666; color: #fff;") %>%
+    pack_rows("第3組", 9, 13,label_row_css = "background-color: #666; color: #fff;") %>%
+    pack_rows("第4組", 14, 18,label_row_css = "background-color: #666; color: #fff;") %>%
+    pack_rows("第5組", 19, 23,label_row_css = "background-color: #666; color: #fff;") %>%
+    pack_rows("第6組", 24, 28,label_row_css = "background-color: #666; color: #fff;") %>%
+    pack_rows("第7組", 29, 33,label_row_css = "background-color: #666; color: #fff;") %>%
+    pack_rows("第8組", 34, 38,label_row_css = "background-color: #666; color: #fff;") %>%
+    pack_rows("第9組", 39, 43,label_row_css = "background-color: #666; color: #fff;") %>%
+    pack_rows("第10組",44, 47,label_row_css = "background-color: #666; color: #fff;") %>%
+footnote(general = "暫時分組視需要調整，指定演練案例-可先參見下面案例清單")%>%
+    scroll_box(width = "500px", height = "200px")
+
+```
 
 ---
 

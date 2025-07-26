@@ -1282,6 +1282,230 @@ window.buildTabsets = function(tocID) {
 };
 
 </script>
+<script>$(document).ready(function(){
+    if (typeof $('[data-toggle="tooltip"]').tooltip === 'function') {
+        $('[data-toggle="tooltip"]').tooltip();
+    }
+    if ($('[data-toggle="popover"]').popover === 'function') {
+        $('[data-toggle="popover"]').popover();
+    }
+});
+</script>
+<style type="text/css">
+.lightable-minimal {
+border-collapse: separate;
+border-spacing: 16px 1px;
+width: 100%;
+margin-bottom: 10px;
+}
+.lightable-minimal td {
+margin-left: 5px;
+margin-right: 5px;
+}
+.lightable-minimal th {
+margin-left: 5px;
+margin-right: 5px;
+}
+.lightable-minimal thead tr:last-child th {
+border-bottom: 2px solid #00000050;
+empty-cells: hide;
+}
+.lightable-minimal tbody tr:first-child td {
+padding-top: 0.5em;
+}
+.lightable-minimal.lightable-hover tbody tr:hover {
+background-color: #f5f5f5;
+}
+.lightable-minimal.lightable-striped tbody tr:nth-child(even) {
+background-color: #f5f5f5;
+}
+.lightable-classic {
+border-top: 0.16em solid #111111;
+border-bottom: 0.16em solid #111111;
+width: 100%;
+margin-bottom: 10px;
+margin: 10px 5px;
+}
+.lightable-classic tfoot tr td {
+border: 0;
+}
+.lightable-classic tfoot tr:first-child td {
+border-top: 0.14em solid #111111;
+}
+.lightable-classic caption {
+color: #222222;
+}
+.lightable-classic td {
+padding-left: 5px;
+padding-right: 5px;
+color: #222222;
+}
+.lightable-classic th {
+padding-left: 5px;
+padding-right: 5px;
+font-weight: normal;
+color: #222222;
+}
+.lightable-classic thead tr:last-child th {
+border-bottom: 0.10em solid #111111;
+}
+.lightable-classic.lightable-hover tbody tr:hover {
+background-color: #F9EEC1;
+}
+.lightable-classic.lightable-striped tbody tr:nth-child(even) {
+background-color: #f5f5f5;
+}
+.lightable-classic-2 {
+border-top: 3px double #111111;
+border-bottom: 3px double #111111;
+width: 100%;
+margin-bottom: 10px;
+}
+.lightable-classic-2 tfoot tr td {
+border: 0;
+}
+.lightable-classic-2 tfoot tr:first-child td {
+border-top: 3px double #111111;
+}
+.lightable-classic-2 caption {
+color: #222222;
+}
+.lightable-classic-2 td {
+padding-left: 5px;
+padding-right: 5px;
+color: #222222;
+}
+.lightable-classic-2 th {
+padding-left: 5px;
+padding-right: 5px;
+font-weight: normal;
+color: #222222;
+}
+.lightable-classic-2 tbody tr:last-child td {
+border-bottom: 3px double #111111;
+}
+.lightable-classic-2 thead tr:last-child th {
+border-bottom: 1px solid #111111;
+}
+.lightable-classic-2.lightable-hover tbody tr:hover {
+background-color: #F9EEC1;
+}
+.lightable-classic-2.lightable-striped tbody tr:nth-child(even) {
+background-color: #f5f5f5;
+}
+.lightable-material {
+min-width: 100%;
+white-space: nowrap;
+table-layout: fixed;
+font-family: Roboto, sans-serif;
+border: 1px solid #EEE;
+border-collapse: collapse;
+margin-bottom: 10px;
+}
+.lightable-material tfoot tr td {
+border: 0;
+}
+.lightable-material tfoot tr:first-child td {
+border-top: 1px solid #EEE;
+}
+.lightable-material th {
+height: 56px;
+padding-left: 16px;
+padding-right: 16px;
+}
+.lightable-material td {
+height: 52px;
+padding-left: 16px;
+padding-right: 16px;
+border-top: 1px solid #eeeeee;
+}
+.lightable-material.lightable-hover tbody tr:hover {
+background-color: #f5f5f5;
+}
+.lightable-material.lightable-striped tbody tr:nth-child(even) {
+background-color: #f5f5f5;
+}
+.lightable-material.lightable-striped tbody td {
+border: 0;
+}
+.lightable-material.lightable-striped thead tr:last-child th {
+border-bottom: 1px solid #ddd;
+}
+.lightable-material-dark {
+min-width: 100%;
+white-space: nowrap;
+table-layout: fixed;
+font-family: Roboto, sans-serif;
+border: 1px solid #FFFFFF12;
+border-collapse: collapse;
+margin-bottom: 10px;
+background-color: #363640;
+}
+.lightable-material-dark tfoot tr td {
+border: 0;
+}
+.lightable-material-dark tfoot tr:first-child td {
+border-top: 1px solid #FFFFFF12;
+}
+.lightable-material-dark th {
+height: 56px;
+padding-left: 16px;
+padding-right: 16px;
+color: #FFFFFF60;
+}
+.lightable-material-dark td {
+height: 52px;
+padding-left: 16px;
+padding-right: 16px;
+color: #FFFFFF;
+border-top: 1px solid #FFFFFF12;
+}
+.lightable-material-dark.lightable-hover tbody tr:hover {
+background-color: #FFFFFF12;
+}
+.lightable-material-dark.lightable-striped tbody tr:nth-child(even) {
+background-color: #FFFFFF12;
+}
+.lightable-material-dark.lightable-striped tbody td {
+border: 0;
+}
+.lightable-material-dark.lightable-striped thead tr:last-child th {
+border-bottom: 1px solid #FFFFFF12;
+}
+.lightable-paper {
+width: 100%;
+margin-bottom: 10px;
+color: #444;
+}
+.lightable-paper tfoot tr td {
+border: 0;
+}
+.lightable-paper tfoot tr:first-child td {
+border-top: 1px solid #00000020;
+}
+.lightable-paper thead tr:last-child th {
+color: #666;
+vertical-align: bottom;
+border-bottom: 1px solid #00000020;
+line-height: 1.15em;
+padding: 10px 5px;
+}
+.lightable-paper td {
+vertical-align: middle;
+border-bottom: 1px solid #00000010;
+line-height: 1.15em;
+padding: 7px 5px;
+}
+.lightable-paper.lightable-hover tbody tr:hover {
+background-color: #F9EEC1;
+}
+.lightable-paper.lightable-striped tbody tr:nth-child(even) {
+background-color: #00000008;
+}
+.lightable-paper.lightable-striped tbody td {
+border: 0;
+}
+</style>
 
 <style type="text/css">
 code{white-space: pre-wrap;}
@@ -1482,7 +1706,605 @@ border-radius: 0px;
 </ul>
 <div id="南區0805週二" class="section level3">
 <h3>南區(0805週二)</h3>
-<p>(<strong>報名48人</strong>，將甄選40人)</p>
+(<strong>報名48人</strong>，將甄選40人)
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:200px; overflow-x: scroll; width:500px; ">
+<table class=" lightable-classic" style="font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; width: auto !important; border-bottom: 0;">
+<thead>
+<tr>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;font-weight: bold;position: sticky; top:0; background-color: #FFFFFF;">
+姓名 [公司匿稱]
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;font-weight: bold;position: sticky; top:0; background-color: #FFFFFF;">
+分組
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;font-weight: bold;position: sticky; top:0; background-color: #FFFFFF;">
+演練個案
+</th>
+</tr>
+</thead>
+<tbody>
+<tr grouplength="4">
+<td colspan="3" style="background-color: #666; color: #fff;">
+<strong>第1組</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;padding-left: 2em;" indentlevel="1">
+何O靜 [MS*公司]
+</td>
+<td style="text-align:right;font-weight: bold;background-color: lightyellow !important;">
+1
+</td>
+<td style="text-align:left;">
+捲夾案4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;padding-left: 2em;" indentlevel="1">
+陳O涵 [晟田*公司]
+</td>
+<td style="text-align:right;font-weight: bold;background-color: lightyellow !important;">
+1
+</td>
+<td style="text-align:left;">
+捲夾案4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;padding-left: 2em;" indentlevel="1">
+林O美 [衛生*公司]
+</td>
+<td style="text-align:right;font-weight: bold;background-color: lightyellow !important;">
+1
+</td>
+<td style="text-align:left;">
+捲夾案4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;padding-left: 2em;" indentlevel="1">
+孫O榕 [世豐*公司]
+</td>
+<td style="text-align:right;font-weight: bold;background-color: lightyellow !important;">
+1
+</td>
+<td style="text-align:left;">
+捲夾案4
+</td>
+</tr>
+<tr grouplength="4">
+<td colspan="3" style="background-color: #666; color: #fff;">
+<strong>第2組</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;padding-left: 2em;" indentlevel="1">
+王O平 [國精*公司]
+</td>
+<td style="text-align:right;font-weight: bold;background-color: lightyellow !important;">
+2
+</td>
+<td style="text-align:left;">
+墜落3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;padding-left: 2em;" indentlevel="1">
+王O平 [中鋼*公司]
+</td>
+<td style="text-align:right;font-weight: bold;background-color: lightyellow !important;">
+2
+</td>
+<td style="text-align:left;">
+墜落3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;padding-left: 2em;" indentlevel="1">
+邱O遠 [榮剛*公司]
+</td>
+<td style="text-align:right;font-weight: bold;background-color: lightyellow !important;">
+2
+</td>
+<td style="text-align:left;">
+墜落3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;padding-left: 2em;" indentlevel="1">
+李O宜 [祥全*公司]
+</td>
+<td style="text-align:right;font-weight: bold;background-color: lightyellow !important;">
+2
+</td>
+<td style="text-align:left;">
+墜落3
+</td>
+</tr>
+<tr grouplength="5">
+<td colspan="3" style="background-color: #666; color: #fff;">
+<strong>第3組</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;padding-left: 2em;" indentlevel="1">
+黃O誠 [大展*公司]
+</td>
+<td style="text-align:right;font-weight: bold;background-color: lightyellow !important;">
+3
+</td>
+<td style="text-align:left;">
+局限空間案5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;padding-left: 2em;" indentlevel="1">
+歐O峯 [新應*公司]
+</td>
+<td style="text-align:right;font-weight: bold;background-color: lightyellow !important;">
+3
+</td>
+<td style="text-align:left;">
+局限空間案5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;padding-left: 2em;" indentlevel="1">
+黨O梅 [中國*公司]
+</td>
+<td style="text-align:right;font-weight: bold;background-color: lightyellow !important;">
+3
+</td>
+<td style="text-align:left;">
+局限空間案5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;padding-left: 2em;" indentlevel="1">
+程O中 [宏華*公司]
+</td>
+<td style="text-align:right;font-weight: bold;background-color: lightyellow !important;">
+3
+</td>
+<td style="text-align:left;">
+局限空間案5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;padding-left: 2em;" indentlevel="1">
+潘O聰 [唐蓉*公司]
+</td>
+<td style="text-align:right;font-weight: bold;background-color: lightyellow !important;">
+3
+</td>
+<td style="text-align:left;">
+局限空間案5
+</td>
+</tr>
+<tr grouplength="5">
+<td colspan="3" style="background-color: #666; color: #fff;">
+<strong>第4組</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;padding-left: 2em;" indentlevel="1">
+詹O純 [陸發*公司]
+</td>
+<td style="text-align:right;font-weight: bold;background-color: lightyellow !important;">
+4
+</td>
+<td style="text-align:left;">
+倒塌崩塌4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;padding-left: 2em;" indentlevel="1">
+洪O裕 [台糖*公司]
+</td>
+<td style="text-align:right;font-weight: bold;background-color: lightyellow !important;">
+4
+</td>
+<td style="text-align:left;">
+倒塌崩塌4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;padding-left: 2em;" indentlevel="1">
+方O宏 [國精*公司]
+</td>
+<td style="text-align:right;font-weight: bold;background-color: lightyellow !important;">
+4
+</td>
+<td style="text-align:left;">
+倒塌崩塌4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;padding-left: 2em;" indentlevel="1">
+薛O斌 [孟華*公司]
+</td>
+<td style="text-align:right;font-weight: bold;background-color: lightyellow !important;">
+4
+</td>
+<td style="text-align:left;">
+倒塌崩塌4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;padding-left: 2em;" indentlevel="1">
+蔡O勳 [林商*公司]
+</td>
+<td style="text-align:right;font-weight: bold;background-color: lightyellow !important;">
+4
+</td>
+<td style="text-align:left;">
+倒塌崩塌4
+</td>
+</tr>
+<tr grouplength="5">
+<td colspan="3" style="background-color: #666; color: #fff;">
+<strong>第5組</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;padding-left: 2em;" indentlevel="1">
+錢O儒 [萬機*公司]
+</td>
+<td style="text-align:right;font-weight: bold;background-color: lightyellow !important;">
+5
+</td>
+<td style="text-align:left;">
+感電3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;padding-left: 2em;" indentlevel="1">
+呂O墉 [台灣*公司]
+</td>
+<td style="text-align:right;font-weight: bold;background-color: lightyellow !important;">
+5
+</td>
+<td style="text-align:left;">
+感電3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;padding-left: 2em;" indentlevel="1">
+林O益 [益芳*公司]
+</td>
+<td style="text-align:right;font-weight: bold;background-color: lightyellow !important;">
+5
+</td>
+<td style="text-align:left;">
+感電3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;padding-left: 2em;" indentlevel="1">
+陳O敏 [凱銳*公司]
+</td>
+<td style="text-align:right;font-weight: bold;background-color: lightyellow !important;">
+5
+</td>
+<td style="text-align:left;">
+感電3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;padding-left: 2em;" indentlevel="1">
+郭O聖 [高雄*公司]
+</td>
+<td style="text-align:right;font-weight: bold;background-color: lightyellow !important;">
+5
+</td>
+<td style="text-align:left;">
+感電3
+</td>
+</tr>
+<tr grouplength="5">
+<td colspan="3" style="background-color: #666; color: #fff;">
+<strong>第6組</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;padding-left: 2em;" indentlevel="1">
+黎O玲 [志成*公司]
+</td>
+<td style="text-align:right;font-weight: bold;background-color: lightyellow !important;">
+6
+</td>
+<td style="text-align:left;">
+捲夾案4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;padding-left: 2em;" indentlevel="1">
+黃O嘉 [經捷*公司]
+</td>
+<td style="text-align:right;font-weight: bold;background-color: lightyellow !important;">
+6
+</td>
+<td style="text-align:left;">
+捲夾案4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;padding-left: 2em;" indentlevel="1">
+任O羽 [欣樂*公司]
+</td>
+<td style="text-align:right;font-weight: bold;background-color: lightyellow !important;">
+6
+</td>
+<td style="text-align:left;">
+捲夾案4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;padding-left: 2em;" indentlevel="1">
+林O眞 [長庚*公司]
+</td>
+<td style="text-align:right;font-weight: bold;background-color: lightyellow !important;">
+6
+</td>
+<td style="text-align:left;">
+捲夾案4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;padding-left: 2em;" indentlevel="1">
+廖O遠 [榮田*公司]
+</td>
+<td style="text-align:right;font-weight: bold;background-color: lightyellow !important;">
+6
+</td>
+<td style="text-align:left;">
+捲夾案4
+</td>
+</tr>
+<tr grouplength="5">
+<td colspan="3" style="background-color: #666; color: #fff;">
+<strong>第7組</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;padding-left: 2em;" indentlevel="1">
+呂O華 [慶達*公司]
+</td>
+<td style="text-align:right;font-weight: bold;background-color: lightyellow !important;">
+7
+</td>
+<td style="text-align:left;">
+墜落3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;padding-left: 2em;" indentlevel="1">
+杜O誼 [宜蘭*公司]
+</td>
+<td style="text-align:right;font-weight: bold;background-color: lightyellow !important;">
+7
+</td>
+<td style="text-align:left;">
+墜落3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;padding-left: 2em;" indentlevel="1">
+倪O祥 [*公司]
+</td>
+<td style="text-align:right;font-weight: bold;background-color: lightyellow !important;">
+7
+</td>
+<td style="text-align:left;">
+墜落3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;padding-left: 2em;" indentlevel="1">
+劉O晨 [亞太*公司]
+</td>
+<td style="text-align:right;font-weight: bold;background-color: lightyellow !important;">
+7
+</td>
+<td style="text-align:left;">
+墜落3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;padding-left: 2em;" indentlevel="1">
+江O賜 [高市*公司]
+</td>
+<td style="text-align:right;font-weight: bold;background-color: lightyellow !important;">
+7
+</td>
+<td style="text-align:left;">
+墜落3
+</td>
+</tr>
+<tr grouplength="5">
+<td colspan="3" style="background-color: #666; color: #fff;">
+<strong>第8組</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;padding-left: 2em;" indentlevel="1">
+王O婷 [鋼堡*公司]
+</td>
+<td style="text-align:right;font-weight: bold;background-color: lightyellow !important;">
+8
+</td>
+<td style="text-align:left;">
+局限空間案5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;padding-left: 2em;" indentlevel="1">
+吳O儀 [鋼堡*公司]
+</td>
+<td style="text-align:right;font-weight: bold;background-color: lightyellow !important;">
+8
+</td>
+<td style="text-align:left;">
+局限空間案5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;padding-left: 2em;" indentlevel="1">
+林O璋 [皇旗*公司]
+</td>
+<td style="text-align:right;font-weight: bold;background-color: lightyellow !important;">
+8
+</td>
+<td style="text-align:left;">
+局限空間案5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;padding-left: 2em;" indentlevel="1">
+鄭O樺 [漢唐*公司]
+</td>
+<td style="text-align:right;font-weight: bold;background-color: lightyellow !important;">
+8
+</td>
+<td style="text-align:left;">
+局限空間案5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;padding-left: 2em;" indentlevel="1">
+謝O賓 [慶達*公司]
+</td>
+<td style="text-align:right;font-weight: bold;background-color: lightyellow !important;">
+8
+</td>
+<td style="text-align:left;">
+局限空間案5
+</td>
+</tr>
+<tr grouplength="5">
+<td colspan="3" style="background-color: #666; color: #fff;">
+<strong>第9組</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;padding-left: 2em;" indentlevel="1">
+蔡O彤 [鍵財*公司]
+</td>
+<td style="text-align:right;font-weight: bold;background-color: lightyellow !important;">
+9
+</td>
+<td style="text-align:left;">
+倒塌崩塌4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;padding-left: 2em;" indentlevel="1">
+楊O蓁 [銘榮*公司]
+</td>
+<td style="text-align:right;font-weight: bold;background-color: lightyellow !important;">
+9
+</td>
+<td style="text-align:left;">
+倒塌崩塌4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;padding-left: 2em;" indentlevel="1">
+謝O州 [台灣*公司]
+</td>
+<td style="text-align:right;font-weight: bold;background-color: lightyellow !important;">
+9
+</td>
+<td style="text-align:left;">
+倒塌崩塌4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;padding-left: 2em;" indentlevel="1">
+鄭O玲 [新和*公司]
+</td>
+<td style="text-align:right;font-weight: bold;background-color: lightyellow !important;">
+9
+</td>
+<td style="text-align:left;">
+倒塌崩塌4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;padding-left: 2em;" indentlevel="1">
+郭O章 [群恆*公司]
+</td>
+<td style="text-align:right;font-weight: bold;background-color: lightyellow !important;">
+9
+</td>
+<td style="text-align:left;">
+倒塌崩塌4
+</td>
+</tr>
+<tr grouplength="4">
+<td colspan="3" style="background-color: #666; color: #fff;">
+<strong>第10組</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;padding-left: 2em;" indentlevel="1">
+莊O軒 [台灣*公司]
+</td>
+<td style="text-align:right;font-weight: bold;background-color: lightyellow !important;">
+10
+</td>
+<td style="text-align:left;">
+感電3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;padding-left: 2em;" indentlevel="1">
+李O城 [中宇*公司]
+</td>
+<td style="text-align:right;font-weight: bold;background-color: lightyellow !important;">
+10
+</td>
+<td style="text-align:left;">
+感電3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;padding-left: 2em;" indentlevel="1">
+謝O樺 [中國*公司]
+</td>
+<td style="text-align:right;font-weight: bold;background-color: lightyellow !important;">
+10
+</td>
+<td style="text-align:left;">
+感電3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;padding-left: 2em;" indentlevel="1">
+廖O漪 [大林*公司]
+</td>
+<td style="text-align:right;font-weight: bold;background-color: lightyellow !important;">
+10
+</td>
+<td style="text-align:left;">
+感電3
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<span style="font-style: italic;">Note: </span>
+</td>
+</tr>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup></sup> 暫時分組視需要調整，指定演練案例-可先參見下面案例清單
+</td>
+</tr>
+</tfoot>
+</table>
+</div>
 <hr />
 </div>
 <div id="中區-0821週四" class="section level3">
