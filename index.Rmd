@@ -9,7 +9,7 @@ output:
     toc_float: true
     #toc_depth: 2
     lib_dir: libs
-    theme: united
+    theme: yeti
     #theme: !expr sample(c("yeti", "united", "lumen",
     #"cerulean", "cosmo", "flatly", "journal", #"paper","readable", "spacelab"), 1)
     highlight: tango
@@ -366,6 +366,3 @@ knitr::include_graphics('images/課程表.jpg')
 |  |  |  |  |
 
 
-#' 這是comment
-#' ---
-#' title: "A report generated from a pure R script"
