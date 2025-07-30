@@ -9,7 +9,7 @@ output:
     toc_float: true
     #toc_depth: 2
     lib_dir: libs
-    theme: litera
+    theme: united
     #theme: !expr sample(c("yeti", "united", "lumen",
     #"cerulean", "cosmo", "flatly", "journal", #"paper","readable", "spacelab"), 1)
     highlight: tango
