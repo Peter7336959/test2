@@ -1,0 +1,10 @@
+name: Publish Document
+title:
+username:
+account: rpubs
+server: rpubs.com
+hostUrl: rpubs.com
+appId: https://api.rpubs.com/api/v1/document/1307347/e10e06063ea44be2b6172bcfc92761ab
+bundleId: https://api.rpubs.com/api/v1/document/1307347/e10e06063ea44be2b6172bcfc92761ab
+url: http://rpubs.com/PeterHo/1307347
+version: 1
