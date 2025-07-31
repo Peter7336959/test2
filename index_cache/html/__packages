@@ -1,5 +1,3 @@
-readxl
-kableExtra
 tidyverse
 ggplot2
 tibble
@@ -10,3 +8,5 @@ dplyr
 stringr
 forcats
 lubridate
+readxl
+kableExtra

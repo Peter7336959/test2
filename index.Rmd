@@ -41,14 +41,13 @@ output:
 (**報名48人**，甄選47人) **地點：高雄市政府勞工局勞動檢查處(高雄市鹽埕區中正四路274號4樓)**
 
 ```{r echo = FALSE, warning=FALSE, cache=TRUE,error=FALSE, message=FALSE}
+library(tidyverse)
 library(readxl)
 宣導會名單 <- read_excel("報名資訊/宣導會名單_錄取.xlsx",
-sheet = "錄取名單", col_types = c("skip",
-"skip", "skip", "skip", "text","text",
-"text", "text", "text", "text"))
-View(宣導會名單)
+col_types = c("skip", "skip", "skip",
+"skip", "skip", "text", "text", "text",
+"text", "text", "text", "skip"))
 
-library(tidyverse)
 宣導會名單 <- 宣導會名單 %>% rename(姓名匿稱=name, 公司匿稱=cop)
 library(kableExtra)
 宣導會名單 %>% filter(確認場次=="南區8月05日" & 亂數抽籤=="y") %>% select(-2) %>%
@@ -82,10 +81,9 @@ footnote(general = "按報名順序暫時分組，指定演練案例-可先參�
 ```{r echo = FALSE, warning=FALSE,  cache=TRUE,error=FALSE, message=FALSE}
 library(readxl)
 宣導會名單 <- read_excel("報名資訊/宣導會名單_錄取.xlsx",
-sheet = "錄取名單", col_types = c("skip",
-"skip", "skip", "skip", "text", "text",
-"text", "text", "text", "text"))
-View(宣導會名單)
+col_types = c("skip", "skip", "skip",
+"skip", "skip", "text", "text", "text",
+"text", "text", "text", "skip"))
 
 library(tidyverse)
 宣導會名單 <- 宣導會名單 %>% rename(姓名匿稱=name, 公司匿稱=cop)
@@ -122,10 +120,9 @@ footnote(general = "按報名順序暫時分組，指定演練案例-可先參�
 ```{r echo = FALSE, warning=FALSE,  cache=TRUE,error=FALSE, message=FALSE}
 library(readxl)
 宣導會名單 <- read_excel("報名資訊/宣導會名單_錄取.xlsx",
-sheet = "錄取名單", col_types = c("skip",
-"skip", "skip", "skip", "text", "text",
-"text", "text", "text", "text"))
-View(宣導會名單)
+col_types = c("skip", "skip", "skip",
+"skip", "skip", "text", "text", "text",
+"text", "text", "text", "skip"))
 
 library(tidyverse)
 宣導會名單 <- 宣導會名單 %>% rename(姓名匿稱=name, 公司匿稱=cop)
@@ -161,10 +158,9 @@ footnote(general = "按報名順序暫時分組，指定演練案例-可先參�
 ```{r echo = FALSE, warning=FALSE, cache=TRUE,error=FALSE, message=FALSE}
 library(readxl)
 宣導會名單 <- read_excel("報名資訊/宣導會名單_錄取.xlsx",
-sheet = "錄取名單", col_types = c("skip",
-"skip", "skip", "skip", "text", "text",
-"text", "text", "text", "text"))
-View(宣導會名單)
+col_types = c("skip", "skip", "skip",
+"skip", "skip", "text", "text", "text",
+"text", "text", "text", "skip"))
 
 library(tidyverse)
 宣導會名單 <- 宣導會名單 %>% rename(姓名匿稱=name, 公司匿稱=cop)
