@@ -1,0 +1,32 @@
+---
+title: "地圖"
+output: html_document
+date: "2025-07-31"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(leaflet)
+map <- leaflet() %>%
+  addTiles() %>%  # 加上預設的地圖資料
+  addMarkers(
+    lng=120.2858, lat=22.6266,
+    label = "高市勞檢處") %>% 
+  addCircleMarkers(
+    lng=c(120.2839, 120.3018,120.2858), 
+    lat=c(22.6251, 22.6346,22.6266),
+    color="red",stroke = TRUE,
+    label =c("鹽埕埔捷運站(橘線)","美麗島捷運站","高市勞檢處"),
+    labelOptions = labelOptions(noHide = TRUE,textsize = "12px",
+                                style = list(
+        "color" = "black",
+        "box-shadow" = "3px 3px rgba(0,0,0,0.25)",
+        "border-color" = "rgba(0,0,0,0.5)"
+      ))) 
+
+map  # 繪製地圖22.625127622968208, 120.28390372187799
+```
+

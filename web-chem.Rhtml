@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>化學品暴露評估建模：利器或陷阱？ (Gemini 增強版)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
+    <!-- 
+    Narrative & Structure Plan:
+    1.  Introduction: Hook with the ">90% judgment without data" stat. Introduce modeling as a double-edged sword.
+    2.  The Bright Side (Pros): Showcase the advantages using a donut chart for resource allocation, a timeline for its application scope, and a simple list for regulatory acceptance.
+    3.  The Pitfalls (Cons): Start with the "All models are wrong" quote. Use a visual comparison for model vs. reality, a bar chart for common errors, and a flow diagram for communication challenges. Add a Gemini-powered "Get Expert Advice" button.
+    4.  The Path Forward (Conclusion): Use a Venn diagram to illustrate the synergy of modeling and sampling. Add a Gemini-powered "Generate Assessment Strategy" feature. Conclude with the best practice approach.
+
+    Visualization Plan:
+    -   Hook Stat -> Inform -> Single Big Number -> HTML/CSS
+    -   Resource Allocation -> Compare -> Donut Chart -> Chart.js
+    -   Application Scope -> Organize -> Timeline Diagram -> HTML/CSS
+    -   Model vs. Reality -> Compare -> Side-by-side Diagram -> HTML/CSS
+    -   Common Errors -> Compare -> Horizontal Bar Chart -> Chart.js
+    -   Communication -> Organize -> Flow Diagram -> HTML/CSS
+    -   Best Practice -> Relationships -> Venn Diagram -> HTML/CSS
+    -   Gemini Features -> Interactive -> Input + Modal -> HTML/CSS/JS
+    -   Justification: All chosen visualizations are suitable for the data type and adhere to the NO SVG / NO MERMAID JS constraint.
+
+    Color Palette: Brilliant Blues (#003f5c, #444e86, #955196, #dd5182, #ff6e54, #ffa600)
+    
+    Confirmation: NEITHER Mermaid JS NOR SVG were used anywhere in the output.
+    -->
+    <style>
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .gradient-text {
+            background: linear-gradient(90deg, #955196, #dd5182);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .gemini-btn {
+            background: linear-gradient(90deg, #955196, #dd5182);
+            transition: all 0.3s ease;
+        }
+        .gemini-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(221, 81, 130, 0.4);
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <div class="container mx-auto p-4 md:p-8">
+
+        <header class="text-center mb-12 md:mb-16">
+            <h1 class="text-4xl md:text-6xl font-black text-[#003f5c] mb-4">化學品暴露評估建模</h1>
+            <h2 class="text-2xl md:text-4xl font-bold gradient-text">利器或陷阱？</h2>
+            <p class="max-w-3xl mx-auto mt-6 text-lg text-gray-600">在職業衛生領域，數學模型是評估化學品暴露的強大工具，但它也是一把雙面刃。讓我們深入探討它的優勢與挑戰。</p>
+        </header>
+
+        <div class="bg-white rounded-2xl shadow-xl p-8 mb-12 md:mb-16 text-center">
+            <p class="text-2xl font-bold text-[#003f5c]">一個驚人的事實：</p>
+            <p class="text-6xl md:text-8xl font-black text-[#dd5182] my-4">> 90%</p>
+            <p class="text-xl text-gray-600">的暴露風險判斷，是在<span class="font-bold">沒有實際採樣數據</span>的情況下做出的。這凸顯了模型作為評估工具的迫切需求。</p>
+        </div>
+
+        <main class="space-y-12 md:space-y-20">
+
+            <section>
+                <h3 class="text-3xl md:text-4xl font-bold text-center mb-10 text-[#003f5c]">模型的優勢：看得更遠、評得更快</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    
+                    <div class="bg-white rounded-lg shadow-md p-6 flex flex-col">
+                        <h4 class="text-xl font-bold mb-4 text-[#444e86]">📊 策略性資源配置</h4>
+                        <p class="text-gray-600 mb-4 flex-grow">模型能快速篩選高風險情境，讓傳統採樣從「大海撈針」變為「精準打擊」，大幅提升評估效率。</p>
+                        <div class="chart-container h-64">
+                            <canvas id="resourceChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow-md p-6 flex flex-col">
+                        <h4 class="text-xl font-bold mb-4 text-[#444e86]">⏳ 跨越時間的維度</h4>
+                        <p class="text-gray-600 mb-4 flex-grow">模型不受時間限制，能評估各種無法實際測量的場景。</p>
+                        <div class="space-y-4 mt-4">
+                            <div class="flex items-center">
+                                <span class="text-2xl mr-4">⏪</span>
+                                <div>
+                                    <p class="font-bold">評估過去</p>
+                                    <p class="text-sm text-gray-500">用於流行病學研究或法律訴訟</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="text-2xl mr-4">🚨</span>
+                                <div>
+                                    <p class="font-bold">應對當下</p>
+                                    <p class="text-sm text-gray-500">用於緊急應變規劃</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="text-2xl mr-4">⏩</span>
+                                <div>
+                                    <p class="font-bold">預測未來</p>
+                                    <p class="text-sm text-gray-500">用於製程變更的預防性設計</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow-md p-6 flex flex-col">
+                        <h4 class="text-xl font-bold mb-4 text-[#444e86]">⚖️ 獲得法規單位認可</h4>
+                        <p class="text-gray-600 flex-grow">在特定條件下，如美國OSHA部分標準，模型被視為「客觀數據」，其結果具備法規公信力。</p>
+                        <div class="mt-4 bg-blue-50 border-l-4 border-[#444e86] p-4 rounded">
+                            <p class="font-semibold">例如：</p>
+                            <ul class="list-disc list-inside text-gray-600 mt-2">
+                                <li>丁二烯 (Butadiene)</li>
+                                <li>甲醛 (Formaldehyde)</li>
+                                <li>二氯甲烷 (Methylene Chloride)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h3 class="text-3xl md:text-4xl font-bold text-center mb-10 text-[#003f5c]">挑戰與陷阱：「所有模型都是錯的」</h3>
+                <div class="bg-white rounded-2xl shadow-xl p-8 mb-12 text-center border-t-4 border-[#dd5182]">
+                    <p class="text-2xl font-bold text-gray-700">"All models are wrong, but some are useful."</p>
+                    <p class="text-md text-gray-500 mt-2">- George E. P. Box</p>
+                    <p class="max-w-2xl mx-auto mt-4 text-gray-600">這提醒我們，模型的價值在於其洞察力，而非完美複製現實。我們必須警惕其內在限制與人為誤用。</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h4 class="text-xl font-bold mb-4 text-[#955196]">🔬 模型 vs. 現實</h4>
+                        <p class="text-gray-600 mb-4">模型是現實的簡化，忽略其假設可能導致評估失準。</p>
+                        <div class="grid grid-cols-2 gap-4 text-center mt-6">
+                            <div>
+                                <p class="font-bold mb-2">完全混合模型</p>
+                                <div class="w-full h-24 bg-gray-200 rounded-lg flex items-center justify-center text-xs text-gray-500 p-2">濃度均勻分佈</div>
+                            </div>
+                            <div>
+                                <p class="font-bold mb-2">真實房間</p>
+                                <div class="w-full h-24 bg-gray-200 rounded-lg relative p-2">
+                                    <div class="absolute top-2 left-2 w-3 h-3 bg-[#dd5182] rounded-full"></div>
+                                    <div class="absolute top-4 left-6 w-3 h-3 bg-[#dd5182] rounded-full opacity-80"></div>
+                                    <div class="absolute top-8 left-3 w-3 h-3 bg-[#dd5182] rounded-full opacity-90"></div>
+                                    <div class="absolute bottom-4 right-4 w-3 h-3 bg-[#dd5182] rounded-full opacity-20"></div>
+                                    <p class="text-xs text-gray-500">濃度高度不均</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow-md p-6 flex flex-col">
+                        <h4 class="text-xl font-bold mb-4 text-[#955196]">🤔 常見的假設錯誤</h4>
+                        <p class="text-gray-600 mb-4 flex-grow">錯誤的輸入參數會「垃圾進，垃圾出」，導致風險被嚴重低估。</p>
+                        <div class="chart-container h-64">
+                            <canvas id="errorChart"></canvas>
+                        </div>
+                        <button id="getAdviceBtn" class="gemini-btn mt-4 w-full text-white font-bold py-2 px-4 rounded-lg">✨ 取得專家建議</button>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h4 class="text-xl font-bold mb-4 text-[#955196]">🗣️ 溝通的挑戰</h4>
+                        <p class="text-gray-600 mb-4">將複雜結果傳達給非專業人士，是模型應用成敗的關鍵。</p>
+                        <div class="flex flex-col items-center justify-center h-full space-y-2 text-center mt-4">
+                            <div class="bg-purple-100 text-purple-800 font-bold p-2 rounded-lg">模型結果</div>
+                            <div class="h-4 w-1 bg-gray-300"></div>
+                            <div class="text-red-500 font-semibold">⚠️ 不確定性</div>
+                            <div class="h-4 w-1 bg-gray-300"></div>
+                            <div class="text-red-500 font-semibold">⚠️ 專業術語</div>
+                            <div class="h-4 w-1 bg-gray-300"></div>
+                            <div class="text-red-500 font-semibold">⚠️ 缺乏信任</div>
+                            <div class="h-4 w-1 bg-gray-300"></div>
+                            <div class="bg-green-100 text-green-800 font-bold p-2 rounded-lg">利害關係人</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="text-center">
+                <h3 class="text-3xl md:text-4xl font-bold text-center mb-10 text-[#003f5c]">最佳實踐：融合模型與實證</h3>
+                <p class="max-w-3xl mx-auto mt-4 mb-12 text-lg text-gray-600">成功的關鍵在於將模型的前瞻性洞察與現場採樣的實證數據策略性地結合，並輔以嚴謹的專業溝通。</p>
+
+                <div class="relative w-full max-w-md mx-auto h-48 md:h-64 flex items-center justify-center">
+                    <div class="absolute w-32 h-32 md:w-48 md:h-48 bg-[#444e86] rounded-full opacity-70 flex items-center justify-center text-white font-bold text-lg p-4" style="left: 15%; top: 15%;">模型預測</div>
+                    <div class="absolute w-32 h-32 md:w-48 md:h-48 bg-[#dd5182] rounded-full opacity-70 flex items-center justify-center text-white font-bold text-lg p-4" style="right: 15%; top: 15%;">現場採樣</div>
+                    <div class="z-10 text-center">
+                        <p class="text-2xl text-white">🤝</p>
+                        <p class="font-black text-xl md:text-2xl text-[#003f5c] bg-white px-2 py-1 rounded">可靠的暴露評估</p>
+                    </div>
+                </div>
+
+                <div class="mt-12 bg-white rounded-2xl shadow-xl p-8 max-w-4xl mx-auto">
+                    <h4 class="text-2xl font-bold text-[#003f5c] mb-4">✨ 您的專屬 AI 策略師</h4>
+                    <p class="text-gray-600 mb-4">輸入您的評估情境，讓 Gemini 為您草擬一份結合模型與採樣的初步評估策略。</p>
+                    <div class="flex flex-col sm:flex-row gap-2 mt-4">
+                        <input id="scenarioInput" type="text" placeholder="例如：油漆噴塗作業的甲苯暴露評估" class="flex-grow w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#955196]">
+                        <button id="generateStrategyBtn" class="gemini-btn w-full sm:w-auto text-white font-bold py-2 px-6 rounded-lg">產生策略</button>
+                    </div>
+                </div>
+                
+                <div class="mt-12 bg-white rounded-2xl shadow-xl p-8 max-w-4xl mx-auto">
+                    <h4 class="text-2xl font-bold text-[#003f5c] mb-4">最終原則</h4>
+                    <p class="text-gray-700 text-lg">模型絕非可盲目使用的「黑盒子」。唯有將其視為輔助決策的工具，並由具備深刻理解的專業人員操作，才能將其價值最大化，成為捍衛勞工健康、構築安全工作場所的堅實後盾。</p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Gemini Modal -->
+    <div id="geminiModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden items-center justify-center p-4">
+        <div class="bg-white rounded-lg shadow-2xl w-full max-w-2xl max-h-[90vh] flex flex-col">
+            <div class="flex justify-between items-center p-4 border-b">
+                <h5 class="text-xl font-bold text-[#003f5c]">✨ Gemini 專家回覆</h5>
+                <button id="closeModalBtn" class="text-gray-400 hover:text-gray-800 text-2xl">&times;</button>
+            </div>
+            <div id="modalContent" class="p-6 overflow-y-auto">
+                <!-- Loading Spinner -->
+                <div id="loadingSpinner" class="hidden flex justify-center items-center my-8">
+                    <div class="animate-spin rounded-full h-16 w-16 border-b-4 border-t-4 border-[#955196]"></div>
+                </div>
+                <!-- Result -->
+                <div id="geminiResult" class="prose max-w-none text-gray-700"></div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const brilliantBlues = {
+                darkBlue: '#003f5c',
+                indigo: '#444e86',
+                purple: '#955196',
+                pink: '#dd5182',
+                orange: '#ff6e54',
+                yellow: '#ffa600'
+            };
+
+            const wrapLabel = (label, maxLength = 16) => {
+                if (label.length <= maxLength) {
+                    return label;
+                }
+                const words = label.split(' ');
+                const lines = [];
+                let currentLine = '';
+                for (const word of words) {
+                    if ((currentLine + ' ' + word).trim().length > maxLength) {
+                        lines.push(currentLine.trim());
+                        currentLine = word;
+                    } else {
+                        currentLine = (currentLine + ' ' + word).trim();
+                    }
+                }
+                if (currentLine) {
+                    lines.push(currentLine.trim());
+                }
+                return lines;
+            };
+
+            const tooltipTitleCallback = (tooltipItems) => {
+                const item = tooltipItems[0];
+                let label = item.chart.data.labels[item.dataIndex];
+                if (Array.isArray(label)) {
+                    return label.join(' ');
+                } else {
+                    return label;
+                }
+            };
+
+            const commonPluginOptions = {
+                tooltip: {
+                    callbacks: {
+                        title: tooltipTitleCallback
+                    },
+                    bodyFont: {
+                        family: 'Noto Sans TC'
+                    },
+                    titleFont: {
+                        family: 'Noto Sans TC'
+                    }
+                },
+                legend: {
+                    labels: {
+                        font: {
+                           family: 'Noto Sans TC'
+                        }
+                    }
+                }
+            };
+
+            const resourceCtx = document.getElementById('resourceChart').getContext('2d');
+            new Chart(resourceCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['模型初步篩選', '精準採樣'],
+                    datasets: [{
+                        label: '資源分配',
+                        data: [80, 20],
+                        backgroundColor: [brilliantBlues.indigo, brilliantBlues.pink],
+                        borderColor: '#ffffff',
+                        borderWidth: 4,
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '60%',
+                    plugins: {
+                        ...commonPluginOptions,
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                font: {
+                                   family: 'Noto Sans TC'
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            const errorCtx = document.getElementById('errorChart').getContext('2d');
+            new Chart(errorCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['忽略補給風污染', '忽略物件體積', '錯誤的混合因子'],
+                    datasets: [{
+                        label: '低估風險的潛在程度',
+                        data: [85, 65, 50],
+                        backgroundColor: [brilliantBlues.pink, brilliantBlues.orange, brilliantBlues.yellow],
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            grid: {
+                                display: false
+                            },
+                            ticks: {
+                                callback: function(value) {
+                                    return value + '%'
+                                }
+                            }
+                        },
+                        y: {
+                           grid: {
+                                display: false
+                            }
+                        }
+                    },
+                    plugins: {
+                        ...commonPluginOptions,
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+
+            // Gemini API Integration
+            const modal = document.getElementById('geminiModal');
+            const closeModalBtn = document.getElementById('closeModalBtn');
+            const getAdviceBtn = document.getElementById('getAdviceBtn');
+            const generateStrategyBtn = document.getElementById('generateStrategyBtn');
+            const scenarioInput = document.getElementById('scenarioInput');
+            const geminiResult = document.getElementById('geminiResult');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+
+            const openModal = () => modal.classList.replace('hidden', 'flex');
+            const closeModal = () => modal.classList.replace('flex', 'hidden');
+
+            closeModalBtn.addEventListener('click', closeModal);
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    closeModal();
+                }
+            });
+
+            async function callGemini(prompt) {
+                loadingSpinner.classList.remove('hidden');
+                geminiResult.innerHTML = '';
+                
+                const apiKey = ""; 
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+                
+                const payload = {
+                    contents: [{
+                        role: "user",
+                        parts: [{ text: prompt }]
+                    }]
+                };
+
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`API 請求失敗，狀態碼： ${response.status}`);
+                    }
+
+                    const result = await response.json();
+                    
+                    if (result.candidates && result.candidates.length > 0) {
+                        const text = result.candidates[0].content.parts[0].text;
+                        geminiResult.innerHTML = text.replace(/\n/g, '<br>');
+                    } else {
+                        geminiResult.innerText = '抱歉，無法從 API 獲取有效的回覆。請稍後再試。';
+                    }
+                } catch (error) {
+                    console.error('Gemini API 呼叫錯誤:', error);
+                    geminiResult.innerText = `發生錯誤：${error.message}`;
+                } finally {
+                    loadingSpinner.classList.add('hidden');
+                }
+            }
+
+            getAdviceBtn.addEventListener('click', () => {
+                openModal();
+                const prompt = "作為一名資深的職業衛生專家，請針對化學品暴露評估建模中常見的三個假設錯誤（忽略補給風污染、忽略物件體積、使用錯誤的混合因子），提供具體、可行的避免方法與最佳實踐建議。請以條列式、易於理解的方式呈現，並使用繁體中文。";
+                callGemini(prompt);
+            });
+
+            generateStrategyBtn.addEventListener('click', () => {
+                const scenario = scenarioInput.value.trim();
+                if (!scenario) {
+                    alert('請先輸入您的評估情境！');
+                    return;
+                }
+                openModal();
+                const prompt = `針對以下情境：「${scenario}」，請以職業衛生專家的角度，草擬一份結合「模型預測」與「現場採樣」的初步暴露評估策略。策略應包含具體步驟，並以條列式、易於理解的方式呈現，使用繁體中文。`;
+                callGemini(prompt);
+            });
+        });
+    </script>
+
+</body>
+</html>
