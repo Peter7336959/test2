@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOE 事故原因分析方法論資訊圖表</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Brilliant Blues -->
+    <!-- Application Structure Plan: A top-down narrative infographic. 1) Hook: The core philosophy of moving beyond blame. 2) The Big Picture: A visual funnel showing how the 5 core tools interrelate. 3) Tool Deep Dive: Sections for ECF, Barrier, and Change analysis with simplified diagrams and charts. 4) The Goal: A section on cause hierarchy and a visual of the Why-Tree analysis. 5) Conclusion: The ultimate objective. This linear, scrolling narrative is ideal for an infographic, guiding the user from high-level concepts to detailed methods and the final outcome. -->
+    <!-- Visualization & Content Choices: Report Info: Analysis Process -> Goal: Organize -> Viz: HTML/CSS Funnel Diagram -> Justification: Best way to show a process flow without SVG/Mermaid. Report Info: Barrier Reliability -> Goal: Compare -> Viz: Bar Chart -> Library: Chart.js. Report Info: Cause Hierarchy -> Goal: Organize -> Viz: HTML/CSS Pyramid Diagram -> Justification: Clearly shows levels. Report Info: Why-Tree -> Goal: Organize/Relationships -> Viz: HTML/CSS Tree Diagram -> Justification: Visually explains the RCA method. All choices adhere to NO SVG/Mermaid and use the most effective visualization for the specific data/concept. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #f0f2f5;
+        }
+        .text-shadow {
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        .card {
+            background-color: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 350px;
+        }
+        h2 {
+            color: #003F5C;
+            font-weight: 900;
+        }
+        .funnel {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .funnel-segment {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            position: relative;
+            padding: 0.75rem 1rem;
+        }
+        .funnel-segment::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 100%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-top: 20px solid;
+        }
+        .funnel-1 { background-color: #7A5195; width: 100%; }
+        .funnel-1::before { border-top-color: #7A5195; }
+        .funnel-2 { background-color: #BC5090; width: 80%; }
+        .funnel-2::before { border-top-color: #BC5090; }
+        .funnel-3 { background-color: #EF5675; width: 60%; }
+        .funnel-3::before { border-top-color: #EF5675; }
+        .funnel-4 { background-color: #FF764A; width: 40%; }
+        .funnel-4::before { border-top-color: #FF764A; }
+        .funnel-5 { background-color: #FFA600; width: 20%; border-radius: 0 0 5px 5px; }
+        .funnel-5::before { display: none; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <div class="container mx-auto p-4 md:p-8 max-w-5xl">
+
+        <header class="text-center mb-16">
+            <h1 class="text-4xl md:text-6xl font-black text-shadow" style="color: #003F5C;">事故原因分析深度解析</h1>
+            <p class="mt-4 text-xl text-gray-600">DOE 核心方法論：從事件表象到系統根源</p>
+        </header>
+
+        <section class="mb-16">
+            <div class="card text-center">
+                <h2 class="text-3xl mb-4">核心思維：超越「歸咎於人」</h2>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto">事故調查的目標不是找出「壞蘋果」，而是理解為何在當時的情境下，錯誤的決策或行動看起來是合理的。將人員失誤視為系統性問題的「症狀」，而非最終原因，是通往真正安全改善的唯一途徑。</p>
+            </div>
+        </section>
+
+        <section class="mb-16">
+            <div class="card">
+                <h2 class="text-3xl text-center mb-8">分析漏斗：系統化的調查流程</h2>
+                <p class="text-center text-gray-600 mb-12">DOE的方法論提供了一個逐步聚焦的分析框架，從廣泛收集事實開始，透過多種工具層層篩選，最終鎖定可由管理層糾正的根本原因。</p>
+                <div class="funnel space-y-5">
+                    <div class="funnel-segment funnel-1">1. 事件與因果因素圖 (ECF)<br><span class="text-xs font-normal opacity-80">(回答：發生了什麼？)</span></div>
+                    <div class="funnel-segment funnel-2">2. 屏障分析 & 變異分析<br><span class="text-xs font-normal opacity-80">(篩選：哪些控制失效了？發生了什麼變化？)</span></div>
+                    <div class="funnel-segment funnel-3">3. 因果因素判定<br><span class="text-xs font-normal opacity-80">(分類：直接、促成原因)</span></div>
+                    <div class="funnel-segment funnel-4">4. 根本原因分析 (RCA)<br><span class="text-xs font-normal opacity-80">(探究：為什麼會發生？)</span></div>
+                    <div class="funnel-segment funnel-5">🎯</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-16">
+            <h2 class="text-3xl text-center mb-8">核心分析工具箱詳解</h2>
+            <div class="grid md:grid-cols-1 gap-8">
+                
+                <div class="card">
+                    <h3 class="text-2xl font-bold mb-4" style="color: #7A5195;">事件與因果因素圖 (ECF)</h3>
+                    <p class="text-gray-600 mb-6">作為調查的「骨幹」，ECF圖將所有證據組織成一個視覺化的時間軸，清晰呈現事件序列與相關條件，是建立團隊共識與識別資訊缺口的關鍵。</p>
+                    <div class="bg-gray-100 p-4 rounded-lg overflow-x-auto">
+                        <div class="flex items-center space-x-2 min-w-max">
+                            <div class="text-center"><div class="p-2 border-2 border-dashed border-yellow-500 rounded-xl text-sm">條件A</div></div>
+                            <div class="text-gray-400 text-2xl font-mono">→</div>
+                            <div class="text-center"><div class="p-3 bg-blue-100 border-2 border-blue-400 rounded-lg text-sm font-semibold">事件 1</div></div>
+                            <div class="text-gray-400 text-2xl font-mono">→</div>
+                            <div class="text-center"><div class="p-2 border-2 border-dashed border-yellow-500 rounded-xl text-sm">條件B</div></div>
+                            <div class="text-gray-400 text-2xl font-mono">→</div>
+                            <div class="text-center"><div class="p-3 bg-blue-100 border-2 border-blue-400 rounded-lg text-sm font-semibold">事件 2</div></div>
+                             <div class="text-gray-400 text-2xl font-mono">→</div>
+                             <div class="text-center"><div class="p-4 bg-red-500 text-white rounded-full flex items-center justify-center font-bold text-sm">事故</div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3 class="text-2xl font-bold mb-4" style="color: #BC5090;">屏障分析 (Barrier Analysis)</h3>
+                    <p class="text-gray-600 mb-6">事故意味著保護屏障的失效。此分析法系統性地識別哪些控制措施失效、缺失或被繞過，並探究其背後原因。屏障的可靠性存在層級差異，這反映了組織在安全投入上的策略。</p>
+                     <div class="grid md:grid-cols-2 gap-8 items-center">
+                        <div class="text-center">
+                            <div class="text-4xl">⚠️</div>
+                            <div class="font-bold text-lg mt-2">危害</div>
+                            <div class="text-2xl my-2 text-gray-300">↓</div>
+                            <div class="space-y-2">
+                                <div class="p-2 rounded-md font-semibold" style="background-color: #EF5675; color: white;">工程屏障</div>
+                                <div class="p-2 rounded-md font-semibold" style="background-color: #FF764A; color: white;">行政屏障</div>
+                                <div class="p-2 rounded-md font-semibold" style="background-color: #FFA600; color: white;">個人屏障</div>
+                            </div>
+                            <div class="text-2xl my-2 text-gray-300">↓</div>
+                            <div class="text-4xl">🎯</div>
+                            <div class="font-bold text-lg mt-2">目標</div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="barrierChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3 class="text-2xl font-bold mb-4" style="color: #EF5675;">變異分析 (Change Analysis)</h3>
+                    <p class="text-gray-600 mb-6">如果系統長期安全運行，事故必然源於某些「變化」。此方法透過比較「事故情境」與「正常情境」，來識別導致事故的關鍵差異，對於發現漸進式的「組織漂移」特別有效。</p>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left">
+                            <thead class="text-xs text-white uppercase" style="background-color: #003F5C;">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3 rounded-l-lg">要素</th>
+                                    <th scope="col" class="px-6 py-3">正常情境</th>
+                                    <th scope="col" class="px-6 py-3">事故情境</th>
+                                    <th scope="col" class="px-6 py-3 rounded-r-lg" style="background-color: #FFA600;">關鍵差異</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white border-b">
+                                    <th class="px-6 py-4 font-bold">人員</th>
+                                    <td class="px-6 py-4">資深員工</td>
+                                    <td class="px-6 py-4">新進員工</td>
+                                    <td class="px-6 py-4 font-bold" style="background-color: #ffedd5;">經驗不足</td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <th class="px-6 py-4 font-bold">工具</th>
+                                    <td class="px-6 py-4">標準工具</td>
+                                    <td class="px-6 py-4">替代工具</td>
+                                    <td class="px-6 py-4 font-bold" style="background-color: #ffedd5;">扭力不同</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-16">
+            <div class="card">
+                <h2 class="text-3xl text-center mb-8">最終目標：找到根本原因</h2>
+                <p class="text-center text-gray-600 mb-12">分析的終點是找出可由管理層糾正的系統性缺陷。「為何樹分析」提供了一種結構化的方法，將前期分析發現的「問題點」轉化為對「根本原因」的系統性探索。</p>
+                <div class="grid md:grid-cols-2 gap-12 items-start">
+                    <div>
+                        <h3 class="text-xl font-bold text-center mb-4">因果因素的層級</h3>
+                        <div class="relative flex flex-col items-center space-y-2">
+                            <div class="w-full p-4 text-center text-white font-bold rounded-lg" style="background-color: #FFA600;">根本原因<span class="block text-xs font-normal">(組織/管理系統缺陷)</span></div>
+                            <div class="text-2xl font-bold text-gray-400">↓</div>
+                             <div class="w-full p-4 text-center text-white font-bold rounded-lg" style="background-color: #FF764A;">促成原因<span class="block text-xs font-normal">(創造了事故條件)</span></div>
+                            <div class="text-2xl font-bold text-gray-400">↓</div>
+                            <div class="w-full p-4 text-center text-white font-bold rounded-lg" style="background-color: #EF5675;">直接原因<span class="block text-xs font-normal">(直接導致事故)</span></div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-center mb-4">為何樹分析 (Why-Tree)</h3>
+                        <div class="p-4 bg-gray-100 rounded-lg text-sm">
+                            <ul class="space-y-2">
+                                <li class="font-bold p-2 bg-red-200 rounded">頂層事件：擊中電纜</li>
+                                <li class="ml-4">
+                                    <span class="font-mono text-gray-400">└─ </span>為何？
+                                    <span class="p-1 bg-orange-200 rounded">不知道電纜在那裡</span>
+                                    <ul class="ml-8 space-y-1 mt-1">
+                                        <li>
+                                            <span class="font-mono text-gray-400">└─ </span>為何？
+                                            <span class="p-1 bg-yellow-200 rounded">圖紙不正確</span>
+                                             <ul class="ml-8 space-y-1 mt-1">
+                                                <li>
+                                                    <span class="font-mono text-gray-400">└─ </span>為何？
+                                                    <span class="p-1 bg-green-200 rounded">管理層未採購竣工圖 (根本原因)</span>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="ml-4">
+                                    <span class="font-mono text-gray-400">└─ </span>為何？
+                                    <span class="p-1 bg-orange-200 rounded">未取得開挖許可</span>
+                                     <ul class="ml-8 space-y-1 mt-1">
+                                        <li>
+                                            <span class="font-mono text-gray-400">└─ </span>為何？
+                                            <span class="p-1 bg-yellow-200 rounded">人員訓練不足</span>
+                                            <ul class="ml-8 space-y-1 mt-1">
+                                                <li>
+                                                    <span class="font-mono text-gray-400">└─ </span>為何？
+                                                    <span class="p-1 bg-green-200 rounded">訓練系統有缺陷 (根本原因)</span>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="text-center mt-16">
+            <p class="text-gray-500">這份資訊圖表旨在視覺化呈現事故分析的核心原則，建立一條從原始數據到最終結論的、不間斷的邏輯與證據鏈，從而實現真正的組織學習與安全提升。</p>
+        </footer>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const barrierCtx = document.getElementById('barrierChart');
+            if (barrierCtx) {
+                new Chart(barrierCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['工程屏障', '行政屏障', '個人屏障'],
+                        datasets: [{
+                            label: '相對可靠性',
+                            data: [95, 65, 40],
+                            backgroundColor: ['#EF5675', '#FF764A', '#FFA600'],
+                            borderWidth: 0
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        indexAxis: 'y',
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            title: {
+                                display: true,
+                                text: '不同屏障的相對可靠性',
+                                color: '#003F5C',
+                                font: {
+                                    size: 16,
+                                    weight: 'bold'
+                                }
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    title: function(tooltipItems) {
+                                        const item = tooltipItems[0];
+                                        let label = item.chart.data.labels[item.dataIndex];
+                                        if (Array.isArray(label)) {
+                                          return label.join(' ');
+                                        } else {
+                                          return label;
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            x: {
+                                beginAtZero: true,
+                                max: 100,
+                                grid: {
+                                    display: false
+                                },
+                                ticks: {
+                                    color: '#7A5195'
+                                }
+                            },
+                            y: {
+                                grid: {
+                                    display: false
+                                },
+                                ticks: {
+                                    color: '#7A5195',
+                                    font: {
+                                        weight: 'bold'
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+
+</body>
+</html>
