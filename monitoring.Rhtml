@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>石油與天然氣設施之空氣品質監測資訊圖表</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+        }
+        .chart-container {
+            position: relative;
+            margin: auto;
+            height: 40vh;
+            width: 100%;
+            max-width: 600px;
+        }
+        @media (max-width: 768px) {
+            .chart-container {
+                height: 50vh;
+            }
+        }
+        .flow-arrow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: #0a9396;
+            margin: 0 1rem;
+        }
+        .flow-box {
+            border: 2px solid #0a9396;
+            background-color: #f0f9ff;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <header class="bg-[#005f73] text-white p-6 shadow-lg">
+        <div class="container mx-auto text-center">
+            <h1 class="text-3xl md:text-4xl font-bold">先進空氣品質管理於石油與天然氣設施</h1>
+            <p class="mt-2 text-lg text-gray-200">整合低成本感測器與AI驅動之污染源定位</p>
+        </div>
+    </header>
+
+    <main class="container mx-auto p-4 md:p-8">
+
+        <section id="challenge" class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-[#005f73] mb-4 text-center">不可見的威脅：石化設施的主要空氣危害</h2>
+            <p class="text-center text-gray-600 mb-8 max-w-3xl mx-auto">石油與天然氣的開採、處理與運輸過程會釋放多種有害氣體，對員工健康、社區安全及全球環境構成獨特的風險。有效的監測是管理這些風險的第一步。</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="text-center p-6 bg-blue-50 rounded-lg border border-blue-200">
+                    <div class="text-5xl mb-2">💨</div>
+                    <h3 class="text-xl font-semibold text-[#0a9396]">揮發性有機物 (VOCs)</h3>
+                    <p class="text-gray-600 mt-2">包含苯、甲苯等，是地面臭氧的前驅物，部分具有致癌性。</p>
+                </div>
+                <div class="text-center p-6 bg-red-50 rounded-lg border border-red-200">
+                    <div class="text-5xl mb-2">☠️</div>
+                    <h3 class="text-xl font-semibold text-[#ae2012]">硫化氫 (H₂S)</h3>
+                    <p class="text-gray-600 mt-2">劇毒、具腐蝕性，高濃度下可迅速致人於死地。</p>
+                </div>
+                <div class="text-center p-6 bg-yellow-50 rounded-lg border border-yellow-200">
+                    <div class="text-5xl mb-2">🔥</div>
+                    <h3 class="text-xl font-semibold text-[#ee9b00]">甲烷 (CH₄)</h3>
+                    <p class="text-gray-600 mt-2">強效溫室氣體，其全球暖化潛勢是二氧化碳的80倍以上。</p>
+                </div>
+                <div class="text-center p-6 bg-gray-50 rounded-lg border border-gray-200">
+                    <div class="text-5xl mb-2">😶</div>
+                    <h3 class="text-xl font-semibold text-gray-600">一氧化碳 (CO)</h3>
+                    <p class="text-gray-600 mt-2">由不完全燃燒產生，無色無味，是「無聲殺手」。</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="health-risk" class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-[#005f73] mb-4 text-center">風險分級：從刺激物到確認致癌物</h2>
+            <p class="text-center text-gray-600 mb-8 max-w-3xl mx-auto">並非所有VOCs都具有相同的健康風險。國際癌症研究機構 (IARC) 的權威分類揭示了BTEX家族內部巨大的風險差異，凸顯了選擇性監測的必要性。</p>
+            <div class="chart-container mx-auto">
+                <canvas id="iarcChart"></canvas>
+            </div>
+            <p class="text-center text-sm text-gray-500 mt-4">此圖表比較了BTEX化合物的IARC致癌物分類。苯被列為第1級，表示有充分證據對人類致癌，其風險遠高於其他被列為第2B級或第3級的化合物。</p>
+        </section>
+
+        <section id="toolkit" class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-[#005f73] mb-4 text-center">現代化的偵測工具箱：低成本感測器技術剖析</h2>
+            <p class="text-center text-gray-600 mb-8 max-w-3xl mx-auto">低成本感測器是實現大規模、高密度監測網絡的關鍵。然而，不同的技術各有優劣，必須根據監測目標謹慎選擇。</p>
+            <div class="chart-container mx-auto">
+                <canvas id="sensorRadarChart"></canvas>
+            </div>
+             <p class="text-center text-sm text-gray-500 mt-4">雷達圖顯示了三種主流低成本感測器在五個關鍵性能維度上的表現。例如，電化學(EC)感測器在靈敏度和功耗上表現優異，而金屬氧化物(MOS)感測器則在成本上最具優勢，但在選擇性上較弱。</p>
+        </section>
+
+        <section id="strategy" class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-[#005f73] mb-4 text-center">策略性部署：從個人防護到全廠監控</h2>
+            <p class="text-center text-gray-600 mb-8 max-w-3xl mx-auto">一個有效的空氣品質管理計畫採用多層次的防禦策略，結合移動式與固定式監測，以全面覆蓋從單一工作人員到整個廠區邊界的安全需求。</p>
+            <div class="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-4">
+                <div class="flow-box p-4 rounded-lg text-center w-64">
+                    <div class="text-4xl mb-2">👷</div>
+                    <h3 class="font-bold text-lg text-[#005f73]">移動式監測</h3>
+                    <p class="text-sm">由人員攜帶，保護個人在直接呼吸區域的安全。</p>
+                </div>
+                <div class="flow-arrow transform md:rotate-0 rotate-90">➡️</div>
+                <div class="flow-box p-4 rounded-lg text-center w-64">
+                    <div class="text-4xl mb-2">🏭</div>
+                    <h3 class="font-bold text-lg text-[#005f73]">固定式監測</h3>
+                    <p class="text-sm">在室內外高風險區進行24/7監控，提供早期預警。</p>
+                </div>
+                <div class="flow-arrow transform md:rotate-0 rotate-90">➡️</div>
+                <div class="flow-box p-4 rounded-lg text-center w-64">
+                    <div class="text-4xl mb-2">🌐</div>
+                    <h3 class="font-bold text-lg text-[#005f73]">廠界監測</h3>
+                    <p class="text-sm">監控設施邊界濃度，確保不影響周邊社區。</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="smart-solution" class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-[#005f73] mb-4 text-center">智慧升級：AI驅動的污染源即時定位</h2>
+            <p class="text-center text-gray-600 mb-8 max-w-3xl mx-auto">現代監測的終極目標不僅是偵測，更是追溯。透過整合感測器網絡、氣象數據與AI演算法，可以從被動警報轉變為主動的污染源定位與風險預測。</p>
+            <div class="flex flex-col lg:flex-row justify-around items-center space-y-4 lg:space-y-0">
+                <div class="text-center p-4">
+                    <div class="text-5xl">📡</div>
+                    <p class="font-semibold mt-2">感測器數據</p>
+                </div>
+                <div class="text-4xl text-[#0a9396]">+</div>
+                <div class="text-center p-4">
+                    <div class="text-5xl">🌬️</div>
+                    <p class="font-semibold mt-2">風速風向</p>
+                </div>
+                <div class="flow-arrow text-5xl transform lg:rotate-0 rotate-90">➡️</div>
+                <div class="text-center p-4 bg-teal-50 border-2 border-teal-200 rounded-full w-48 h-48 flex flex-col justify-center items-center">
+                    <div class="text-5xl">🧠</div>
+                    <p class="font-bold text-lg text-[#0a9396] mt-2">AI演算法</p>
+                    <p class="text-xs">(逆向擴散模型)</p>
+                </div>
+                <div class="flow-arrow text-5xl transform lg:rotate-0 rotate-90">➡️</div>
+                <div class="text-center p-4">
+                    <div class="text-5xl">🎯</div>
+                    <p class="font-semibold mt-2">精準定位洩漏源</p>
+                </div>
+            </div>
+            <p class="text-center text-sm text-gray-500 mt-8">此流程展示了如何將即時感測器濃度與氣象數據輸入AI模型，模型透過學習洩漏事件的模式，能夠反向推算出最有可能的洩漏源位置與排放速率，實現從「數據」到「可行動情報」的轉化。</p>
+        </section>
+        
+        <section id="payoff" class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-[#005f73] mb-4 text-center">超越合規：智慧監測的商業價值</h2>
+            <p class="text-center text-gray-600 mb-8 max-w-3xl mx-auto">投資先進監測系統不僅是法規遵循的成本，更是創造多重價值的戰略性要務，可帶來顯著的投資回報。</p>
+            <div class="chart-container mx-auto" style="height: 45vh; max-height: 450px;">
+                <canvas id="valueDonutChart"></canvas>
+            </div>
+            <p class="text-center text-sm text-gray-500 mt-4">此甜甜圈圖展示了智慧監測帶來的四大核心商業價值。它不僅能透過減少產品損失和規避罰款來節省成本，更能透過提升營運效率和ESG績效來創造積極的商業價值。</p>
+        </section>
+
+    </main>
+
+    <footer class="bg-[#005f73] text-white p-4 mt-8">
+        <div class="container mx-auto text-center text-sm">
+            <p>本資訊圖表內容基於「先進空氣品質管理於石油與天然氣設施」報告製作。</p>
+            <p>&copy; 2025 數據驅動之環境、健康與安全管理</p>
+        </div>
+    </footer>
+
+    <script>
+        function wrapLabel(str, maxWidth) {
+            if (str.length <= maxWidth) {
+                return str;
+            }
+            const words = str.split('');
+            const lines = [];
+            let currentLine = '';
+            for (let i = 0; i < words.length; i++) {
+                const word = words[i];
+                if ((currentLine + word).length > maxWidth) {
+                    lines.push(currentLine);
+                    currentLine = '';
+                }
+                currentLine += word;
+            }
+            lines.push(currentLine);
+            return lines;
+        }
+
+        const tooltipTitleCallback = {
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        title: function(tooltipItems) {
+                            const item = tooltipItems[0];
+                            let label = item.chart.data.labels[item.dataIndex];
+                            if (Array.isArray(label)) {
+                              return label.join('');
+                            } else {
+                              return label;
+                            }
+                        }
+                    }
+                }
+            }
+        };
+
+        const iarcChartCtx = document.getElementById('iarcChart').getContext('2d');
+        const iarcChart = new Chart(iarcChartCtx, {
+            type: 'bar',
+            data: {
+                labels: [
+                    wrapLabel('第1級：對人類為致癌物', 10),
+                    wrapLabel('第2B級：可能對人類為致癌物', 10),
+                    wrapLabel('第3級：無法歸類為對人類致癌物', 10)
+                ],
+                datasets: [{
+                    label: '苯 (Benzene)',
+                    data: [1, 0, 0],
+                    backgroundColor: '#ae2012',
+                    borderColor: '#9b2226',
+                    borderWidth: 1
+                }, {
+                    label: '乙苯 (Ethylbenzene)',
+                    data: [0, 1, 0],
+                    backgroundColor: '#ee9b00',
+                    borderColor: '#ca6702',
+                    borderWidth: 1
+                }, {
+                    label: '甲苯 & 二甲苯 (Toluene & Xylenes)',
+                    data: [0, 0, 1],
+                    backgroundColor: '#94d2bd',
+                    borderColor: '#0a9396',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        display: false,
+                        stacked: true,
+                    },
+                    y: {
+                        stacked: true,
+                        ticks: {
+                           font: {
+                               size: 14,
+                           }
+                        }
+                    }
+                },
+                plugins: {
+                    ...tooltipTitleCallback.plugins,
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'BTEX 化合物 IARC 致癌風險分類',
+                        font: {
+                            size: 18
+                        },
+                        color: '#005f73'
+                    }
+                }
+            }
+        });
+
+        const sensorRadarChartCtx = document.getElementById('sensorRadarChart').getContext('2d');
+        const sensorRadarChart = new Chart(sensorRadarChartCtx, {
+            type: 'radar',
+            data: {
+                labels: ['成本效益', '靈敏度', '選擇性', '低功耗', '壽命'],
+                datasets: [{
+                    label: '電化學 (EC)',
+                    data: [4, 5, 4, 5, 3],
+                    backgroundColor: 'rgba(148, 210, 189, 0.4)',
+                    borderColor: '#0a9396',
+                    pointBackgroundColor: '#0a9396',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: '#0a9396'
+                }, {
+                    label: '催化燃燒式',
+                    data: [4, 4, 3, 2, 4],
+                    backgroundColor: 'rgba(238, 155, 0, 0.4)',
+                    borderColor: '#ee9b00',
+                    pointBackgroundColor: '#ee9b00',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: '#ee9b00'
+                }, {
+                    label: '金屬氧化物 (MOS)',
+                    data: [5, 5, 2, 4, 5],
+                    backgroundColor: 'rgba(174, 32, 18, 0.4)',
+                    borderColor: '#ae2012',
+                    pointBackgroundColor: '#ae2012',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: '#ae2012'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    r: {
+                        angleLines: {
+                            display: true
+                        },
+                        suggestedMin: 0,
+                        suggestedMax: 5,
+                        pointLabels: {
+                            font: {
+                                size: 14
+                            }
+                        },
+                        ticks: {
+                           stepSize: 1
+                        }
+                    }
+                },
+                plugins: {
+                    ...tooltipTitleCallback.plugins,
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: '低成本感測器性能比較 (1-5分)',
+                        font: {
+                            size: 18
+                        },
+                        color: '#005f73'
+                    }
+                }
+            }
+        });
+
+        const valueDonutChartCtx = document.getElementById('valueDonutChart').getContext('2d');
+        const valueDonutChart = new Chart(valueDonutChartCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['減少產品損失', '提升營運效率', '規避鉅額成本', '提升ESG績效'],
+                datasets: [{
+                    label: '商業價值',
+                    data: [25, 30, 20, 25],
+                    backgroundColor: [
+                        '#0a9396',
+                        '#94d2bd',
+                        '#ee9b00',
+                        '#ca6702'
+                    ],
+                    borderColor: '#ffffff',
+                    borderWidth: 2,
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '60%',
+                plugins: {
+                    ...tooltipTitleCallback.plugins,
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                           font: {
+                               size: 14
+                           }
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: '智慧監測的四大核心價值',
+                        font: {
+                            size: 18
+                        },
+                        color: '#005f73'
+                    }
+                }
+            }
+        });
+
+    </script>
+</body>
+</html>
