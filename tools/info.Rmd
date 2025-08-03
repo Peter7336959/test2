@@ -1,0 +1,84 @@
+---
+title: "資訊圖表"
+# subtitle: '(中華製程安全學會 公告 `r Sys.Date()`)'
+date: "2025-08-03"
+author: 作者- 謝賢書，何明信
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    #toc_depth: 2
+    lib_dir: libs
+    theme: united
+    #theme: !expr sample(c( "united",  "flatly", "lumen",  "spacelab"), 1)
+    highlight: default
+    #(available themes are "default", "tango", "pygments", "kate", `monochrome`, `espresso`, `zenburn`, `haddock`, `breezedark`, `textmate`, `arrow`, or `rstudio`).
+---
+
+
+## 分析方法解析 {.tabset .tabset-fade .tabset-pills}
+
+### ECFC 事故成因分析
+[ECFC 方法解析-全圖](ECFC.html)
+```{r, out.width='50%', fig.align='left',echo=FALSE}
+knitr::include_graphics('info_ECFC_1.png')
+knitr::include_graphics('info_ECFC_2.png')
+knitr::include_graphics('info_ECFC_3.png')
+knitr::include_graphics('info_ECFC_4.png')
+knitr::include_graphics('info_ECFC_5.png')
+knitr::include_graphics('info_ECFC_6.png')
+
+```
+
+
+### WHY Tree 為何樹分析
+[WHY Tree方法解析全圖](Why_Tree.html)
+```{r, out.width='50%', fig.align='left',echo=FALSE}
+knitr::include_graphics('info_why_1.png')
+knitr::include_graphics('info_why_2.png')
+knitr::include_graphics('info_why_3.png')
+knitr::include_graphics('info_why_4.png')
+knitr::include_graphics('info_why_5.png')
+```
+
+
+### Barrier Analysis 屏障分析
+[Barrier Analysis 方法解析全圖](BA.html)
+```{r, out.width='50%', fig.align='left',echo=FALSE}
+knitr::include_graphics('info_BA_1.png')
+knitr::include_graphics('info_BA_2.png')
+knitr::include_graphics('info_BA_3.png')
+knitr::include_graphics('info_BA_4.png')
+knitr::include_graphics('info_BA_5.png')
+```
+
+### Change Analysis 變更分析
+[Change Analysis 方法解析全圖](CA.html)
+```{r, out.width='50%', fig.align='left',echo=FALSE}
+knitr::include_graphics('info_CA_1.png')
+knitr::include_graphics('info_CA_2.png')
+knitr::include_graphics('info_CA_3.png')
+knitr::include_graphics('info_CA_4.png')
+```
+
+### Human Failure Analysis 人為失效分析
+[Human Failure Analysis 方法解析全圖](HF.html)
+```{r, out.width='50%', fig.align='left',echo=FALSE}
+knitr::include_graphics('info_HF_1.png')
+knitr::include_graphics('info_HF_2.png')
+knitr::include_graphics('info_HF_3.png')
+knitr::include_graphics('info_HF_4.png')
+```
+
+### Root Cause Analysis 根本原因分析
+[Root Cause Analysis 方法解析全圖](RCA.html)
+```{r, out.width='50%', fig.align='left',echo=FALSE}
+knitr::include_graphics('info_RCA_1.png')
+knitr::include_graphics('info_RCA_2.png')
+knitr::include_graphics('info_RCA_3.png')
+knitr::include_graphics('info_RCA_4.png')
+```
+
+## 參考資料
+[事故調查制度實務指南 (草稿)](R5-事故調查制度實務指南-中華製程安全學會編撰.pdf)
+(版權所有，請勿做商業用途或營利用)

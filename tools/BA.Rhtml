@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>屏障分析 (Barrier Analysis) 互動式資訊圖表</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #f8fafc;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 500px;
+            }
+        }
+        .flowchart-arrow {
+            font-size: 2.5rem;
+            color: #0077B6;
+            line-height: 1;
+        }
+        .page-divider {
+            border: 0;
+            height: 2px;
+            background-image: linear-gradient(to right, rgba(0, 78, 137, 0), rgba(0, 119, 182, 0.75), rgba(0, 78, 137, 0));
+            margin-top: 4rem;
+            margin-bottom: 4rem;
+        }
+        .scroll-indicator {
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-20px);
+            }
+            60% {
+                transform: translateY(-10px);
+            }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <div class="container mx-auto p-4 md:p-8">
+
+        <header class="text-center mb-12, bg-grey">
+            <h3 class="text-4xl md:text-5xl font-bold text-[#004E89] mb-4">屏障分析 (Barrier Analysis)資訊圖表</h3>
+            <p class="text-lg md:text-xl text-red-600 max-w-3xl mx-auto">一種系統性的事故調查方法，用於識別危害防護體系中的失效、缺失或不足之處。</p>
+            <p class="text-md text-slate-500 mt-4">整理作者：謝賢書，何明信   115.08</p>
+        </header>
+
+        <main class="space-y-12">
+
+            <section id="concept" class="bg-white rounded-lg shadow-lg p-6 md:p-8">
+                <h2 class="text-3xl font-bold text-[#004E89] mb-6 text-center">核心理念：瑞士乳酪模型</h2>
+                <p class="text-slate-600 mb-8 max-w-3xl mx-auto text-center">事故的發生並非單一原因，而是多個防護層（屏障）的漏洞偶然對齊，讓危害得以穿透。屏障分析的目的，就是找出這些漏洞及其背後的原因。</p>
+                <div class="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-4">
+                    <div class="text-center p-4">
+                        <div class="text-6xl mb-2">⚡️</div>
+                        <div class="text-xl font-bold text-[#0077B6]">危害 (Hazard)</div>
+                        <p class="text-sm text-slate-500">失控的能量或危險物</p>
+                    </div>
+                    <div class="flowchart-arrow transform md:-rotate-0">→</div>
+                    <div class="flex items-center space-x-2">
+                        <div class="w-4 h-24 bg-[#90E0EF] rounded-full"></div>
+                        <div class="w-4 h-24 bg-[#48CAE4] rounded-full relative">
+                             <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-6 h-6 bg-white rounded-full border-2 border-[#0077B6]"></div>
+                        </div>
+                        <div class="w-4 h-24 bg-[#0077B6] rounded-full"></div>
+                    </div>
+                    <div class="text-center p-4">
+                        <div class="text-xl font-bold text-[#0077B6]">屏障 (Barriers)</div>
+                        <p class="text-sm text-slate-500">防護措施與系統</p>
+                    </div>
+                    <div class="flowchart-arrow transform md:-rotate-0">→</div>
+                    <div class="text-center p-4">
+                        <div class="text-6xl mb-2">🎯</div>
+                        <div class="text-xl font-bold text-[#0077B6]">目標 (Target)</div>
+                        <p class="text-sm text-slate-500">人員、設備或環境</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="purpose" class="bg-white rounded-lg shadow-lg p-6 md:p-8">
+                <h2 class="text-3xl font-bold text-[#004E89] mb-8 text-center">為何使用屏障分析？</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                    <div class="p-4">
+                        <div class="text-6xl mb-4 text-[#0077B6]">🛡️</div>
+                        <h3 class="text-xl font-bold mb-2">識別失效防護</h3>
+                        <p class="text-slate-600">系統性找出防護體系中的所有弱點，而不僅僅是單一的錯誤。</p>
+                    </div>
+                    <div class="p-4">
+                        <div class="text-6xl mb-4 text-[#0077B6]">🔗</div>
+                        <h3 class="text-xl font-bold mb-2">銜接因果關係</h3>
+                        <p class="text-slate-600">將事件的發生順序與管理系統的深層原因有效連結起來。</p>
+                    </div>
+                    <div class="p-4">
+                        <div class="text-6xl mb-4 text-[#0077B6]">💡</div>
+                        <h3 class="text-xl font-bold mb-2">具體化改善措施</h3>
+                        <p class="text-slate-600">針對失效的屏障提出具體、可行的矯正建議，避免空泛的口號。</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="steps" class="bg-white rounded-lg shadow-lg p-6 md:p-8">
+                <h2 class="text-3xl font-bold text-[#004E89] mb-8 text-center">屏障分析五步驟</h2>
+                <div class="relative max-w-2xl mx-auto">
+                    <div class="absolute left-1/2 -translate-x-1/2 h-full w-0.5 bg-[#90E0EF]"></div>
+                    <div class="space-y-10">
+                        <div class="flex items-center w-full">
+                            <div class="w-1/2 pr-8 text-right">
+                                <h3 class="text-xl font-bold text-[#004E89]">步驟一</h3>
+                                <p class="text-slate-600">識別危害源 (Hazard) 與被保護的目標 (Target)。</p>
+                            </div>
+                            <div class="w-10 h-10 bg-[#0077B6] rounded-full flex items-center justify-center text-white font-bold z-10">1</div>
+                        </div>
+                        <div class="flex items-center w-full">
+                            <div class="w-1/2"></div>
+                            <div class="w-10 h-10 bg-[#0077B6] rounded-full flex items-center justify-center text-white font-bold z-10">2</div>
+                            <div class="w-1/2 pl-8">
+                                <h3 class="text-xl font-bold text-[#004E89]">步驟二</h3>
+                                <p class="text-slate-600">腦力激盪出所有「已存在」和「應存在」的屏障。</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center w-full">
+                            <div class="w-1/2 pr-8 text-right">
+                                <h3 class="text-xl font-bold text-[#004E89]">步驟三</h3>
+                                <p class="text-slate-600">評估各屏障的表現：是否存在？是否有效？是否被使用？是否足夠？</p>
+                            </div>
+                            <div class="w-10 h-10 bg-[#0077B6] rounded-full flex items-center justify-center text-white font-bold z-10">3</div>
+                        </div>
+                        <div class="flex items-center w-full">
+                            <div class="w-1/2"></div>
+                            <div class="w-10 h-10 bg-[#0077B6] rounded-full flex items-center justify-center text-white font-bold z-10">4</div>
+                            <div class="w-1/2 pl-8">
+                                <h3 class="text-xl font-bold text-[#004E89]">步驟四</h3>
+                                <p class="text-slate-600">深入分析屏障失效、缺失或不足背後的原因。</p>
+                            </div>
+                        </div>
+                         <div class="flex items-center w-full">
+                            <div class="w-1/2 pr-8 text-right">
+                                <h3 class="text-xl font-bold text-[#004E89]">步驟五</h3>
+                                <p class="text-slate-600">描述屏障失效如何導致或加劇了事故的後果。</p>
+                            </div>
+                            <div class="w-10 h-10 bg-[#0077B6] rounded-full flex items-center justify-center text-white font-bold z-10">5</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="types" class="bg-white rounded-lg shadow-lg p-6 md:p-8">
+                <h2 class="text-3xl font-bold text-[#004E89] mb-6 text-center">屏障的分類與可靠性</h2>
+                <p class="text-slate-600 mb-8 max-w-3xl mx-auto text-center">不同類型的屏障具有不同的可靠性。工程屏障通常最為穩健，而行政管理屏障則高度依賴人員的行為與組織文化。</p>
+                <div class="chart-container h-80 md:h-96">
+                    <canvas id="barrierTypesChart"></canvas>
+                </div>
+            </section>
+
+            <section id="case-study-summary" class="bg-white rounded-lg shadow-lg p-6 md:p-8">
+                <h2 class="text-3xl font-bold text-[#004E89] mb-2 text-center">案例分析：堆高機墜落事故</h2>
+                <p class="text-slate-600 mb-8 max-w-3xl mx-auto text-center">一名勞工站立於堆高機貨叉上作業時墜落身亡。透過屏障分析，我們識別出七個關鍵的失效屏障，並評估其對事故的影響程度。</p>
+                <div class="chart-container">
+                    <canvas id="caseStudyChart"></canvas>
+                </div>
+            </section>
+            
+            <div class="text-center my-10 scroll-indicator">
+                <p class="text-slate-500 mb-2">向下捲動以查看更深入的分析</p>
+                <div class="text-3xl text-[#0077B6]">↓</div>
+            </div>
+
+            <hr class="page-divider">
+
+            <section id="case-study-deep-dive" class="bg-white rounded-lg shadow-lg p-6 md:p-8">
+                <h2 class="text-3xl font-bold text-[#004E89] mb-8 text-center">案例深度解析：屏障分析工作表</h2>
+                <div class="overflow-x-auto">
+                    <table class="w-full min-w-[800px] text-left border-collapse">
+                        <thead class="bg-[#004E89] text-white">
+                            <tr>
+                                <th class="p-4 font-bold">屏障</th>
+                                <th class="p-4 font-bold">屏障類型</th>
+                                <th class="p-4 font-bold">屏障表現</th>
+                                <th class="p-4 font-bold">屏障失效原因</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-200">
+                            <tr class="hover:bg-slate-50">
+                                <td class="p-4 font-semibold text-[#0077B6]">禁止站立於貨叉上之規定</td>
+                                <td class="p-4">行政/程序</td>
+                                <td class="p-4">不存在或未落實</td>
+                                <td class="p-4">未制定SOP；長期默許不安全行為；現場監督不足。</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50">
+                                <td class="p-4 font-semibold text-[#0077B6]">提供安全高處作業設備</td>
+                                <td class="p-4">工程</td>
+                                <td class="p-4">缺失</td>
+                                <td class="p-4">未進行風險評估；為求方便或節省成本。</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50">
+                                <td class="p-4 font-semibold text-[#0077B6]">使用個人防墜設施</td>
+                                <td class="p-4">物理</td>
+                                <td class="p-4">未使用</td>
+                                <td class="p-4">未提供適用防護具；現場無合格錨點；未要求與監督。</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50">
+                                <td class="p-4 font-semibold text-[#0077B6]">操作人員安全訓練</td>
+                                <td class="p-4">行政</td>
+                                <td class="p-4">不足或無效</td>
+                                <td class="p-4">訓練內容未涵蓋此類高風險作業的禁止事項。</td>
+                            </tr>
+                             <tr class="hover:bg-slate-50">
+                                <td class="p-4 font-semibold text-[#0077B6]">作業前危害辨識</td>
+                                <td class="p-4">行政</td>
+                                <td class="p-4">未實施</td>
+                                <td class="p-4">未建立臨時作業的風險評估機制；管理階層失能。</td>
+                            </tr>
+                             <tr class="hover:bg-slate-50">
+                                <td class="p-4 font-semibold text-[#0077B6]">穿戴安全帽</td>
+                                <td class="p-4">物理/PPE</td>
+                                <td class="p-4">未使用</td>
+                                <td class="p-4">未強制規定；人員安全意識不足，低估風險。</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            
+            <section id="case-study-radar" class="bg-white rounded-lg shadow-lg p-6 md:p-8">
+                <h2 class="text-3xl font-bold text-[#004E89] mb-6 text-center">失效屏障影響維度分析</h2>
+                <p class="text-slate-600 mb-8 max-w-3xl mx-auto text-center">從不同維度評估主要失效屏障的影響。分數越高代表在該維度的影響或缺失越嚴重。例如，「提供安全設備」的缺失在「可預防性」上得分最高，表示若此屏障存在，極可能避免事故。</p>
+                <div class="chart-container h-96 md:h-[550px]">
+                    <canvas id="radarChart"></canvas>
+                </div>
+            </section>
+
+            <section id="limitations" class="bg-white rounded-lg shadow-lg p-6 md:p-8">
+                 <h2 class="text-3xl font-bold text-[#004E89] mb-8 text-center">使用限制與最佳實踐</h2>
+                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                     <div>
+                         <h3 class="text-2xl font-bold text-green-600 mb-4 flex items-center"><span class="text-3xl mr-2">✓</span>應做 (Do)</h3>
+                         <ul class="list-disc list-inside space-y-2 text-slate-600">
+                            <li>組建跨功能的調查團隊，納入不同專業背景的成員。</li>
+                            <li>將屏障分析作為橋樑，銜接事件描述與根本原因分析。</li>
+                            <li>廣泛腦力激盪，列出所有「應存在」的屏障，避免遺漏。</li>
+                            <li>深入探討屏障失效背後的「為什麼」，連結至管理系統。</li>
+                         </ul>
+                     </div>
+                     <div>
+                         <h3 class="text-2xl font-bold text-red-600 mb-4 flex items-center"><span class="text-3xl mr-2">✗</span>避免 (Don't)</h3>
+                         <ul class="list-disc list-inside space-y-2 text-slate-600">
+                             <li>將屏障分析作為唯一的分析工具，它無法直接產出根本原因。</li>
+                             <li>過早下結論，或受「後見之明偏誤」影響判斷。</li>
+                             <li>將屏障失效原因簡單歸咎於「人員疏忽」，而未深究。</li>
+                             <li>忽略「非正式」但實際存在的屏障（如工作默契）。</li>
+                         </ul>
+                     </div>
+                 </div>
+            </section>
+            
+            <section id="integration" class="bg-white rounded-lg shadow-lg p-6 md:p-8">
+                <h2 class="text-3xl font-bold text-[#004E89] mb-8 text-center">在事故調查流程中的定位</h2>
+                <p class="text-slate-600 mb-8 max-w-3xl mx-auto text-center">屏障分析是系統性調查的關鍵一環，它將事實的描述轉化為對原因的探討，為後續的根本原因分析奠定基礎。</p>
+                <div class="flex flex-col md:flex-row items-stretch justify-center text-center">
+                    <div class="flex-1 p-4 bg-slate-100 rounded-l-lg border border-slate-200">
+                        <h3 class="font-bold text-lg text-[#004E89]">事件成因分析 (ECFC)</h3>
+                        <p class="text-sm text-slate-500 mt-1">發生了什麼？</p>
+                    </div>
+                    <div class="flex items-center justify-center p-2"><div class="flowchart-arrow">→</div></div>
+                    <div class="flex-1 p-4 bg-[#90E0EF] rounded-lg border-2 border-[#0077B6] shadow-md">
+                        <h3 class="font-bold text-lg text-black-600">屏障分析 (BA)</h3>
+                        <p class="text-sm text-black-600 mt-1">防護為何失效？</p>
+                    </div>
+                    <div class="flex items-center justify-center p-2"><div class="flowchart-arrow">→</div></div>
+                    <div class="flex-1 p-4 bg-slate-100 rounded-r-lg border border-slate-200">
+                        <h3 class="font-bold text-lg text-[#004E89]">根本原因分析 (RCA)</h3>
+                        <p class="text-sm text-slate-500 mt-1">系統為何允許失效？</p>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="text-center mt-12 pt-8 border-t border-slate-200">
+            <p class="text-slate-500">資料來源：事故調查制度實務指南及相關國際文獻。</p>
+            <p class="text-sm text-slate-400 mt-2">Infographic by Canvas Infographics © 2025</p>
+        </footer>
+
+    </div>
+
+    <script>
+        function wrapText(text, maxLength) {
+            if (typeof text !== 'string' || text.length <= maxLength) {
+                return text;
+            }
+            const words = text.split(' ');
+            const lines = [];
+            let currentLine = '';
+            words.forEach(word => {
+                if ((currentLine + word).length > maxLength) {
+                    lines.push(currentLine.trim());
+                    currentLine = '';
+                }
+                currentLine += word + ' ';
+            });
+            lines.push(currentLine.trim());
+            return lines;
+        }
+
+        const tooltipTitleCallback = (tooltipItems) => {
+            const item = tooltipItems[0];
+            let label = item.chart.data.labels[item.dataIndex];
+            if (Array.isArray(label)) {
+                return label.join(' ');
+            }
+            return label;
+        };
+        
+        const commonChartOptions = {
+            maintainAspectRatio: false,
+            responsive: true,
+            plugins: {
+                legend: {
+                    labels: {
+                        color: '#334155',
+                        font: {
+                            size: 14,
+                            family: "'Noto Sans TC', sans-serif"
+                        }
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        title: tooltipTitleCallback
+                    },
+                    bodyFont: {
+                        family: "'Noto Sans TC', sans-serif"
+                    },
+                    titleFont: {
+                        family: "'Noto Sans TC', sans-serif"
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    ticks: {
+                        color: '#475569',
+                        font: {
+                            family: "'Noto Sans TC', sans-serif"
+                        }
+                    },
+                    grid: {
+                        color: '#e2e8f0'
+                    }
+                },
+                y: {
+                    ticks: {
+                        color: '#475569',
+                        font: {
+                            family: "'Noto Sans TC', sans-serif"
+                        }
+                    },
+                    grid: {
+                        color: '#e2e8f0'
+                    }
+                }
+            }
+        };
+
+        const barrierTypesCtx = document.getElementById('barrierTypesChart').getContext('2d');
+        new Chart(barrierTypesCtx, {
+            type: 'bar',
+            data: {
+                labels: ['物理/工程屏障', '程序性屏障', '行政/管理屏障'],
+                datasets: [{
+                    label: '相對可靠性評分 (滿分10)',
+                    data: [9, 6, 4],
+                    backgroundColor: ['#0077B6', '#48CAE4', '#90E0EF'],
+                    borderColor: '#004E89',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                ...commonChartOptions,
+                indexAxis: 'y',
+                scales: {
+                     x: {
+                        ...commonChartOptions.scales.x,
+                        beginAtZero: true,
+                        max: 10
+                    },
+                    y: {
+                        ...commonChartOptions.scales.y
+                    }
+                },
+                plugins: {
+                    ...commonChartOptions.plugins,
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+
+        const caseStudyCtx = document.getElementById('caseStudyChart').getContext('2d');
+        const caseStudyLabels = [
+            '未提供安全的高處作業設備',
+            '未禁止人員站立於堆高機貨叉',
+            '未實施作業前危害辨識與評估',
+            '現場安全監督不足或失效',
+            '堆高機操作人員之安全訓練不足',
+            '未使用個人防墜設施',
+            '未穿戴安全帽'
+        ].map(label => wrapText(label, 16));
+
+        new Chart(caseStudyCtx, {
+            type: 'bar',
+            data: {
+                labels: caseStudyLabels,
+                datasets: [{
+                    label: '失效關鍵性評分 (越高越關鍵)',
+                    data: [10, 9, 8, 7, 6, 5, 4],
+                    backgroundColor: [
+                        '#004E89',
+                        '#005a9e',
+                        '#006ba3',
+                        '#0077B6',
+                        '#248dc1',
+                        '#48CAE4',
+                        '#90E0EF'
+                    ],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                ...commonChartOptions,
+                indexAxis: 'y',
+                scales: {
+                    x: {
+                        ...commonChartOptions.scales.x,
+                        beginAtZero: true,
+                        max: 10,
+                        title: {
+                            display: true,
+                            text: '失效關鍵性評分',
+                            color: '#004E89',
+                            font: { size: 14, weight: 'bold' }
+                        }
+                    },
+                    y: {
+                        ...commonChartOptions.scales.y,
+                         ticks: {
+                            ...commonChartOptions.scales.y.ticks,
+                            autoSkip: false
+                        }
+                    }
+                },
+                plugins: {
+                    ...commonChartOptions.plugins,
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+
+        const radarCtx = document.getElementById('radarChart').getContext('2d');
+        new Chart(radarCtx, {
+            type: 'radar',
+            data: {
+                labels: ['可預防性', '系統性缺失', '後果嚴重性', '行為影響', '管理監督缺失'],
+                datasets: [
+                    {
+                        label: '提供安全設備 (缺失)',
+                        data: [10, 8, 9, 5, 7],
+                        fill: true,
+                        backgroundColor: 'rgba(0, 78, 137, 0.2)',
+                        borderColor: '#004E89',
+                        pointBackgroundColor: '#004E89',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: '#004E89'
+                    },
+                    {
+                        label: '禁止站立於貨叉 (未落實)',
+                        data: [8, 9, 8, 10, 9],
+                        fill: true,
+                        backgroundColor: 'rgba(72, 202, 228, 0.2)',
+                        borderColor: '#48CAE4',
+                        pointBackgroundColor: '#48CAE4',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: '#48CAE4'
+                    }
+                ]
+            },
+            options: {
+                ...commonChartOptions,
+                scales: {
+                    r: {
+                        angleLines: { color: '#cbd5e1' },
+                        grid: { color: '#e2e8f0' },
+                        pointLabels: {
+                            font: { size: 14, family: "'Noto Sans TC', sans-serif" },
+                            color: '#334155'
+                        },
+                        ticks: {
+                            backdropColor: 'rgba(255, 255, 255, 0.75)',
+                            color: '#475569'
+                        },
+                        min: 0,
+                        max: 10
+                    }
+                },
+                plugins: {
+                    ...commonChartOptions.plugins,
+                    legend: {
+                        position: 'top',
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

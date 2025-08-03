@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<style type="text/css">
+.inline {
+  background-color: #f7f7f7;
+  border:solid 1px #B0B0B0;
+}
+.error {
+	font-weight: bold;
+	color: #FF0000;
+}
+.warning {
+	font-weight: bold;
+}
+.message {
+	font-style: italic;
+}
+.source, .output, .warning, .error, .message {
+	padding: 0 1em;
+  border:solid 1px #F7F7F7;
+}
+.source {
+  background-color: #f5f5f5;
+}
+.left {
+  text-align: left;
+}
+.right {
+  text-align: right;
+}
+.center {
+  text-align: center;
+}
+.hl.num {
+  color: #AF0F91;
+}
+.hl.sng {
+  color: #317ECC;
+}
+.hl.com {
+  color: #AD95AF;
+  font-style: italic;
+}
+.hl.opt {
+  color: #000000;
+}
+.hl.def {
+  color: #585858;
+}
+.hl.kwa {
+  color: #295F94;
+  font-weight: bold;
+}
+.hl.kwb {
+  color: #B05A65;
+}
+.hl.kwc {
+  color: #55aa55;
+}
+.hl.kwd {
+  color: #BC5A65;
+  font-weight: bold;
+}
+</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>人為失效分析 (Human Failure Analysis) 資訊圖表</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', 'Noto Sans TC', sans-serif;
+            background-color: #f8fafc;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            height: 320px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .flowchart-arrow {
+            color: #52A5FF;
+            font-size: 2rem;
+            line-height: 1;
+        }
+        .icon-bg {
+            background-color: #e0f2fe;
+            color: #005BC5;
+        }
+        .page-break {
+            border-top: 2px dashed #87C4FF;
+            margin: 4rem 0;
+            text-align: center;
+        }
+        .page-break::before {
+            content: '第二頁：探究根源';
+            display: inline-block;
+            background-color: #f8fafc;
+            padding: 0 1rem;
+            transform: translateY(-0.8rem);
+            color: #005BC5;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <div class="container mx-auto p-4 md:p-8">
+        
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-bold text-[#00449E] mb-2">人為失效分析資訊圖表</h1>
+            <p class="text-lg md:text-xl text-red-600 max-w-3xl mx-auto">超越究責，洞悉系統風險：探討失誤背後的組織性因素，建立更具韌性的安全體系。</p>
+      <p class="text-sm text-gray-500 mb-4">整理作者：謝賢書，何明信  115.08</p>
+
+        </header>
+
+        <main>
+            <section id="intro" class="mb-16">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div class="bg-white rounded-2xl shadow-lg p-8">
+                        <h2 class="text-2xl font-bold text-[#005BC5] mb-4">失誤 vs. 違規：失效的兩種面貌</h2>
+                        <p class="text-gray-600 mb-4">人為失效並非單一概念，可分為「非意圖的失誤」與「刻意的違規」。理解其差異是制定有效預防策略的第一步。單純的懲處或要求「多加注意」往往無法解決根本問題。</p>
+                        <div class="flex items-center justify-around text-center mt-6">
+                            <div>
+                                <div class="text-5xl font-bold text-[#0072F0]">60%</div>
+                                <div class="text-gray-500 mt-1">來自非意圖的<br>失誤 (Errors)</div>
+                            </div>
+                            <div>
+                                <div class="text-5xl font-bold text-[#00449E]">40%</div>
+                                <div class="text-gray-500 mt-1">來自刻意的<br>違規 (Violations)</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="failureTypeChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <section id="errors" class="mb-16">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-bold text-[#00449E]">深度解析(一)：非意圖的失誤 (Errors)</h2>
+                    <p class="text-gray-600 mt-2 max-w-2xl mx-auto">源於人類固有的認知限制，即使是經驗豐富的員工也可能發生。</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-white rounded-2xl shadow-lg p-8 flex flex-col">
+                        <h3 class="text-xl font-bold text-[#005BC5] mb-3">技術性失誤 (Skill-based Errors)</h3>
+                        <p class="text-gray-600 mb-4 flex-grow">在執行熟練任務時，因注意力中斷而發生的「無心之過」。</p>
+                        <ul class="space-y-3 mb-6">
+                            <li class="flex items-start"><span class="icon-bg rounded-full p-2 mr-3 text-xl">🤸</span><div><strong>疏忽 (Slips)</strong><br><span class="text-sm text-gray-500">行動不如預期，如按錯按鈕。</span></div></li>
+                            <li class="flex items-start"><span class="icon-bg rounded-full p-2 mr-3 text-xl">🧠</span><div><strong>遺忘 (Lapses)</strong><br><span class="text-sm text-gray-500">忘記執行步驟，如忘記鎖上閥門。</span></div></li>
+                        </ul>
+                        <div class="mt-auto">
+                            <h4 class="font-semibold mb-2 text-center">改善策略偏重</h4>
+                            <div class="chart-container h-64">
+                                <canvas id="skillBasedErrorSolutions"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-2xl shadow-lg p-8 flex flex-col">
+                        <h3 class="text-xl font-bold text-[#005BC5] mb-3">判斷性錯誤 (Mistakes)</h3>
+                        <p class="text-gray-600 mb-4 flex-grow">因規劃或決策錯誤導致，即使按計畫執行，結果仍是錯的。</p>
+                         <ul class="space-y-3 mb-6">
+                            <li class="flex items-start"><span class="icon-bg rounded-full p-2 mr-3 text-xl">📖</span><div><strong>規則性錯誤 (Rule-based)</strong><br><span class="text-sm text-gray-500">套用錯誤的規則或程序。</span></div></li>
+                            <li class="flex items-start"><span class="icon-bg rounded-full p-2 mr-3 text-xl">❓</span><div><strong>知識性錯誤 (Knowledge-based)</strong><br><span class="text-sm text-gray-500">在陌生情境下因知識不足而判斷失準。</span></div></li>
+                        </ul>
+                        <div class="mt-auto">
+                            <h4 class="font-semibold mb-2 text-center">改善策略偏重</h4>
+                            <div class="chart-container h-64">
+                                <canvas id="mistakeSolutions"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="violations" class="mb-16">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-bold text-[#00449E]">深度解析(二)：刻意的違規 (Violations)</h2>
+                    <p class="text-gray-600 mt-2 max-w-2xl mx-auto">通常並非惡意，而是源於想完成工作的壓力、不合理的規定或組織文化影響。</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-white rounded-2xl shadow-lg p-6 text-center">
+                        <div class="mx-auto icon-bg w-16 h-16 rounded-full flex items-center justify-center text-3xl mb-4">🔄</div>
+                        <h3 class="text-lg font-bold text-[#005BC5] mb-2">常規性違規</h3>
+                        <p class="text-sm text-gray-600 mb-4">違反規定已成常態，即「常態化的偏離」。</p>
+                        <p class="text-sm text-left bg-blue-50 p-3 rounded-lg"><strong>對策：</strong>讓規定合理可行，邀請員工參與修訂，並強化主管一致性的監督。</p>
+                    </div>
+                    <div class="bg-white rounded-2xl shadow-lg p-6 text-center">
+                        <div class="mx-auto icon-bg w-16 h-16 rounded-full flex items-center justify-center text-3xl mb-4">⏱️</div>
+                        <h3 class="text-lg font-bold text-[#005BC5] mb-2">情境性違規</h3>
+                        <p class="text-sm text-gray-600 mb-4">因時間壓力、工具不足等客觀因素，不得不違規。</p>
+                        <p class="text-sm text-left bg-blue-50 p-3 rounded-lg"><strong>對策：</strong>改善工作條件，提供充足資源，並賦予員工「停工權」。</p>
+                    </div>
+                    <div class="bg-white rounded-2xl shadow-lg p-6 text-center">
+                        <div class="mx-auto icon-bg w-16 h-16 rounded-full flex items-center justify-center text-3xl mb-4">⚠️</div>
+                        <h3 class="text-lg font-bold text-[#005BC5] mb-2">特殊性違規</h3>
+                        <p class="text-sm text-gray-600 mb-4">在極端或緊急情況下，認為打破規則是唯一解方。</p>
+                        <p class="text-sm text-left bg-blue-50 p-3 rounded-lg"><strong>對策：</strong>強化緊急應變演練，並建立「安全絕不妥協」的文化。</p>
+                    </div>
+                </div>
+            </section>
+            
+            <div class="page-break"></div>
+
+            <section id="psf-factors" class="mb-16">
+                <div class="text-center mb-10">
+                    <h2 class="text-3xl font-bold text-[#00449E]">探究失效根源：影響績效的三大因子 (PSFs)</h2>
+                    <p class="text-gray-600 mt-2 max-w-3xl mx-auto">人為失效並非憑空發生，而是由多種潛在因素共同作用的結果。了解這些「影響績效的因子」，是找出根本原因並制定有效對策的關鍵。</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-white rounded-2xl shadow-lg p-6 flex flex-col">
+                        <div class="flex items-center mb-3">
+                            <span class="icon-bg rounded-full p-3 mr-4 text-2xl">🏢</span>
+                            <h3 class="text-xl font-bold text-[#005BC5]">組織與管理因素</h3>
+                        </div>
+                        <p class="text-sm text-gray-600 mb-4 flex-grow">組織的文化、政策與資源分配，是形塑安全行為的最高層次力量。此層面的缺失影響最為深遠。</p>
+                        <ul class="text-sm text-gray-700 space-y-2 list-disc list-inside">
+                            <li>安全文化薄弱，默許冒險行為</li>
+                            <li>監督與領導力不足</li>
+                            <li>溝通管道不暢通或資訊不透明</li>
+                            <li>資源（人力、預算）分配不當</li>
+                            <li>不完善的變更管理 (MOC)</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white rounded-2xl shadow-lg p-6 flex flex-col">
+                        <div class="flex items-center mb-3">
+                            <span class="icon-bg rounded-full p-3 mr-4 text-2xl">🛠️</span>
+                            <h3 class="text-xl font-bold text-[#005BC5]">工作與任務因素</h3>
+                        </div>
+                        <p class="text-sm text-gray-600 mb-4 flex-grow">工作本身的設計、環境與所需工具，直接影響執行者的操作順暢度與安全性。</p>
+                        <ul class="text-sm text-gray-700 space-y-2 list-disc list-inside">
+                            <li>程序書不清晰、不實用或過時</li>
+                            <li>人機介面 (HMI) 設計不良</li>
+                            <li>工作環境惡劣（照明、噪音）</li>
+                            <li>工作負荷過重或時間壓力過大</li>
+                            <li>工具與設備維護不善或不適用</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white rounded-2xl shadow-lg p-6 flex flex-col">
+                        <div class="flex items-center mb-3">
+                            <span class="icon-bg rounded-full p-3 mr-4 text-2xl">🧑‍💼</span>
+                            <h3 class="text-xl font-bold text-[#005BC5]">個體因素</h3>
+                        </div>
+                        <p class="text-sm text-gray-600 mb-4 flex-grow">個人的身心狀態、技能與經驗，是執行任務的基礎。此層面問題常是前兩項因素作用下的結果。</p>
+                        <ul class="text-sm text-gray-700 space-y-2 list-disc list-inside">
+                            <li>訓練與經驗不足</li>
+                            <li>身心狀態不佳（疲勞、壓力）</li>
+                            <li>風險認知不足或存有僥倖心理</li>
+                            <li>個人能力與工作要求不匹配</li>
+                            <li>不正確的工作習慣</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="psf-chart" class="mb-16">
+                 <div class="bg-white rounded-2xl shadow-lg p-8">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                        <div class="chart-container h-80">
+                            <canvas id="psfRadarChart"></canvas>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-[#005BC5] mb-4">PSF 因子影響力分佈</h3>
+                            <p class="text-gray-600 mb-4">現代安全科學研究指出，在多數重大事故中，「組織與管理因素」往往是影響最深遠的根本原因。如雷達圖所示，相較於個體因素，組織層面的缺陷（如不良的安全文化、資源不足）和工作設計問題（如不佳的程序）對事故的貢獻度更高。</p>
+                            <p class="text-gray-600">因此，有效的預防策略應優先從強化管理系統與優化工作設計著手，創造一個讓員工「想安全、能安全」的工作環境。</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            <section id="process" class="mb-16">
+                <div class="text-center mb-10">
+                    <h2 class="text-3xl font-bold text-[#00449E]">系統化分析五步驟</h2>
+                    <p class="text-gray-600 mt-2 max-w-2xl mx-auto">遵循結構化流程，從識別事件到連結根本原因，確保分析的完整性與深度。</p>
+                </div>
+                <div class="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-4">
+                    <div class="text-center p-4 bg-white rounded-lg shadow-md w-48"><strong>1. 識別事件</strong></div>
+                    <div class="flowchart-arrow">→</div>
+                    <div class="text-center p-4 bg-white rounded-lg shadow-md w-48"><strong>2. 失誤分類</strong></div>
+                    <div class="flowchart-arrow">→</div>
+                    <div class="text-center p-4 bg-white rounded-lg shadow-md w-48"><strong>3. 探討影響因子</strong></div>
+                    <div class="flowchart-arrow">→</div>
+                    <div class="text-center p-4 bg-white rounded-lg shadow-md w-48"><strong>4. 連結根本原因</strong></div>
+                    <div class="flowchart-arrow">→</div>
+                    <div class="text-center p-4 bg-white rounded-lg shadow-md w-48"><strong>5. 提出改善對策</strong></div>
+                </div>
+            </section>
+
+            <section id="case-study" class="bg-white rounded-2xl shadow-lg p-8">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-bold text-[#00449E]">案例分析：堆高機墜落事故</h2>
+                    <p class="text-gray-600 mt-2 max-w-3xl mx-auto">一名勞工站立於堆高機貨叉上作業時墜落。表面看是個人不安全行為，但深入分析後，發現多個系統性因子共同導致了這場悲劇。</p>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 items-center">
+                    <div class="lg:col-span-2">
+                        <h3 class="font-bold text-xl text-[#005BC5] mb-4">失效背後的影響因子 (PSFs)</h3>
+                        <p class="text-gray-600 mb-3">圖表顯示，導致「站上貨叉」此一違規行為的，不僅是個人因素。組織管理與工作任務上的缺陷，如缺乏安全程序、監督不足、未提供合適工具等，才是更深層的推手。</p>
+                        <p class="text-gray-600">這證明了有效的事故預防，必須從改善管理系統與工作設計著手，而非僅僅歸責於個人。</p>
+                    </div>
+                    <div class="lg:col-span-3 chart-container h-80 md:h-96">
+                        <canvas id="caseStudyChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="text-center mt-16 pt-8 border-t border-gray-200">
+            <p class="text-gray-500">此資訊圖表根據「事故調查制度實務指南」與相關國際文獻製作。</p>
+                        <p class="text-sm text-slate-400 mt-2">Infographic by Canvas Infographics © 2025</p>
+
+        </footer>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const wrapLabel = (label, maxLength = 16) => {
+                if (label.length <= maxLength) {
+                    return label;
+                }
+                const words = label.split(' ');
+                const lines = [];
+                let currentLine = '';
+                words.forEach(word => {
+                    if ((currentLine + ' ' + word).trim().length > maxLength) {
+                        lines.push(currentLine.trim());
+                        currentLine = word;
+                    } else {
+                        currentLine = (currentLine + ' ' + word).trim();
+                    }
+                });
+                if (currentLine) {
+                    lines.push(currentLine.trim());
+                }
+                return lines;
+            };
+
+            const tooltipTitleCallback = (tooltipItems) => {
+                const item = tooltipItems[0];
+                let label = item.chart.data.labels[item.dataIndex];
+                if (Array.isArray(label)) {
+                    return label.join(' ');
+                }
+                return label;
+            };
+            
+            const commonChartOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            font: {
+                                family: "'Inter', 'Noto Sans TC', sans-serif"
+                            }
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            title: tooltipTitleCallback
+                        },
+                        bodyFont: {
+                           family: "'Inter', 'Noto Sans TC', sans-serif"
+                        },
+                        titleFont: {
+                           family: "'Inter', 'Noto Sans TC', sans-serif"
+                        }
+                    }
+                }
+            };
+
+            const colors = {
+                blue1: '#00449E',
+                blue2: '#005BC5',
+                blue3: '#0072F0',
+                blue4: '#52A5FF',
+                blue5: '#87C4FF',
+                gray: '#cbd5e1'
+            };
+
+            new Chart(document.getElementById('failureTypeChart'), {
+                type: 'doughnut',
+                data: {
+                    labels: ['非意圖的失誤 (Errors)', '刻意的違規 (Violations)'],
+                    datasets: [{
+                        label: '人為失效類型',
+                        data: [60, 40],
+                        backgroundColor: [colors.blue4, colors.blue2],
+                        borderColor: '#f8fafc',
+                        borderWidth: 4
+                    }]
+                },
+                options: { ...commonChartOptions }
+            });
+
+            new Chart(document.getElementById('skillBasedErrorSolutions'), {
+                type: 'bar',
+                data: {
+                    labels: ['工程控制 (防呆)', '行政管理 (檢核表)', '程序優化'],
+                    datasets: [{
+                        label: '改善效果',
+                        data: [85, 60, 40],
+                        backgroundColor: [colors.blue2, colors.blue3, colors.blue4],
+                    }]
+                },
+                options: {
+                    ...commonChartOptions,
+                    indexAxis: 'y',
+                    scales: {
+                        x: { suggestedMax: 100, ticks: { display: false } },
+                        y: { ticks: { font: { size: 10 } } }
+                    },
+                    plugins: { ...commonChartOptions.plugins, legend: { display: false } }
+                }
+            });
+
+            new Chart(document.getElementById('mistakeSolutions'), {
+                type: 'bar',
+                data: {
+                    labels: ['深度訓練', '程序/規則改善', '專家/主管支持'],
+                    datasets: [{
+                        label: '改善效果',
+                        data: [80, 70, 50],
+                        backgroundColor: [colors.blue2, colors.blue3, colors.blue4],
+                    }]
+                },
+                options: {
+                    ...commonChartOptions,
+                    indexAxis: 'y',
+                    scales: {
+                        x: { suggestedMax: 100, ticks: { display: false } },
+                        y: { ticks: { font: { size: 10 } } }
+                    },
+                    plugins: { ...commonChartOptions.plugins, legend: { display: false } }
+                }
+            });
+
+            new Chart(document.getElementById('psfRadarChart'), {
+                type: 'radar',
+                data: {
+                    labels: ['組織與管理因素', '工作與任務因素', '個體因素'],
+                    datasets: [{
+                        label: '對事故的貢獻度 (%)',
+                        data: [50, 35, 15],
+                        fill: true,
+                        backgroundColor: 'rgba(82, 165, 255, 0.2)',
+                        borderColor: colors.blue4,
+                        pointBackgroundColor: colors.blue4,
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: colors.blue4
+                    }]
+                },
+                options: {
+                    ...commonChartOptions,
+                    scales: {
+                        r: {
+                            angleLines: { color: colors.gray },
+                            grid: { color: colors.gray },
+                            pointLabels: { font: { size: 12 } },
+                            ticks: {
+                                backdropColor: 'rgba(255, 255, 255, 0.75)',
+                                color: colors.blue2,
+                                stepSize: 10
+                            },
+                            suggestedMin: 0,
+                            suggestedMax: 50
+                        }
+                    }
+                }
+            });
+
+            new Chart(document.getElementById('caseStudyChart'), {
+                type: 'bar',
+                data: {
+                    labels: [wrapLabel('關鍵違規：站立於堆高機貨叉上作業', 20)],
+                    datasets: [
+                        {
+                            label: '組織/管理因素',
+                            data: [50],
+                            backgroundColor: colors.blue1,
+                        },
+                        {
+                            label: '工作/任務因素',
+                            data: [30],
+                            backgroundColor: colors.blue3,
+                        },
+                        {
+                            label: '個體因素',
+                            data: [20],
+                            backgroundColor: colors.blue5,
+                        },
+                    ]
+                },
+                options: {
+                    ...commonChartOptions,
+                    indexAxis: 'y',
+                    scales: {
+                        x: {
+                            stacked: true,
+                            suggestedMax: 100,
+                            ticks: { callback: value => value + '%' }
+                        },
+                        y: {
+                            stacked: true
+                        }
+                    },
+                    plugins: {
+                        ...commonChartOptions.plugins,
+                        tooltip: {
+                            ...commonChartOptions.plugins.tooltip,
+                            callbacks: {
+                                ...commonChartOptions.plugins.tooltip.callbacks,
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed.x !== null) {
+                                        label += context.parsed.x + '%';
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

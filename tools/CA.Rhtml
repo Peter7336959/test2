@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>變更分析 (Change Analysis) 互動式資訊圖表</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #fefefe;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 450px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 500px;
+            }
+        }
+        .flowchart-arrow {
+            font-size: 2.5rem;
+            color: #118AB2;
+            line-height: 1;
+        }
+        .page-divider {
+            border: 0;
+            height: 2px;
+            background-image: linear-gradient(to right, rgba(7, 59, 76, 0), rgba(17, 138, 178, 0.75), rgba(7, 59, 76, 0));
+            margin-top: 4rem;
+            margin-bottom: 4rem;
+        }
+        .scroll-indicator {
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-20px);
+            }
+            60% {
+                transform: translateY(-10px);
+            }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <div class="container mx-auto p-4 md:p-8">
+
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-bold text-[#073B4C] mb-4">變更分析(Change Analysis)資訊圖表</h1>
+            <p class="text-lg md:text-xl text-red-600 max-w-3xl mx-auto font-bold">一個核心提問：「是什麼改變了？」—— 透過比較找出導致事故的關鍵差異。</p>
+            <p class="text-md text-slate-500 mt-4">整理作者：謝賢書，何明信  115.08</p>
+        </header>
+
+        <main class="space-y-16">
+
+            <section id="concept" class="bg-white rounded-lg shadow-lg p-6 md:p-8">
+                <h2 class="text-3xl font-bold text-[#073B4C] mb-6 text-center">核心理念：在常態中尋找異常</h2>
+                <p class="text-slate-600 mb-8 max-w-3xl mx-auto text-center">大多數系統在多數時間是安全運作的。事故的發生，往往是某個「改變」破壞了原有的安全平衡。變更分析透過比較「事故情境」與「正常情境」來找出關鍵線索。</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 items-center gap-8">
+                    <div class="text-center p-4 bg-green-50 border-2 border-dashed border-[#06D6A0] rounded-lg">
+                        <div class="text-5xl mb-2">👍</div>
+                        <div class="text-xl font-bold text-green-600">正常/無事故情境</div>
+                        <p class="text-sm text-slate-500 mt-2">符合SOP、過去成功的作業、或理想狀態。</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-5xl font-bold text-[#118AB2]">VS</div>
+                        <div class="text-2xl mt-2">🔍</div>
+                    </div>
+                    <div class="text-center p-4 bg-red-50 border-2 border-dashed border-[#FF6B6B] rounded-lg">
+                        <div class="text-5xl mb-2">👎</div>
+                        <div class="text-xl font-bold text-[#FF6B6B]">事故情境</div>
+                        <p class="text-sm text-slate-500 mt-2">實際發生事故時的人、事、時、地、物、方法等。</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="integration" class="bg-white rounded-lg shadow-lg p-6 md:p-8">
+                <h2 class="text-3xl font-bold text-[#073B4C] mb-8 text-center">在事故調查流程中的定位</h2>
+                <p class="text-slate-600 mb-8 max-w-3xl mx-auto text-center">變更分析是承先啟後的關鍵步驟，它將「靜態」的事件與屏障描述，轉化為「動態」的因果探討，找出觸發事故的改變。</p>
+                <div class="flex flex-col md:flex-row items-stretch justify-center text-center">
+                    <div class="flex-1 p-4 bg-slate-100 rounded-l-lg border border-slate-200">
+                        <h3 class="font-bold text-lg text-[#073B4C]">事件成因分析 (ECFC)</h3>
+                        <p class="text-sm text-slate-500 mt-1">發生了什麼？</p>
+                    </div>
+                    <div class="flex items-center justify-center p-2"><div class="flowchart-arrow">→</div></div>
+                    <div class="flex-1 p-4 bg-[#FFD166] rounded-lg border-2 border-[#E7B85A] shadow-md">
+                        <h3 class="font-bold text-lg text-[#073B4C]">變更分析 (CA)</h3>
+                        <p class="text-sm text-slate-700 mt-1">是什麼改變了？</p>
+                    </div>
+                    <div class="flex items-center justify-center p-2"><div class="flowchart-arrow">→</div></div>
+                    <div class="flex-1 p-4 bg-slate-100 rounded-r-lg border border-slate-200">
+                        <h3 class="font-bold text-lg text-[#073B4C]">根本原因分析 (RCA)</h3>
+                        <p class="text-sm text-slate-500 mt-1">系統為何允許改變？</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="framework" class="bg-white rounded-lg shadow-lg p-6 md:p-8">
+                <h2 class="text-3xl font-bold text-[#073B4C] mb-8 text-center">結構化分析框架：4W1H</h2>
+                <p class="text-slate-600 mb-8 max-w-3xl mx-auto text-center">為確保分析的全面性，變更分析使用 4W1H 框架，從不同面向系統性地比較兩個情境的差異。</p>
+                <div class="grid grid-cols-2 md:grid-cols-5 gap-4 text-center">
+                    <div class="p-4 bg-slate-50 rounded-lg"><span class="text-4xl">📋</span><p class="mt-2 font-bold">What (事)</p></div>
+                    <div class="p-4 bg-slate-50 rounded-lg"><span class="text-4xl">⏰</span><p class="mt-2 font-bold">When (時)</p></div>
+                    <div class="p-4 bg-slate-50 rounded-lg"><span class="text-4xl">📍</span><p class="mt-2 font-bold">Where (地)</p></div>
+                    <div class="p-4 bg-slate-50 rounded-lg"><span class="text-4xl">👥</span><p class="mt-2 font-bold">Who (人)</p></div>
+                    <div class="p-4 bg-slate-50 rounded-lg"><span class="text-4xl">🛠️</span><p class="mt-2 font-bold">How (方法)</p></div>
+                </div>
+            </section>
+
+            <section id="case-study" class="bg-white rounded-lg shadow-lg p-6 md:p-8">
+                <h2 class="text-3xl font-bold text-[#073B4C] mb-2 text-center">案例分析：堆高機墜落事故</h2>
+                <p class="text-slate-600 mb-8 max-w-3xl mx-auto text-center">透過比較「事故情境」與「理想情境」的差異，我們能清楚看見安全性的急遽下降。圖表顯示了在不同分析面向下，理想情境（綠色）與事故情境（紅色）的安全評分對比。</p>
+                <div class="chart-container">
+                    <canvas id="caseStudyChart"></canvas>
+                </div>
+            </section>
+
+            <div class="text-center my-10 scroll-indicator">
+                <p class="text-slate-500 mb-2">向下捲動以查看更深入的分析</p>
+                <div class="text-3xl text-[#118AB2]">↓</div>
+            </div>
+
+            <hr class="page-divider">
+
+            <section id="case-study-deep-dive" class="bg-white rounded-lg shadow-lg p-6 md:p-8">
+                <h2 class="text-3xl font-bold text-[#073B4C] mb-8 text-center">案例深度解析：變更分析工作表</h2>
+                <div class="overflow-x-auto">
+                    <table class="w-full min-w-[900px] text-left border-collapse">
+                        <thead class="bg-[#073B4C] text-white">
+                            <tr>
+                                <th class="p-4 font-bold">因素</th>
+                                <th class="p-4 font-bold">事故狀況</th>
+                                <th class="p-4 font-bold">理想狀況</th>
+                                <th class="p-4 font-bold">差異(變更)</th>
+                                <th class="p-4 font-bold">效果評估</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-200">
+                            <tr class="hover:bg-slate-50">
+                                <td class="p-4 font-semibold text-[#118AB2]">WHAT (事)</td>
+                                <td class="p-4">站立於貨叉上作業</td>
+                                <td class="p-4">使用安全工作平台</td>
+                                <td class="p-4 text-red-600 font-medium">作業方法改變</td>
+                                <td class="p-4">直接引入嚴重墜落危害</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50">
+                                <td class="p-4 font-semibold text-[#118AB2]">WHEN (時)</td>
+                                <td class="p-4">臨時性作業，未評估</td>
+                                <td class="p-4">計畫性作業，有評估</td>
+                                <td class="p-4 text-red-600 font-medium">省略風險評估</td>
+                                <td class="p-4">未能識別與控制危害</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50">
+                                <td class="p-4 font-semibold text-[#118AB2]">WHERE (地)</td>
+                                <td class="p-4">不穩固的貨叉</td>
+                                <td class="p-4">穩固的工作平台</td>
+                                <td class="p-4 text-red-600 font-medium">作業平台改變</td>
+                                <td class="p-4">大幅增加墜落可能性</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50">
+                                <td class="p-4 font-semibold text-[#118AB2]">WHO (人)</td>
+                                <td class="p-4">臨時協助，監督缺位</td>
+                                <td class="p-4">專責人員，主管在場</td>
+                                <td class="p-4 text-red-600 font-medium">人員與監督改變</td>
+                                <td class="p-4">安全文化薄弱，不安全行為未被制止</td>
+                            </tr>
+                             <tr class="hover:bg-slate-50">
+                                <td class="p-4 font-semibold text-[#118AB2]">HOW (方法)</td>
+                                <td class="p-4">臨時自創，無防護</td>
+                                <td class="p-4">依SOP，有防護</td>
+                                <td class="p-4 text-red-600 font-medium">作業程序與防護改變</td>
+                                <td class="p-4">增加失衡風險，且無任何保護</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section id="impact-analysis" class="bg-white rounded-lg shadow-lg p-6 md:p-8">
+                <h2 class="text-3xl font-bold text-[#073B4C] mb-2 text-center">關鍵變更衝擊評分</h2>
+                <p class="text-slate-600 mb-8 max-w-3xl mx-auto text-center">並非所有變更的影響都一樣。此圖表評估了各項變更對事故發生的「衝擊程度」。作業方法的根本性改變是本次事故最致命的變更。</p>
+                <div class="chart-container h-96 md:h-[500px]">
+                    <canvas id="impactChart"></canvas>
+                </div>
+            </section>
+
+            <section id="limitations" class="bg-white rounded-lg shadow-lg p-6 md:p-8">
+                 <h2 class="text-3xl font-bold text-[#073B4C] mb-8 text-center">使用限制與最佳實踐</h2>
+                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                     <div>
+                         <h3 class="text-2xl font-bold text-green-600 mb-4">主要優勢</h3>
+                         <ul class="list-none space-y-3">
+                            <li class="flex items-start"><span class="text-2xl mr-3">✨</span><span>挖掘看似正常作業下的隱性觸發因素。</span></li>
+                            <li class="flex items-start"><span class="text-2xl mr-3">🧠</span><span>提供系統性的腦力激盪框架，確保分析廣度。</span></li>
+                            <li class="flex items-start"><span class="text-2xl mr-3">🎯</span><span>能有效引導證據收集的方向，提升調查效率。</span></li>
+                         </ul>
+                     </div>
+                     <div>
+                         <h3 class="text-2xl font-bold text-[#FF6B6B] mb-4">潛在限制</h3>
+                         <ul class="list-none space-y-3">
+                             <li class="flex items-start"><span class="text-2xl mr-3">🤔</span><span>參考基準點的選擇可能帶有主觀性，影響分析結果。</span></li>
+                             <li class="flex items-start"><span class="text-2xl mr-3">📉</span><span>對於長時間、漸進式的改變（如文化鬆懈）較難識別。</span></li>
+                             <li class="flex items-start"><span class="text-2xl mr-3">🆕</span><span>不適用於沒有歷史參考點的全新作業或系統。</span></li>
+                         </ul>
+                     </div>
+                 </div>
+            </section>
+
+        </main>
+
+        <footer class="text-center mt-16 pt-8 border-t border-slate-200">
+            <p class="text-slate-500">此資訊圖表根據「事故調查制度實務指南」與相關國際文獻製作。</p>
+            <p class="text-sm text-slate-400 mt-2">Infographic by Canvas Infographics © 2025</p>
+        </footer>
+
+    </div>
+
+    <script>
+        function wrapText(text, maxLength) {
+            if (typeof text !== 'string' || text.length <= maxLength) {
+                return text;
+            }
+            const words = text.split(' ');
+            const lines = [];
+            let currentLine = '';
+            words.forEach(word => {
+                if ((currentLine + word).length > maxLength) {
+                    lines.push(currentLine.trim());
+                    currentLine = '';
+                }
+                currentLine += word + ' ';
+            });
+            lines.push(currentLine.trim());
+            return lines;
+        }
+
+        const tooltipTitleCallback = (tooltipItems) => {
+            const item = tooltipItems[0];
+            let label = item.chart.data.labels[item.dataIndex];
+            if (Array.isArray(label)) {
+                return label.join(' ');
+            }
+            return label;
+        };
+        
+        const commonChartOptions = {
+            maintainAspectRatio: false,
+            responsive: true,
+            plugins: {
+                legend: {
+                    labels: {
+                        color: '#073B4C',
+                        font: {
+                            size: 14,
+                            family: "'Noto Sans TC', sans-serif"
+                        }
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        title: tooltipTitleCallback
+                    },
+                    bodyFont: {
+                        family: "'Noto Sans TC', sans-serif"
+                    },
+                    titleFont: {
+                        family: "'Noto Sans TC', sans-serif"
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    ticks: {
+                        color: '#475569',
+                        font: {
+                            family: "'Noto Sans TC', sans-serif"
+                        }
+                    },
+                    grid: {
+                        color: '#e2e8f0'
+                    }
+                },
+                y: {
+                    ticks: {
+                        color: '#475569',
+                        font: {
+                            family: "'Noto Sans TC', sans-serif"
+                        }
+                    },
+                    grid: {
+                        color: '#e2e8f0'
+                    }
+                }
+            }
+        };
+
+        const caseStudyCtx = document.getElementById('caseStudyChart').getContext('2d');
+        new Chart(caseStudyCtx, {
+            type: 'bar',
+            data: {
+                labels: ['事 (What)', '時 (When)', '地 (Where)', '人 (Who)', '方法 (How)'],
+                datasets: [
+                    {
+                        label: '理想情境 安全評分',
+                        data: [10, 9, 10, 9, 10],
+                        backgroundColor: '#06D6A0',
+                        borderColor: '#05A67D',
+                        borderWidth: 1
+                    },
+                    {
+                        label: '事故情境 安全評分',
+                        data: [1, 3, 4, 2, 1],
+                        backgroundColor: '#FF6B6B',
+                        borderColor: '#D95A5A',
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                ...commonChartOptions,
+                scales: {
+                    y: {
+                        ...commonChartOptions.scales.y,
+                        beginAtZero: true,
+                        max: 10,
+                        title: {
+                            display: true,
+                            text: '安全評分 (滿分10)',
+                            color: '#073B4C',
+                            font: { size: 14, weight: 'bold' }
+                        }
+                    },
+                    x: {
+                        ...commonChartOptions.scales.x
+                    }
+                },
+                plugins: {
+                    ...commonChartOptions.plugins,
+                    legend: {
+                        position: 'top',
+                    }
+                }
+            }
+        });
+
+        const impactCtx = document.getElementById('impactChart').getContext('2d');
+        const impactLabels = [
+            '作業方法改變 (站立於貨叉)',
+            '人員與監督改變 (臨時/缺位)',
+            '省略風險評估',
+            '作業程序與防護改變 (無SOP/防護)',
+            '作業平台改變 (不穩固)'
+        ].map(label => wrapText(label, 16));
+
+        new Chart(impactCtx, {
+            type: 'bar',
+            data: {
+                labels: impactLabels,
+                datasets: [{
+                    label: '衝擊程度評分',
+                    data: [10, 9, 8, 8, 7],
+                    backgroundColor: [
+                        '#EF476F',
+                        '#F78C6B',
+                        '#FFD166',
+                        '#06D6A0',
+                        '#118AB2',
+                    ],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                ...commonChartOptions,
+                indexAxis: 'y',
+                scales: {
+                    x: {
+                        ...commonChartOptions.scales.x,
+                        beginAtZero: true,
+                        max: 10,
+                        title: {
+                            display: true,
+                            text: '衝擊程度評分 (越高越嚴重)',
+                            color: '#073B4C',
+                            font: { size: 14, weight: 'bold' }
+                        }
+                    },
+                    y: {
+                        ...commonChartOptions.scales.y,
+                        ticks: {
+                            ...commonChartOptions.scales.y.ticks,
+                            autoSkip: false
+                        }
+                    }
+                },
+                plugins: {
+                    ...commonChartOptions.plugins,
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

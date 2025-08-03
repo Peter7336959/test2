@@ -9,7 +9,7 @@ output:
     toc_float: true
     #toc_depth: 2
     lib_dir: libs
-    theme: flatly
+    theme: united
     #theme: !expr sample(c( "united",  "flatly", "lumen",  "spacelab"), 1)
     highlight: default
     #(available themes are "default", "tango", "pygments", "kate", `monochrome`, `espresso`, `zenburn`, `haddock`, `breezedark`, `textmate`, `arrow`, or `rstudio`).
@@ -29,12 +29,14 @@ output:
 ------------------------------------------------------------------------
 
 ## 一、公告 {.tabset .tabset-fade .tabset-pills}
-> **0731： 演練個案可使用自己公司案例 (案例可調整)。**
+> ** 0803 新增 - 分析工具解析資訊圖表 [infographic](tools\info.html))  **
 
+- 0731：演練個案可使用自己公司案例 (案例可調整)。
 - 0730：工作坊即將開始，仍有學員未填前測問卷，請填寫 [前測問卷表單](https://forms.gle/SLkZx5UksNa8v5p28)
 - 0729：提供[案例演練分析參考表格](演練案分析格式.docx)，可先參考分析方法圖卡自行分析，以利小組討論。
 - 0727：若遇有颱風將至或重大事故等，延期或變更事宜將於此處公告。
 - 0727：宣導會報名成功名單 (點選各區查看確認)
+
 
 ### 南區 ***(0805週二)***
 

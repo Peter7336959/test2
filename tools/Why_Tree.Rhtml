@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>資訊圖表：為何樹分析 (WTA) 深度解析</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #f8f9fa;
+        }
+        .text-navy { color: #073B4C; }
+        .text-blue { color: #118AB2; }
+        .text-green { color: #06D6A0; }
+        .text-yellow { color: #FFD166; }
+        .text-red { color: #FF6B6B; }
+
+        .bg-navy { background-color: #073B4C; }
+        .bg-blue { background-color: #118AB2; }
+        .bg-green { background-color: #06D6A0; }
+        .bg-yellow { background-color: #FFD166; }
+        .bg-red { background-color: #FF6B6B; }
+        .bg-page-2 { background-color: #e9ecef; }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 400px;
+            max-height: 500px;
+        }
+        
+        .why-tree-container { font-family: 'Noto Sans TC', sans-serif; background-color: #ffffff; padding: 1.5rem; border-radius: 0.5rem; overflow-x: auto; border: 1px solid #e5e7eb; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); }
+        .why-tree ul { position: relative; padding: 1em 0; white-space: nowrap; margin: 0 auto; text-align: center; }
+        .why-tree ul::after { content: ''; display: table; clear: both; }
+        .why-tree li { display: inline-block; vertical-align: top; text-align: center; list-style-type: none; position: relative; padding: 1em 0.5em 0 0.5em; white-space: normal; }
+        .why-tree li::before, .why-tree li::after { content: ''; position: absolute; top: 0; right: 50%; border-top: 2px solid #6b7280; width: 50%; height: 1em; }
+        .why-tree li::after { right: auto; left: 50%; border-left: 2px solid #6b7280; }
+        .why-tree li:only-child::after, .why-tree li:only-child::before { display: none; }
+        .why-tree li:only-child { padding-top: 0; }
+        .why-tree li:first-child::before, .why-tree li:last-child::after { border: 0 none; }
+        .why-tree li:last-child::before { border-right: 2px solid #6b7280; border-radius: 0 5px 0 0; }
+        .why-tree li:first-child::after { border-radius: 5px 0 0 0; }
+        .why-tree .node { border: 2px solid #6b7280; padding: 0.5em 0.75em; text-decoration: none; display: inline-block; border-radius: 5px; background-color: #ffffff; min-width: 120px; max-width: 180px; box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06); font-size: 0.9rem; line-height: 1.3; }
+        .why-tree .top-event { background-color: #FF6B6B; border-color: #e14a4a; color: #ffffff; font-weight: bold; }
+        .why-tree .level-1 { background-color: #FFD166; border-color: #e4b548; }
+        .why-tree .level-2 { background-color: #118AB2; border-color: #0e6f8f; color: #ffffff; }
+        .why-tree .root-cause { background-color: #06D6A0; border-color: #05a97e; color: #073B4C; font-weight: 500; }
+        .why-tree ul ul::before { content: ''; position: absolute; top: 0; left: 50%; border-left: 2px solid #6b7280; width: 0; height: 1em; }
+
+        .flow-arrow {
+            font-size: 2.5rem;
+            line-height: 1;
+            color: #118AB2;
+        }
+
+    </style>
+</head>
+<body class="text-navy">
+
+    <header class="bg-navy text-white text-center py-16 px-4">
+        <h1 class="text-4xl md:text-5xl font-bold mb-4">事故調查的深入分析 Infographic</h1>
+        <p class="text-xl md:text-2xl font-light mt-2">為何樹分析 (Why Tree Analysis) 方法解析</p>
+                <p class="text-lg mt-4">整理作者：謝賢書，何明信  115.08</p>
+
+    </header>
+
+    <main class="container mx-auto px-4 py-12">
+
+        <section class="text-center mb-20">
+            <h2 class="text-3xl font-bold text-red-600  mb-4">我們知道了「發生什麼」，但真正重要的是「為什麼發生」</h2>
+            <p class="max-w-3xl mx-auto font-bold text-lg text-gray-700">ECFC圖為我們描繪了事故的骨架，而為何樹分析 (WTA) 則是深入組織的病理切片，它引導我們超越表面現象，挖掘出可以被根治的管理系統問題。</p>
+        </section>
+
+        <section class="mb-20">
+            <h2 class="text-3xl font-bold text-navy text-center mb-10">從現象到根源：WTA 的核心價值</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-lg text-center transition-transform transform hover:scale-105">
+                    <p class="text-5xl mb-4">🌉</p>
+                    <h3 class="text-xl font-bold text-blue mb-2">搭建橋樑</h3>
+                    <p class="text-gray-600">將 ECFC 的「現象描述」轉化為具有深度與層次的「因果關係」。</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg text-center transition-transform transform hover:scale-105">
+                    <p class="text-5xl mb-4">⛏️</p>
+                    <h3 class="text-xl font-bold text-blue mb-2">深度挖掘</h3>
+                    <p class="text-gray-600">超越個人失誤，系統性地探究背後的管理與組織缺陷。</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg text-center transition-transform transform hover:scale-105">
+                    <p class="text-5xl mb-4">🧬</p>
+                    <h3 class="text-xl font-bold text-blue mb-2">結構化邏輯</h3>
+                    <p class="text-gray-600">以嚴謹的樹狀圖視覺化因果鏈，確保分析過程的邏輯性。</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg text-center transition-transform transform hover:scale-105">
+                    <p class="text-5xl mb-4">🧩</p>
+                    <h3 class="text-xl font-bold text-blue mb-2">整合分析</h3>
+                    <p class="text-gray-600">作為一個平台，整合屏障、變更等其他分析方法的結論。</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-20">
+            <h2 class="text-3xl font-bold text-navy text-center mb-10">系統性分析五步驟</h2>
+            <div class="max-w-4xl mx-auto">
+                <div class="flex flex-col md:flex-row items-center bg-white p-6 rounded-lg shadow-lg mb-6">
+                    <div class="bg-blue text-white rounded-full w-16 h-16 flex items-center justify-center text-2xl font-bold flex-shrink-0">1</div>
+                    <div class="md:ml-6 mt-4 md:mt-0 text-center md:text-left">
+                        <h3 class="text-xl font-bold text-navy">定義頂端事件</h3>
+                        <p class="text-gray-600">從ECFC中選取最關鍵、客觀的事件或狀態作為分析起點。精確的定義決定了分析的深度與方向。</p>
+                    </div>
+                </div>
+                <div class="flex flex-col md:flex-row items-center bg-white p-6 rounded-lg shadow-lg mb-6">
+                    <div class="bg-blue text-white rounded-full w-16 h-16 flex items-center justify-center text-2xl font-bold flex-shrink-0">2</div>
+                    <div class="md:ml-6 mt-4 md:mt-0 text-center md:text-left">
+                        <h3 class="text-xl font-bold text-navy">啟動第一層分析</h3>
+                        <p class="text-gray-600">針對頂端事件提問「為什麼？」，找出所有直接且必要的立即原因，建立分析的第一層基礎。</p>
+                    </div>
+                </div>
+                <div class="flex flex-col md:flex-row items-center bg-white p-6 rounded-lg shadow-lg mb-6">
+                    <div class="bg-blue text-white rounded-full w-16 h-16 flex items-center justify-center text-2xl font-bold flex-shrink-0">3</div>
+                    <div class="md:ml-6 mt-4 md:mt-0 text-center md:text-left">
+                        <h3 class="text-xl font-bold text-navy">逐層向下展開</h3>
+                        <p class="text-gray-600">對形成上一層的每個原因，獨立且重複地提問「為什麼？」，層層剝繭，探究過程而非指責個人。</p>
+                    </div>
+                </div>
+                <div class="flex flex-col md:flex-row items-center bg-white p-6 rounded-lg shadow-lg mb-6">
+                    <div class="bg-blue text-white rounded-full w-16 h-16 flex items-center justify-center text-2xl font-bold flex-shrink-0">4</div>
+                    <div class="md:ml-6 mt-4 md:mt-0 text-center md:text-left">
+                        <h3 class="text-xl font-bold text-navy">識別停止點與根本原因</h3>
+                        <p class="text-gray-600">當原因達到「管理系統缺陷」或「組織可控範圍外」時停止。根本原因通常是管理者有責任修正的問題。</p>
+                    </div>
+                </div>
+                <div class="flex flex-col md:flex-row items-center bg-white p-6 rounded-lg shadow-lg">
+                    <div class="bg-blue text-white rounded-full w-16 h-16 flex items-center justify-center text-2xl font-bold flex-shrink-0">5</div>
+                    <div class="md:ml-6 mt-4 md:mt-0 text-center md:text-left">
+                        <h3 class="text-xl font-bold text-navy">審查與驗證</h3>
+                        <p class="text-gray-600">由下往上，用「因為...所以...」的句式檢驗邏輯鏈的穩固性，並確保每個節點都有證據支持。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-20">
+            <h2 class="text-3xl font-bold text-navy text-center mb-10">案例解析：堆高機墜落事故為何樹</h2>
+            <p class="text-center font-bold text-black-700 max-w-3xl mx-auto mb-6">這張為何樹圖(範例)清晰地展示了，這起看似單純的人員墜落事故，實際上是多個管理系統失效（風險評估、教育訓練、現場監督、作業程序）共同作用下的必然結果。</p>
+            <div class="why-tree-container">
+                <div class="why-tree">
+                    <ul>
+                        <li>
+                            <div class="node top-event">A墜落死亡</div>
+                            <ul>
+                                <li>
+                                    <div class="node level-1">從堆高機貨叉上墜落</div>
+                                    <ul>
+                                        <li>
+                                            <div class="node level-2">A站立貨叉上</div>
+                                            <ul>
+                                                <li><div class="node">用繩索固定及鬆綁貨物</div>
+                                                    <ul>
+                                                        <li><div class="node">沒有合適的方法來進行</div>
+                                                            <ul>
+                                                                <li><div class="node root-cause">貨物堆疊難以進行卸貨</div></li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li><div class="node">以往都這麼做</div>
+                                                    <ul>
+                                                        <li><div class="node root-cause">認為這樣比較方便或快速</div></li>
+                                                    </ul>
+                                                </li>
+                                                <li><div class="node">未被告知或阻止</div>
+                                                    <ul>
+                                                        <li><div class="node root-cause">未監督或容許此類作業</div></li>
+                                                        <li><div class="node root-cause">未接受安全教育訓練</div></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <div class="node level-2">未用防墜設備</div>
+                                            <ul>
+                                                <li><div class="node root-cause">沒有進行風險評估</div></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <div class="node level-1">未戴安全帽</div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div class="bg-page-2 py-1">
+        <div class="container mx-auto px-4 py-16">
+
+            <header class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-navy mb-4">深入應用與實務挑戰</h2>
+                <p class="text-xl text-gray-700">從為何樹圖出發，探索更深層的事故原因</p>
+            </header>
+
+            <section class="mb-20">
+                <h3 class="text-3xl font-bold text-navy text-center mb-8">WTA 在調查體系中的角色</h3>
+                <div class="bg-white p-8 rounded-lg shadow-lg">
+                    <p class="text-center text-lg text-gray-700 mb-8">WTA 並非孤立的方法工具，而是整個事故調查流程中的關鍵樞紐。它承接 ECFC 的事實基礎，將其轉化為有深度的因果鏈，並為後續的專項分析（如屏障、變更分析）提供焦點，最終匯集成指向管理系統的根本原因。</p>
+                    <div class="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-4 text-center">
+                        <div class="bg-gray-100 p-4 rounded-lg shadow w-48">
+                            <p class="font-bold text-gray-800">1. ECFC</p>
+                            <p class="text-sm">釐清「What」</p>
+                        </div>
+                        <div class="flow-arrow">→</div>
+                        <div class="bg-pink-200  p-4 rounded-lg shadow-lg border-4 border-white w-48">
+                            <p class="font-bold">2. 為何樹分析</p>
+                            <p class="text-sm">探究「Why」</p>
+                        </div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flex flex-col space-y-2 w-48">
+                            <div class="bg-gray-100 p-3 rounded-lg shadow">
+                                <p class="font-bold text-gray-800">3. 專項分析</p>
+                                <p class="text-sm">(屏障/變更/人為失效)</p>
+                            </div>
+                        </div>
+                        <div class="flow-arrow">→</div>
+                        <div class="bg-green-200  p-4 rounded-lg shadow-lg w-48">
+                            <p class="font-bold">4. 根本原因</p>
+                            <p class="text-sm">鎖定系統問題</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="mb-20">
+                <h3 class="text-3xl font-bold text-navy text-center mb-10">原因的層次：從冰山一角到水下巨獸</h3>
+                <p class="text-center text-lg text-gray-700 max-w-3xl mx-auto mb-8">成功的事故調查能穿透事故的表象（立即原因），觸及水面下的構成原因，最終揭示隱藏在最深處、真正驅動事故發生的根本原因（管理系統缺陷）。</p>
+                <div class="max-w-2xl mx-auto">
+                    <div class="bg-blue text-white text-center p-4 rounded-t-lg shadow-lg">
+                        <h4 class="text-xl font-bold">立即原因 (Immediate Causes)</h4>
+                        <p class="text-sm">事故發生的最直接觸發點 (冰山一角)</p>
+                        <p class="mt-2 font-mono text-xs">例如：人員未遵守SOP、設備故障</p>
+                    </div>
+                    <div class="bg-yellow text-navy text-center p-6 shadow-lg">
+                        <h4 class="text-xl font-bold">構成原因 (Contributing Causes)</h4>
+                        <p class="text-sm">導致立即原因發生的背景因素 (水下可見部分)</p>
+                         <p class="mt-2 font-mono text-xs">例如：SOP設計不良、維護保養不足、監督失效</p>
+                    </div>
+                    <div class="bg-navy text-white text-center p-8 rounded-b-lg shadow-lg">
+                        <h4 class="text-xl font-bold">根本原因 (Root Causes)</h4>
+                        <p class="text-sm">管理系統的缺陷，是所有問題的源頭 (水下巨獸)</p>
+                        <p class="mt-2 font-mono text-xs">例如：安全文化薄弱、風險評估程序缺失、資源分配不當</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="mb-20">
+                <h3 class="text-3xl font-bold text-navy text-center mb-10">提問的藝術：如何避免指責遊戲</h3>
+                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-white p-6 rounded-lg shadow-lg border-l-4 border-red">
+                        <h4 class="text-xl font-bold text-red mb-3">❌ 錯誤的提問 (導向個人)</h4>
+                        <ul class="list-disc list-inside space-y-2 text-gray-600">
+                            <li>「為什麼操作員這麼粗心？」</li>
+                            <li>「他為什麼要違反規定？」</li>
+                            <li>「是誰的錯？」</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-lg border-l-4 border-green">
+                        <h4 class="text-xl font-bold text-green mb-3">✅ 正確的提問 (導向系統)</h4>
+                        <ul class="list-disc list-inside space-y-2 text-gray-600">
+                            <li>「為什麼我們的系統會讓粗心行為發生？」</li>
+                            <li>「規定本身是否有問題，導致人員難以遵守？」</li>
+                            <li>「我們的管理系統在哪個環節失效了？」</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h3 class="text-3xl font-bold text-navy text-center mb-10">從分析到行動：視覺化根本原因分佈</h3>
+                <p class="text-center text-lg text-gray-700 max-w-3xl mx-auto mb-8">將為何樹分析出的根本原因進行歸類，可以幫助管理層快速識別出最需要投入資源改善的管理系統領域。雷達圖是呈現這類多維度數據的絕佳工具。</p>
+                <div class="bg-white p-8 rounded-lg shadow-lg">
+                    <h4 class="text-xl font-bold text-navy text-center mb-4">堆高機事故根本原因管理系統歸屬分析</h4>
+                    <div class="chart-container">
+                        <canvas id="rootCauseRadarChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <footer class="text-center py-8 bg-navy text-white mt-12">
+        <p>資料來源：事故調查制度實務指南及相關國際文獻</p>
+        <p class="text-sm mt-2 opacity-75">Infographic by Canvas Infographics © 2025</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const energeticPalette = {
+                navy: '#073B4C',
+                blue: '#118AB2',
+                green: '#06D6A0',
+                yellow: '#FFD166',
+                red: '#FF6B6B',
+                background: '#f8f9fa'
+            };
+
+            const defaultTooltipCallback = {
+                callbacks: {
+                    title: function(tooltipItems) {
+                        const item = tooltipItems[0];
+                        let label = item.chart.data.labels[item.dataIndex];
+                        if (Array.isArray(label)) {
+                            return label.join(' ');
+                        } else {
+                            return label;
+                        }
+                    }
+                }
+            };
+
+            const radarCanvas = document.getElementById('rootCauseRadarChart');
+            if(radarCanvas) {
+                const radarCtx = radarCanvas.getContext('2d');
+                new Chart(radarCtx, {
+                    type: 'radar',
+                    data: {
+                        labels: ['風險評估', '安全訓練', '現場監督', '程序與方法', '安全文化'],
+                        datasets: [{
+                            label: '根本原因關聯度',
+                            data: [9, 8, 7, 6, 5],
+                            backgroundColor: 'rgba(6, 214, 160, 0.2)',
+                            borderColor: energeticPalette.green,
+                            pointBackgroundColor: energeticPalette.green,
+                            pointBorderColor: '#fff',
+                            pointHoverBackgroundColor: '#fff',
+                            pointHoverBorderColor: energeticPalette.green
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            r: {
+                                angleLines: { color: 'rgba(7, 59, 76, 0.2)' },
+                                grid: { color: 'rgba(7, 59, 76, 0.2)' },
+                                pointLabels: { font: { size: 14 }, color: energeticPalette.navy },
+                                ticks: {
+                                    backdropColor: energeticPalette.background,
+                                    color: energeticPalette.blue,
+                                    stepSize: 2
+                                },
+                                suggestedMin: 0,
+                                suggestedMax: 10
+                            }
+                        },
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: defaultTooltipCallback
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+
+</body>
+</html>

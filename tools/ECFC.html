@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<style type="text/css">
+.inline {
+  background-color: #f7f7f7;
+  border:solid 1px #B0B0B0;
+}
+.error {
+	font-weight: bold;
+	color: #FF0000;
+}
+.warning {
+	font-weight: bold;
+}
+.message {
+	font-style: italic;
+}
+.source, .output, .warning, .error, .message {
+	padding: 0 1em;
+  border:solid 1px #F7F7F7;
+}
+.source {
+  background-color: #f5f5f5;
+}
+.left {
+  text-align: left;
+}
+.right {
+  text-align: right;
+}
+.center {
+  text-align: center;
+}
+.hl.num {
+  color: #AF0F91;
+}
+.hl.sng {
+  color: #317ECC;
+}
+.hl.com {
+  color: #AD95AF;
+  font-style: italic;
+}
+.hl.opt {
+  color: #000000;
+}
+.hl.def {
+  color: #585858;
+}
+.hl.kwa {
+  color: #295F94;
+  font-weight: bold;
+}
+.hl.kwb {
+  color: #B05A65;
+}
+.hl.kwc {
+  color: #55aa55;
+}
+.hl.kwd {
+  color: #BC5A65;
+  font-weight: bold;
+}
+</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>資訊圖表：深入解析事故成因分析 (ECFA/ECFC)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #F0F8FF;
+        }
+        .text-deep-blue { color: #00446A; }
+        .text-bright-blue { color: #0074B2; }
+        .bg-deep-blue { background-color: #00446A; }
+        .bg-bright-blue { background-color: #0074B2; }
+        .bg-light-blue { background-color: #00A4E5; }
+        .border-deep-blue { border-color: #00446A; }
+        .border-bright-blue { border-color: #0074B2; }
+        .bg-page-2 { background-color: #E6F4FF; }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+        }
+
+        .ecfc-container {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            max-width: 1024px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 1rem 1rem;
+            overflow-x: auto;
+        }
+
+        .ecfc-timeline {
+            display: flex;
+            align-items: center;
+            padding: 2rem 0;
+        }
+
+        .ecfc-event {
+            flex-shrink: 0;
+            background-color: #FEF3C7; 
+            border: 2px solid #FBBF24;
+            color: #78350F;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            min-width: 120px;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            position: relative;
+        }
+
+        .ecfc-arrow {
+            flex-shrink: 0;
+            width: 50px;
+            height: 2px;
+            background-color: #0074B2;
+            position: relative;
+            margin: 0 0.5rem;
+        }
+        .ecfc-arrow::after {
+            content: '';
+            position: absolute;
+            right: -2px;
+            top: -4px;
+            width: 0;
+            height: 0;
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+            border-left: 8px solid #0074B2;
+        }
+
+        .ecfc-condition {
+            position: absolute;
+            background-color: #FCE7F3;
+            border: 2px solid #F472B6;
+            color: #831843;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            white-space: nowrap;
+        }
+
+        .condition-line {
+            position: absolute;
+            border-left: 2px dashed #F472B6;
+            z-index: -1;
+        }
+        .condition-line::after {
+            content: '';
+            position: absolute;
+            left: -5px;
+            width: 0;
+            height: 0;
+            border-top: 6px solid transparent;
+            border-bottom: 6px solid transparent;
+            border-left: 8px solid #F472B6;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <header class="bg-deep-blue text-white text-center py-12 px-4">
+        <h1 class="text-4xl md:text-5xl font-bold mb-4">ECFC 解構事故真相</h1>
+        <p class="text-xl md:text-2xl font-light">深入了解事故成因分析圖法 (ECFA/ECFC)</p>
+         <p class="text-lg mt-4">整理作者：謝賢書，何明信 115.08</p>
+    </header>
+
+    <main class="container mx-auto px-4 py-12">
+
+        <section class="text-center mb-20">
+            <h2 class="text-3xl font-bold text-red-600 mb-4"> ECFA/ECFC 協助我們看清事故發生的完整路徑。</h2>
+            <p class="max-w-3xl text-3xl mx-auto text-lg">事故如何發生？我們如何從中學習？每一件事故背後都有一連串的事件與條件。</p>
+        </section>
+
+        <section class="mb-20">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center bg-white p-8 rounded-lg shadow-lg">
+                <div class="border-r-0 md:border-r-2 border-gray-200 pr-0 md:pr-8 text-center">
+                    <h3 class="text-2xl font-bold text-bright-blue mb-2">ECFA: 分析方法</h3>
+                    <p class="text-lg">🧠</p>
+                    <p>一套系統性的**思維工具**，指導調查人員如何根據資訊、識別因果、邏輯地組織事故資訊。</p>
+                </div>
+                <div class="text-center">
+                    <h3 class="text-2xl font-bold text-bright-blue mb-2">ECFC: 成因圖表</h3>
+                    <p class="text-lg">📊</p>
+                    <p>一種視覺化的**分析工具**，是 ECFA 的產出，以圖形呈現事故的發展過程與所有相關因素。</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-20">
+            <h2 class="text-3xl font-bold text-deep-blue text-center mb-10">為何 ECFC 是事故調查的基石？</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                    <p class="text-4xl mb-4">🧩</p>
+                    <h3 class="text-xl font-bold text-deep-blue mb-2">整合零散證據</h3>
+                    <p>將訪談、文件、物證等碎片化資訊，整合進一個有邏輯、有時序的框架中。</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                    <p class="text-4xl mb-4">⏳</p>
+                    <h3 class="text-xl font-bold text-deep-blue mb-2">釐清事故時序</h3>
+                    <p>建立不容爭議的事件時間軸，精確重現事故從發生到結束的完整過程。</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                    <p class="text-4xl mb-4">✅</p>
+                    <h3 class="text-xl font-bold text-deep-blue mb-2">驗證因果邏輯</h3>
+                    <p>驅使調查員檢驗各事件與條件間的邏輯關係，識別矛盾點與資訊缺口。</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                    <p class="text-4xl mb-4">🧱</p>
+                    <h3 class="text-xl font-bold text-deep-blue mb-2">奠定分析基礎</h3>
+                    <p>為「為何樹分析」等更深層的根本原因分析方法提供堅實的起點。</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                    <p class="text-4xl mb-4">💬</p>
+                    <h3 class="text-xl font-bold text-deep-blue mb-2">促進團隊溝通</h3>
+                    <p>以視覺化圖表作為共同語言，讓不同背景的成員能高效溝通、形成共識。</p>
+                </div>
+                 <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                    <p class="text-4xl mb-4">🔍</p>
+                    <h3 class="text-xl font-bold text-deep-blue mb-2">重建事故現場</h3>
+                    <p>重建一個基於證據的動態事故現場，為找出病灶提供診斷藍圖。</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-20">
+            <h2 class="text-3xl font-bold text-deep-blue text-center mb-10">ECFC 分析五步驟</h2>
+            <div class="relative wrap overflow-hidden p-10 h-full">
+                <div class="border-2-2 absolute border-opacity-20 border-bright-blue h-full border" style="left: 50%"></div>
+                
+                <div class="mb-8 flex justify-between items-center w-full right-timeline">
+                    <div class="order-1 w-5/12"></div>
+                    <div class="z-20 flex items-center order-1 bg-bright-blue shadow-xl w-12 h-12 rounded-full">
+                        <h1 class="mx-auto font-semibold text-lg text-white">1</h1>
+                    </div>
+                    <div class="order-1 bg-white rounded-lg shadow-xl w-5/12 px-6 py-4">
+                        <h3 class="font-bold text-gray-800 text-xl">定義事故範圍邊界</h3>
+                        <p class="text-sm leading-snug tracking-wide text-gray-900 text-opacity-100">明確事故結果，界定調查的時間邊界，並立即保全與收集所有相關證據。</p>
+                    </div>
+                </div>
+
+                <div class="mb-8 flex justify-between flex-row-reverse items-center w-full left-timeline">
+                    <div class="order-1 w-5/12"></div>
+                    <div class="z-20 flex items-center order-1 bg-bright-blue shadow-xl w-12 h-12 rounded-full">
+                        <h1 class="mx-auto text-white font-semibold text-lg">2</h1>
+                    </div>
+                    <div class="order-1 bg-white rounded-lg shadow-xl w-5/12 px-6 py-4">
+                        <h3 class="font-bold text-gray-800 text-xl">識別事件與條件</h3>
+                        <p class="text-sm leading-snug tracking-wide text-gray-900 text-opacity-100">從證據中篩選出發生的「事件或決策」(人、物動作) 與形成的「條件」(狀態)。</p>
+                    </div>
+                </div>
+                
+                <div class="mb-8 flex justify-between items-center w-full right-timeline">
+                    <div class="order-1 w-5/12"></div>
+                    <div class="z-20 flex items-center order-1 bg-bright-blue shadow-xl w-12 h-12 rounded-full">
+                        <h1 class="mx-auto font-semibold text-lg text-white">3</h1>
+                    </div>
+                    <div class="order-1 bg-white rounded-lg shadow-xl w-5/12 px-6 py-4">
+                        <h3 class="font-bold text-gray-800 text-xl">建構時間序列</h3>
+                        <p class="text-sm leading-snug tracking-wide text-gray-900 text-opacity-100">將所有「事件」嚴格按時間先後順序排列，形成事故發展的主幹。</p>
+                    </div>
+                </div>
+
+                <div class="mb-8 flex justify-between flex-row-reverse items-center w-full left-timeline">
+                    <div class="order-1 w-5/12"></div>
+                    <div class="z-20 flex items-center order-1 bg-bright-blue shadow-xl w-12 h-12 rounded-full">
+                        <h1 class="mx-auto text-white font-semibold text-lg">4</h1>
+                    </div>
+                    <div class="order-1 bg-white rounded-lg shadow-xl w-5/12 px-6 py-4">
+                        <h3 class="font-bold text-gray-800 text-xl">連結條件</h3>
+                        <p class="text-sm leading-snug tracking-wide text-gray-900 text-opacity-100">將「條件」連結至其影響的事件，顯示那些可能條件促成了事件的發生。</p>
+                    </div>
+                </div>
+
+                 <div class="mb-8 flex justify-between items-center w-full right-timeline">
+                    <div class="order-1 w-5/12"></div>
+                    <div class="z-20 flex items-center order-1 bg-bright-blue shadow-xl w-12 h-12 rounded-full">
+                        <h1 class="mx-auto font-semibold text-lg text-white">5</h1>
+                    </div>
+                    <div class="order-1 bg-white rounded-lg shadow-xl w-5/12 px-6 py-4">
+                        <h3 class="font-bold text-gray-800 text-xl">審查與修正</h3>
+                        <p class="text-sm leading-snug tracking-wide text-gray-900 text-opacity-100">反覆進行審查討論與證據驗證，動態更新圖表，直到事故真相足夠清晰。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-20 bg-white p-20 rounded-lg shadow-lg">
+            <h2 class="text-3xl font-bold text-deep-blue text-center mb-2">案例分析：堆高機墜落事故</h2>
+            <p class="text-center font-bold text-black-800 mb-10">透過ECFC，可以清晰地看到單純的墜落事故背後，隱藏著多個管理與行為上的缺陷。</p>
+            <div class="ecfc-container">
+                <div class="ecfc-timeline">
+                    <div class="ecfc-event">B駕駛堆高機</div>
+                    <div class="ecfc-arrow"></div>
+                    <div class="ecfc-event" id="event-stand">A站上貨叉</div>
+                    <div class="ecfc-arrow"></div>
+                    <div class="ecfc-event">貨叉上升</div>
+                    <div class="ecfc-arrow"></div>
+                    <div class="ecfc-event">固定/拖拉貨物</div>
+                    <div class="ecfc-arrow"></div>
+                    <div class="ecfc-event">鬆綁繩索</div>
+                    <div class="ecfc-arrow"></div>
+                    <div class="ecfc-event" id="event-fall">A由貨叉墜落</div>
+                    <div class="ecfc-arrow"></div>
+                    <div class="ecfc-event">不治死亡</div>
+                </div>
+                
+                <div class="ecfc-condition" style="top: 220px; left: 220px;">未評估卸貨SOP</div>
+                <div class="condition-line" style="top: 35px; left: 180px; height: 50px; bottom: auto;"></div>
+
+                <div class="condition-line" style="top: 130px; left: 260px; height: 20px; bottom: auto;"></div>
+
+                <div class="ecfc-condition" style="top: 150px; left: 300px;">違反SOP</div>
+                <div class="condition-line" style="top: 195px; left: 340px; height: 10px; bottom: auto;"></div>
+                
+                <div class="ecfc-condition" style="top: 120px; left: 10px; border-style: dashed; border-color: #60A5FA; background-color: #EFF6FF; color: #1E40AF;">A幫忙卸貨(推測)</div>
+
+                <div class="ecfc-condition" style="top: 150px; left: 700px;">未用安全帶</div>
+                 <div class="condition-line" style="top: 195px; left: 760px; height: 10px; bottom: auto;"></div>
+
+               
+                <div class="condition-line" style="top: 130px; left: 860px; height: 20px; bottom: auto;"></div>
+            </div>
+        </section>
+
+
+        <section>
+            <h2 class="text-3xl font-bold text-deep-blue text-center mb-10">關鍵限制與注意事項</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-bold text-red-600 mb-3">⚠️ 使用限制</h3>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li><b>無法直達根本原因：</b>ECFC主要描述「發生了什麼」，而非「為什麼會發生」，需搭配其他工具分析。</li>
+                        <li><b>耗時且需經驗：</b>對複雜事故，繪製準確圖表需要大量時間與調查經驗。</li>
+                        <li><b>避免確認偏誤：</b>調查者需保持客觀，避免只尋找支持自己假設的證據。</li>
+                    </ul>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-bold text-green-600 mb-3">🔑 核心價值</h3>
+                     <ul class="list-disc list-inside space-y-2">
+                        <li><b>結構化事實：</b>將混亂資訊轉為清晰的因果鏈，建立客觀事實基礎。</li>
+                        <li><b>視覺化溝通：</b>一張圖勝過千言萬語，是團隊溝通與報告的最佳工具。</li>
+                        <li><b>預防的起點：</b>清晰呈現可能失效的環節，為進一步分析提供明確資訊與方向。</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div class="bg-page-2 py-1">
+        <div class="container mx-auto px-4 py-12">
+
+            <header class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-deep-blue mb-4">深入應用與實務挑戰</h2>
+                <p class="text-xl text-gray-700">從ECFC圖表出發，探索更深層的事故原因</p>
+            </header>
+
+            <section class="mb-20">
+                <h3 class="text-2xl font-bold text-deep-blue text-center mb-8">ECFC在調查體系中的角色</h3>
+                <div class="bg-white p-8 rounded-lg shadow-lg">
+                    <p class="text-center mb-6">ECFC並非終點，而是通往根本原因的起點。它將混亂的原始數據轉化為結構化的資訊，為後續更專業的分析方法提供清晰的輸入。</p>
+                    <div class="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-4 text-center">
+                        <div class="bg-blue-100 p-4 rounded-lg shadow">
+                            <p class="font-bold text-bright-blue">證據收集</p>
+                            <p class="text-sm">(訪談, 文件, 物證)</p>
+                        </div>
+                        <div class="text-2xl font-bold text-bright-blue transform rotate-90 md:rotate-0">→</div>
+                        <div class="bg-yellow-100 p-4 rounded-lg shadow border-2 border-yellow-400">
+                            <p class="font-bold text-yellow-800">ECFC 建立</p>
+                            <p class="text-sm">(釐清時序與因果)</p>
+                        </div>
+                        <div class="text-2xl font-bold text-bright-blue transform rotate-90 md:rotate-0">→</div>
+                        <div class="flex flex-col space-y-2">
+                            <div class="bg-green-100 p-3 rounded-lg shadow">
+                                <p class="font-bold text-green-800">為何樹分析 (Why-Tree)</p>
+                            </div>
+                            <div class="bg-purple-100 p-3 rounded-lg shadow">
+                                <p class="font-bold text-purple-800">屏障分析 (Barrier Analysis)</p>
+                            </div>
+                            <div class="bg-pink-100 p-3 rounded-lg shadow">
+                                <p class="font-bold text-pink-800">變更分析 (Change Analysis)</p>
+                            </div>
+                        </div>
+                        <div class="text-2xl font-bold text-bright-blue transform rotate-90 md:rotate-0">→</div>
+                        <div class="bg-red-100 p-4 rounded-lg shadow">
+                            <p class="font-bold text-red-800">根本原因 (Root Cause)</p>
+                            <p class="text-sm">(管理系統缺陷)</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="mb-20">
+                <h3 class="text-2xl font-bold text-deep-blue text-center mb-8">釐清關鍵概念：事件 vs. 條件</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-white p-6 rounded-lg shadow-lg">
+                        <h4 class="text-xl font-bold text-bright-blue mb-4">什麼是「事件 (Event)」？</h4>
+                        <p class="mb-4">事件是**動態的**，指一個具體的**動作**或**決策**，它發生在特定的時間點，改變了系統的狀態。</p>
+                        <ul class="list-disc list-inside space-y-2 text-gray-700">
+                            <li><span class="font-semibold">特徵：</span>有明確的執行者、動作、時間點。</li>
+                            <li><span class="font-semibold">回答的問題：</span>「發生了什麼事？」</li>
+                            <li><span class="font-semibold">範例：</span>
+                                <ul class="list-['-_'] list-inside ml-4">
+                                    <li>操作員按下緊急停止按鈕</li>
+                                    <li>閥門因壓力過高而爆裂</li>
+                                    <li>主管決定繼續生產</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-lg">
+                         <h4 class="text-xl font-bold text-bright-blue mb-4">什麼是「條件 (Condition)」？</h4>
+                        <p class="mb-4">條件是**靜態的**，指一個持續存在的**狀態**或**環境**，它為事件的發生提供了背景或原因。</p>
+                        <ul class="list-disc list-inside space-y-2 text-gray-700">
+                            <li><span class="font-semibold">特徵：</span>描述一種狀態，通常沒有明確時間點。</li>
+                            <li><span class="font-semibold">回答的問題：</span>「形成事件當時的可能的情況是怎樣的？」</li>
+                            <li><span class="font-semibold">範例：</span>
+                                <ul class="list-['-_'] list-inside ml-4">
+                                    <li>緊急停止按鈕被護欄擋住</li>
+                                    <li>閥門材質存在金屬疲勞</li>
+                                    <li>公司存在趕工的文化壓力</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                 <div class="bg-white p-6 mt-8 rounded-lg shadow-lg">
+                    <h3 class="text-xl font-bold text-deep-blue text-center mb-4">調查發現的組成分析</h3>
+                    <p class="text-center text-gray-600 mb-4">成功的調查分析往往能揭示出比「事件」還多的「條件」。這意味著調查的焦點從指責個人行為，轉向了改善系統性的背景因素。</p>
+                    <div class="chart-container h-64 md:h-80">
+                        <canvas id="findingsChart"></canvas>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="mb-20">
+                <h3 class="text-2xl font-bold text-deep-blue text-center mb-8">專家技巧：ECFC 製作的常見陷阱</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-red-50 border-l-4 border-red-500 p-6 rounded-r-lg">
+                        <h4 class="text-lg font-bold text-red-700 mb-2">❌ 應避免的作法</h4>
+                        <ul class="space-y-3">
+                            <li><b>將原因與事件混淆：</b>把「操作員疏忽」(一個判斷/條件) 當成一個「事件」放入主時間軸。</li>
+                            <li><b>過早下結論：</b>在證據不足的情況下，就將推測當作事實繪入圖中，且未加標示。</li>
+                            <li><b>忽略次要事件鏈：</b>只關注主事故線，忽略了可能同時發生的、有影響的旁支事件。</li>
+                            <li><b>描述含糊不清：</b>使用「可能」、「大概」等模糊詞語，或事件描述缺乏具體的人、事、物。</li>
+                        </ul>
+                    </div>
+                    <div class="bg-green-50 border-l-4 border-green-500 p-6 rounded-r-lg">
+                        <h4 class="text-lg font-bold text-green-700 mb-2">✅ 建議的作法</h4>
+                        <ul class="space-y-3">
+                            <li><b>嚴格區分動靜：</b>事件是動作 (動)，條件是狀態 (靜)。時刻以此為標準檢驗。</li>
+                            <li><b>以證據為基礎：</b>圖中的每一個元素都應能對應到一份具體的證據 (訪談紀錄、照片、數據等)。</li>
+                            <li><b>保持圖表動態更新：</b>將ECFC視為「活文件」，隨著調查進展不斷迭代修正。</li>
+                            <li><b>使用精確語言：</b>描述力求精確，例如「閥門開啟50%」而非「閥門被打開」。</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <section>
+                <h3 class="text-2xl font-bold text-deep-blue text-center mb-8">從分析到行動：ECFC 的最終價值</h3>
+                <p class="text-center text-black-600 max-w-3xl mx-auto mb-8">一份高品質的ECFC能清晰地指向系統中的薄弱環節，從而引導出具體、有效的改善建議。其最終價值在於推動組織學習與系統性改進，而不僅僅是處理單一事故。</p>
+                <div class="bg-white p-8 rounded-lg shadow-lg">
+                    <h4 class="text-xl font-bold text-deep-blue text-center mb-4">ECFC 洞見所驅動的改善行動分佈</h4>
+                    <div class="chart-container h-80 md:h-96">
+                        <canvas id="actionChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <footer class="text-center py-6 bg-deep-blue text-white mt-12">
+        <p>資料來源：事故調查制度實務指南 & 相關文獻</p>
+        <p class="text-sm mt-1">Infographic by Canvas Infographics © 2025</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const brilliantBluesPalette = {
+                deepBlue: '#00446A',
+                brightBlue: '#0074B2',
+                lightBlue: '#00A4E5',
+                accentAqua: '#00D4D4',
+                background: '#F0F8FF'
+            };
+
+            const findingsCtx = document.getElementById('findingsChart').getContext('2d');
+            new Chart(findingsCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['事件 (Events)', '條件 (Conditions)'],
+                    datasets: [{
+                        label: '調查發現組成',
+                        data: [30, 70],
+                        backgroundColor: [
+                            brilliantBluesPalette.lightBlue,
+                            brilliantBluesPalette.brightBlue
+                        ],
+                        borderColor: [
+                            brilliantBluesPalette.background
+                        ],
+                        borderWidth: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        title: {
+                            display: false,
+                            text: '調查發現的組成分析'
+                        },
+                        tooltip: {
+                            callbacks: {
+                                title: function(tooltipItems) {
+                                    const item = tooltipItems[0];
+                                    let label = item.chart.data.labels[item.dataIndex];
+                                    if (Array.isArray(label)) {
+                                      return label.join(' ');
+                                    } else {
+                                      return label;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            const actionCtx = document.getElementById('actionChart').getContext('2d');
+            new Chart(actionCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['程序更新', '訓練強化', '工程控制', '管理系統變革'],
+                    datasets: [{
+                        label: '改善行動數量',
+                        data: [65, 80, 45, 90],
+                        backgroundColor: [
+                            brilliantBluesPalette.lightBlue,
+                            brilliantBluesPalette.brightBlue,
+                            brilliantBluesPalette.accentAqua,
+                            brilliantBluesPalette.deepBlue
+                        ],
+                        borderColor: [
+                            brilliantBluesPalette.lightBlue,
+                            brilliantBluesPalette.brightBlue,
+                            brilliantBluesPalette.accentAqua,
+                            brilliantBluesPalette.deepBlue
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: '建議措施數量'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        title: {
+                            display: false,
+                            text: 'ECFC 洞見所驅動的改善行動分佈'
+                        },
+                        tooltip: {
+                            callbacks: {
+                                title: function(tooltipItems) {
+                                    const item = tooltipItems[0];
+                                    let label = item.chart.data.labels[item.dataIndex];
+                                    if (Array.isArray(label)) {
+                                      return label.join(' ');
+                                    } else {
+                                      return label;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
