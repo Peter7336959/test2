@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>資訊圖表：為何需要暴露評估模型？</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+        }
+        .infographic-card {
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .infographic-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .icon-bg {
+            background-color: #edf2f7;
+        }
+        .text-header {
+            color: #1a202c;
+        }
+        .text-subheader {
+            color: #2d3748;
+        }
+        .text-body {
+            color: #4a5568;
+        }
+        .bg-accent {
+            background-color: #3182ce;
+        }
+        .text-accent {
+            color: #3182ce;
+        }
+        .border-accent {
+            border-color: #3182ce;
+        }
+        .text-red-title {
+            color: #c53030;
+        }
+        @media print {
+            .page-break {
+                page-break-before: always;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <div class="container mx-auto p-4 md:p-8">
+        <!-- Header Section -->
+        <header class="text-center mb-12">
+            <h1 class="text-3xl md:text-5xl font-bold text-header mb-2">解鎖暴露評估新視界</h1>
+            <p class="text-lg md:text-2xl text-red-title font-bold">為何需要暴露評估模型 (Exposure Modeling)？</p>
+        </header>
+
+        <main class="space-y-12">
+            <!-- Page 1 Content -->
+            <!-- Section 1: The Challenge -->
+            <section class="infographic-card rounded-xl p-6 md:p-8">
+                <h2 class="text-2xl font-bold text-center text-header mb-6">挑戰：傳統採樣的極限</h2>
+                <div class="grid md:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <div class="flex items-center mb-4">
+                            <div class="icon-bg p-3 rounded-full mr-4">
+                                <!-- Magnifying glass with question mark icon -->
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 10a.01.01 0 01.01-.01V10a.01.01 0 01-.01.01zm0-4a2 2 0 110 4 2 2 0 010-4z" />
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-semibold text-subheader">少量採樣數據的迷思</h3>
+                        </div>
+                        <p class="text-body mb-4">僅憑少量（如4次）空氣採樣，即使結果都低於OEL，我們也無法很有信心地判斷整個族群的暴露是安全的。</p>
+                        <div class="bg-gray-100 p-4 rounded-lg">
+                            <p class="font-semibold text-gray-700">統計學告訴我們：</p>
+                            <ul class="list-disc list-inside text-body mt-2 space-y-1">
+                                <li>只有 <span class="font-bold text-accent">5%</span> 的信心，能說90%的暴露低於OEL。</li>
+                                <li>只有 <span class="font-bold text-accent">1%</span> 的信心，能說95%的暴露低於OEL。</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-lg font-medium text-subheader mb-2">4次採樣的信心度</p>
+                        <div class="w-full bg-gray-200 rounded-full h-6">
+                            <div class="bg-accent h-6 rounded-full text-center text-white text-sm flex items-center justify-center" style="width: 5%;">5%</div>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-2">對於「90%暴露 < OEL」的信心程度</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 2: The Solution -->
+            <section class="infographic-card rounded-xl p-6 md:p-8">
+                <h2 class="text-2xl font-bold text-center text-header mb-6">解決方案：導入暴露評估模型</h2>
+                <div class="grid md:grid-cols-2 gap-8 items-center">
+                     <div class="text-center">
+                        <!-- Diagram of model -->
+                        <div class="border-2 border-dashed border-gray-300 rounded-lg p-4">
+                            <div class="flex justify-around items-center mb-4">
+                                <div class="text-center">
+                                    <div class="icon-bg p-3 rounded-full mx-auto mb-2 w-16 h-16 flex items-center justify-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.363-.472M19.428 15.428a2 2 0 01-2.228 2.228l-.472 2.363a2 2 0 01-.547 1.022l-2.363 2.363a2 2 0 01-2.828 0l-2.363-2.363a2 2 0 01-1.022-.547l-.472-2.363a2 2 0 012.228-2.228l2.363-.472a2 2 0 011.022.547L19.428 15.428zM4.572 4.572a2 2 0 00-2.228 2.228l.472 2.363a2 2 0 00.547 1.022l2.363 2.363a2 2 0 002.828 0l2.363-2.363a2 2 0 001.022-.547l.472-2.363a2 2 0 00-2.228-2.228L4.572 4.572z" /></svg>
+                                    </div>
+                                    <p class="font-semibold text-sm">化學品資訊</p>
+                                </div>
+                                <div class="text-center">
+                                    <div class="icon-bg p-3 rounded-full mx-auto mb-2 w-16 h-16 flex items-center justify-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>
+                                    </div>
+                                    <p class="font-semibold text-sm">空間資訊</p>
+                                </div>
+                            </div>
+                            <div class="flex justify-center my-2"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" /></svg></div>
+                            <div class="bg-accent text-white p-4 rounded-lg text-center">
+                                <p class="font-bold text-lg">物理化學模型</p><p class="text-xs">(Physical-Chemical Model)</p>
+                            </div>
+                             <div class="flex justify-center my-2"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" /></svg></div>
+                            <div class="text-center">
+                                <div class="icon-bg p-3 rounded-full mx-auto mb-2 w-16 h-16 flex items-center justify-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
+                                </div>
+                                <p class="font-semibold text-sm">估算濃度 (C)</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex items-center mb-4">
+                            <div class="icon-bg p-3 rounded-full mr-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>
+                            </div>
+                            <h3 class="text-xl font-semibold text-subheader">模型的價值</h3>
+                        </div>
+                        <p class="text-body">模型利用物理化學第一原理，提供了一個**量化、可重複、有科學依據**的工具來估算濃度，彌補了單純依賴直覺判斷或少量採樣的不足。</p>
+                        <ul class="mt-4 space-y-2 text-body">
+                            <li class="flex items-start"><span class="text-accent font-bold mr-2">✔</span> 支持專業判斷，並提供書面佐證。</li>
+                            <li class="flex items-start"><span class="text-accent font-bold mr-2">✔</span> 幫助決定採樣優先序，將資源用在刀口上。</li>
+                            <li class="flex items-start"><span class="text-accent font-bold mr-2">✔</span> 補充有限的採樣數據，更全面理解暴露輪廓。</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: The Superpowers -->
+            <section>
+                <h2 class="text-2xl font-bold text-center text-header mb-8">模型的超能力：超越時間的限制</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="infographic-card rounded-xl p-6 text-center">
+                         <div class="icon-bg p-4 rounded-full mx-auto mb-4 w-20 h-20 flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-subheader mb-2">評估過去</h3>
+                        <p class="text-body">重建歷史暴露情境，用於訴訟或流行病學研究。</p>
+                    </div>
+                    <div class="infographic-card rounded-xl p-6 text-center">
+                         <div class="icon-bg p-4 rounded-full mx-auto mb-4 w-20 h-20 flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-subheader mb-2">評估現在</h3>
+                        <p class="text-body">輔助當前的暴露判斷，決定採樣與控制的優先順序。</p>
+                    </div>
+                    <div class="infographic-card rounded-xl p-6 text-center">
+                         <div class="icon-bg p-4 rounded-full mx-auto mb-4 w-20 h-20 flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7.014A8.003 8.003 0 0112 3c2.393 0 4.564.93 6.182 2.449C20.5 7.551 21 10 21 10s-1.343 1.657-3.343 3.657z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.879 16.121A3 3 0 1012.001 12h-1.122L9.879 16.121z" /></svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-subheader mb-2">預測未來</h3>
+                        <p class="text-body">在製程變更前預測暴露變化，做到事前預防。</p>
+                    </div>
+                </div>
+            </section>
+            
+            <div class="page-break my-12"></div>
+
+            <!-- Page 2 Content -->
+            <header class="text-center mb-12 pt-12">
+                <h1 class="text-3xl md:text-5xl font-bold text-header mb-2">深入理解模型</h1>
+                <p class="text-lg md:text-2xl text-subheader">理論 vs. 數據，以及輸入品質的重要性</p>
+            </header>
+
+            <!-- Section 4: Model Types -->
+            <section class="infographic-card rounded-xl p-6 md:p-8">
+                <h2 class="text-2xl font-bold text-center text-header mb-8">模型的兩大類型：理論 vs. 數據</h2>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Physical-Chemical Model -->
+                    <div class="border border-gray-200 rounded-lg p-6">
+                        <h3 class="text-xl font-semibold text-subheader mb-3 text-center">物理化學模型</h3>
+                        <p class="text-center text-sm text-accent font-medium mb-4">（本書焦點）</p>
+                        <div class="flex justify-center mb-4">
+                             <div class="icon-bg p-4 rounded-full w-20 h-20 flex items-center justify-center">
+                                <!-- Engineer/Blueprint icon -->
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2 1M4 7l2-1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5" /></svg>
+                            </div>
+                        </div>
+                        <p class="text-body text-center mb-4">如同**工程師**，根據物理化學第一原理進行理論計算。</p>
+                        <ul class="list-disc list-inside text-body space-y-2">
+                            <li><b>核心原理：</b>物理定律、化學性質。</li>
+                            <li><b>所需資訊：</b>逸散率(G)、換氣率(Q)、空間體積(V)等。</li>
+                            <li><b>優點：</b>適用於全新或無歷史數據的情境。</li>
+                        </ul>
+                    </div>
+                    <!-- Statistical Model -->
+                    <div class="border border-gray-200 rounded-lg p-6">
+                        <h3 class="text-xl font-semibold text-subheader mb-3 text-center">統計/知識庫模型</h3>
+                        <p class="text-center text-sm text-accent font-medium mb-4">（如 ART Tool）</p>
+                        <div class="flex justify-center mb-4">
+                            <div class="icon-bg p-4 rounded-full w-20 h-20 flex items-center justify-center">
+                                <!-- Doctor/Database icon -->
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10l2-2h8a1 1 0 001-1z" /></svg>
+                            </div>
+                        </div>
+                        <p class="text-body text-center mb-4">如同**醫師**，根據您的症狀與大量歷史病歷進行經驗比對。</p>
+                        <ul class="list-disc list-inside text-body space-y-2">
+                            <li><b>核心原理：</b>大數據、統計學。</li>
+                            <li><b>所需資訊：</b>龐大的歷史採樣數據庫、作業情境參數。</li>
+                            <li><b>優點：</b>能反映相似情境下的真實世界暴露變異。</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 5: The Reality Check -->
+            <section class="infographic-card rounded-xl p-6 md:p-8">
+                <h2 class="text-2xl font-bold text-center text-header mb-6">模型的基石：輸入的品質決定輸出的品質</h2>
+                <p class="text-center text-body max-w-3xl mx-auto mb-8">"Garbage In, Garbage Out." 模型的準確度高度依賴輸入參數的品質。不準確的輸入只會得到不準確的輸出。</p>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Scenario 1: Safe -->
+                    <div class="text-center bg-gray-100 p-6 rounded-lg">
+                        <h4 class="font-semibold text-lg text-subheader mb-2">逸散率 (G)</h4>
+                        <p class="text-body text-sm mb-4">Generation Rate</p>
+                        <p class="text-body">物質進入空氣的速率，通常是**最難估計**且**影響最大**的參數。可透過質量平衡、文獻查找或實驗測定來取得。</p>
+                    </div>
+                    <!-- Scenario 2: Uncertain -->
+                    <div class="text-center bg-gray-100 p-6 rounded-lg">
+                        <h4 class="font-semibold text-lg text-subheader mb-2">換氣率 (Q)</h4>
+                        <p class="text-body text-sm mb-4">Ventilation Rate</p>
+                        <p class="text-body">新鮮空氣進入空間的速率，決定了污染物被稀釋的速度。可透過現場量測、設計圖說或經驗值來取得。</p>
+                    </div>
+                </div>
+            </section>
+
+             <!-- Section 6: The Reality Check -->
+            <section class="infographic-card rounded-xl p-6 md:p-8">
+                <h2 class="text-2xl font-bold text-center text-header mb-6">現實檢驗：多接近才算夠接近？</h2>
+                <p class="text-center text-body max-w-3xl mx-auto mb-8">模型的價值不在於完美預測，而在於其結果與OEL的相對距離，是否足以讓我們做出可靠的決策。</p>
+                <div class="space-y-6">
+                    <!-- Scenario 1: Safe -->
+                    <div>
+                        <h4 class="font-semibold text-lg text-green-600 mb-2">情境 A：OEL = 100 mg/m³</h4>
+                        <div class="relative pt-6">
+                            <div class="w-full bg-gray-200 rounded-full h-2.5"></div>
+                            <div class="absolute top-0 text-center" style="left: 100%;">
+                                <div class="font-bold">OEL</div>
+                                <div class="text-sm">100</div>
+                                <div class="h-4 w-0.5 bg-gray-400 mx-auto"></div>
+                            </div>
+                            <div class="absolute top-6 w-1/4 bg-blue-300 rounded-lg h-8 flex items-center justify-center" style="left: 10%;">
+                                <span class="text-sm font-medium text-blue-800">暴露分佈</span>
+                            </div>
+                        </div>
+                        <p class="mt-10 text-center bg-green-100 text-green-800 p-3 rounded-lg"><b>結論：</b>暴露分佈遠低於OEL，可安心判斷為「可接受」。</p>
+                    </div>
+                    <!-- Scenario 2: Uncertain -->
+                    <div>
+                        <h4 class="font-semibold text-lg text-yellow-600 mb-2">情境 B：OEL = 30 mg/m³</h4>
+                        <div class="relative pt-6">
+                            <div class="w-full bg-gray-200 rounded-full h-2.5"></div>
+                            <div class="absolute top-0 text-center" style="left: 30%;">
+                                <div class="font-bold">OEL</div>
+                                <div class="text-sm">30</div>
+                                <div class="h-4 w-0.5 bg-gray-400 mx-auto"></div>
+                            </div>
+                            <div class="absolute top-6 w-1/4 bg-blue-300 rounded-lg h-8 flex items-center justify-center" style="left: 10%;">
+                                <span class="text-sm font-medium text-blue-800">暴露分佈</span>
+                            </div>
+                        </div>
+                        <p class="mt-10 text-center bg-yellow-100 text-yellow-800 p-3 rounded-lg"><b>結論：</b>暴露分佈與OEL重疊，為「不確定」狀態，需收集更多資訊。</p>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="mt-12 text-center border-t-2 border-accent pt-6">
+            <p class="text-xl font-bold text-header">模型 + 採樣 + 專業判斷 = 更強大的暴露評估</p>
+            <p class="text-body mt-2">暴露評估模型是您不可或缺的專業夥伴！</p>
+            <div class="mt-4 text-sm text-gray-500">
+                <p>製作者：Peter Ho</p>
+                <p>日期：2025年8月3日</p>
+            </div>
+        </footer>
+
+    </div>
+
+</body>
+</html>

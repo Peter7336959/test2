@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<style type="text/css">
+.inline {
+  background-color: #f7f7f7;
+  border:solid 1px #B0B0B0;
+}
+.error {
+	font-weight: bold;
+	color: #FF0000;
+}
+.warning {
+	font-weight: bold;
+}
+.message {
+	font-style: italic;
+}
+.source, .output, .warning, .error, .message {
+	padding: 0 1em;
+  border:solid 1px #F7F7F7;
+}
+.source {
+  background-color: #f5f5f5;
+}
+.left {
+  text-align: left;
+}
+.right {
+  text-align: right;
+}
+.center {
+  text-align: center;
+}
+.hl.num {
+  color: #AF0F91;
+}
+.hl.sng {
+  color: #317ECC;
+}
+.hl.com {
+  color: #AD95AF;
+  font-style: italic;
+}
+.hl.opt {
+  color: #000000;
+}
+.hl.def {
+  color: #585858;
+}
+.hl.kwa {
+  color: #295F94;
+  font-weight: bold;
+}
+.hl.kwb {
+  color: #B05A65;
+}
+.hl.kwc {
+  color: #55aa55;
+}
+.hl.kwd {
+  color: #BC5A65;
+  font-weight: bold;
+}
+</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>職衛EA模型基礎：資訊蒐集</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+        }
+        .chart-container {
+            position: relative;
+            margin: auto;
+            height: 40vh;
+            width: 100%;
+            max-width: 600px;
+            max-height: 400px;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <!-- Color Palette: Brilliant Blues -->
+
+    <div class="container mx-auto p-4 md:p-8">
+
+        <!-- Header Section -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-bold text-[#003f5c] mb-2">職衛EA模型基礎</h1>
+            <p class="mt-4 max-w-3xl mx-auto text-lg text-gray-600">
+                成功的暴露評估模型，始於鉅細靡遺的資訊蒐集。模型的準確性完全取決於輸入資訊的品質——也就是所謂的「垃圾進，垃圾出」。
+            </p>
+        </header>
+
+        <!-- Main Grid Layout -->
+        <main class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+            <!-- Pillar 1: Chemical Information -->
+            <section class="lg:col-span-3 bg-white rounded-lg shadow-lg p-6">
+                <h2 class="text-3xl font-bold text-[#955196] mb-4 text-center">支柱一：化學物質資訊 (The Source)</h2>
+                <p class="text-center mb-6 text-gray-700">此階段的核心是找出污染物的**逸散率 (Generation Rate, G)**，也就是它進入空氣的速度。這是模型中最關鍵也最具挑戰性的參數。</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="border-l-4 border-[#dd5182] p-4 bg-red-50 rounded">
+                        <h3 class="font-bold text-xl mb-2 text-[#dd5182]">質量平衡法 (Mass Balance)</h3>
+                        <p>透過物料的「總消耗量」減去「回收量」與「成品附著量」，來反推出逸散到空氣中的量。此方法適用於物料衡算清晰的製程。</p>
+                    </div>
+                    <div class="border-l-4 border-[#ff6e54] p-4 bg-orange-50 rounded">
+                        <h3 class="font-bold text-xl mb-2 text-[#ff6e54]">逸散因子/模式 (Emission Factors)</h3>
+                        <p>當無法進行質量平衡時，可參考文獻中針對特定製程（如焊接、印刷）已建立的逸散數據或數學模型，進行快速估算。</p>
+                    </div>
+                </div>
+                <div class="mt-8">
+                    <h3 class="text-2xl font-bold text-center mb-2 text-[#444e86]">逸散率比較：不同製程的巨大差異</h3>
+                    <p class="text-center text-gray-600 mb-4">以下圖表顯示，不同製程的逸散率可能相差數十倍，凸顯了準確估算的重要性。</p>
+                    <div class="chart-container">
+                        <canvas id="generationRateChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Pillar 2: Airspace Information -->
+            <section class="lg:col-span-3 bg-white rounded-lg shadow-lg p-6">
+                <h2 class="text-3xl font-bold text-[#955196] mb-4 text-center">支柱二：空間資訊 (The Environment)</h2>
+                <p class="text-center mb-6 text-gray-700">空間的體積 (V) 與通風 (Q) 決定了污染物的稀釋與移除效率，直接影響最終濃度。</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <h3 class="font-bold text-xl mb-2 text-[#003f5c]">空間體積 (V) & 空氣混合</h3>
+                        <p class="mb-4">計算體積時，別忘了扣除大型設備佔據的**實佔體積**。此外，真實世界的濃度並非均勻，我們必須對空氣混合情況做出假設：</p>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li><strong class="text-[#444e86]">完全混合 (Well-Mixed):</strong> 假設整個房間濃度均勻，提供「平均濃度」估計值。</li>
+                            <li><strong class="text-[#955196]">二區模式 (Two-Zone):</strong> 將空間分為高濃度的「近場」與低濃度的「遠場」，更能反映源邊作業情境。</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold text-center mb-2 text-[#444e86]">通風量 (Q) 的數據來源優先序</h3>
+                        <p class="text-center text-gray-600 mb-4">獲取通風量數據時，應遵循以下優先順序，以確保模型的準確性。</p>
+                        <div class="chart-container h-80 max-h-80">
+                            <canvas id="ventilationSourceChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Pillar 3: Worker Activity -->
+            <section class="lg:col-span-3 bg-white rounded-lg shadow-lg p-6">
+                <h2 class="text-3xl font-bold text-[#955196] mb-4 text-center">支柱三：勞工活動 (The Human Factor)</h2>
+                <p class="text-center mb-6 text-gray-700">**暴露 = 濃度 × 時間**。相同的環境，不同的工作模式，會導致截然不同的個人暴露量。這是將環境濃度轉化為個人暴露的關鍵一步。</p>
+                <h3 class="text-2xl font-bold text-center mb-2 text-[#444e86]">活動模式如何決定實際暴露？</h3>
+                <p class="text-center text-gray-600 mb-4">假設近場濃度為 50 mg/m³，遠場為 5 mg/m³。下圖比較了兩位勞工在 8 小時內不同的時間分配。</p>
+                <div class="chart-container">
+                    <canvas id="workerActivityChart"></canvas>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8 text-center">
+                    <div class="bg-blue-100 p-6 rounded-lg">
+                        <h4 class="font-bold text-lg text-[#003f5c]">勞工 A 的暴露結果</h4>
+                        <p class="text-5xl font-bold text-[#444e86] my-2">16.0</p>
+                        <p class="text-lg text-gray-700">mg/m³ (TWA-8)</p>
+                    </div>
+                    <div class="bg-pink-100 p-6 rounded-lg">
+                        <h4 class="font-bold text-lg text-[#955196]">勞工 B (高效率) 的暴露結果</h4>
+                        <p class="text-5xl font-bold text-[#dd5182] my-2">8.4</p>
+                        <p class="text-lg text-gray-700">mg/m³ (TWA-8)</p>
+                    </div>
+                </div>
+                 <p class="text-center mt-6 text-gray-700 font-semibold">結論：僅因工作習慣不同，勞工B的暴露量幾乎只有勞工A的一半！</p>
+            </section>
+            
+            <!-- Flowchart Section -->
+            <section class="lg:col-span-3 bg-white rounded-lg shadow-lg p-6">
+                <h2 class="text-3xl font-bold text-[#955196] mb-6 text-center">評估的迭代流程</h2>
+                <p class="text-center mb-8 text-gray-700">資訊蒐集與模擬評估是一個動態的決策過程，而非一次性的計算。</p>
+                <div class="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-4 text-center">
+                    <div class="p-4 bg-gray-200 rounded-lg shadow">
+                        <p class="font-bold">1. 粗略估算</p>
+                        <p class="text-sm">使用現有資訊</p>
+                    </div>
+                    <div class="text-2xl font-bold text-gray-400">→</div>
+                    <div class="p-4 bg-blue-200 rounded-lg shadow">
+                        <p class="font-bold">2. 決策判斷</p>
+                        <p class="text-sm">結果是否足夠明確？</p>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="text-2xl font-bold text-gray-400">↘</div>
+                         <div class="text-2xl font-bold text-gray-400">↙</div>
+                    </div>
+                    <div class="flex flex-col space-y-4">
+                         <div class="p-4 bg-green-200 rounded-lg shadow">
+                            <p class="font-bold">是 → 記錄並完成</p>
+                        </div>
+                        <div class="p-4 bg-yellow-200 rounded-lg shadow">
+                            <p class="font-bold">否 → 蒐集更多資訊</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Reference Table Section -->
+            <section class="lg:col-span-3 bg-white rounded-lg shadow-lg p-6">
+                <h2 class="text-3xl font-bold text-[#955196] mb-6 text-center">快速參考：文獻建議換氣率 (ACH)</h2>
+                <p class="text-center mb-6 text-gray-700">當無法量測且沒有工程文件時，可參考以下估計值。</p>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full bg-white border">
+                        <thead class="bg-[#003f5c] text-white">
+                            <tr>
+                                <th class="py-3 px-4 text-left">場所類型</th>
+                                <th class="py-3 px-4 text-left">參考換氣率 (ACH)</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-gray-700">
+                            <tr class="border-b">
+                                <td class="py-3 px-4">一般工廠</td>
+                                <td class="py-3 px-4">2 – 4</td>
+                            </tr>
+                            <tr class="border-b bg-gray-50">
+                                <td class="py-3 px-4">有燻煙/濕氣的工廠</td>
+                                <td class="py-3 px-4">10 – 15</td>
+                            </tr>
+                            <tr class="border-b">
+                                <td class="py-3 px-4">自然通風住宅 (門窗緊閉)</td>
+                                <td class="py-3 px-4">~ 0.5</td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td class="py-3 px-4">自然通風教室 (門打開)</td>
+                                <td class="py-3 px-4">~ 3.6</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="text-center mt-12 py-6 border-t border-gray-300">
+            <p class="text-gray-600">製作者：Peter Ho</p>
+            <p class="text-gray-500 text-sm">日期：2025年8月3日</p>
+        </footer>
+    </div>
+
+    <script>
+        const brilliantBlues = ['#003f5c', '#444e86', '#955196', '#dd5182', '#ff6e54', '#ffa600'];
+
+        function wrapLabel(str, maxLen) {
+            if (str.length <= maxLen) {
+                return str;
+            }
+            const words = str.split(' ');
+            const lines = [];
+            let currentLine = '';
+            for (const word of words) {
+                if ((currentLine + word).length > maxLen) {
+                    lines.push(currentLine.trim());
+                    currentLine = '';
+                }
+                currentLine += word + ' ';
+            }
+            lines.push(currentLine.trim());
+            return lines;
+        }
+
+        const tooltipTitleCallback = function(tooltipItems) {
+            const item = tooltipItems[0];
+            let label = item.chart.data.labels[item.dataIndex];
+            if (Array.isArray(label)) {
+                return label.join(' ');
+            } else {
+                return label;
+            }
+        };
+        
+        const commonChartOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    labels: {
+                        color: '#374151',
+                        font: {
+                           size: 14
+                        }
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        title: tooltipTitleCallback
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    ticks: { color: '#374151' },
+                    grid: { color: '#e5e7eb' }
+                },
+                x: {
+                    ticks: { color: '#374151' },
+                    grid: { color: '#e5e7eb' }
+                }
+            }
+        };
+
+        // Chart 1: Generation Rate Chart
+        const genRateCtx = document.getElementById('generationRateChart').getContext('2d');
+        new Chart(genRateCtx, {
+            type: 'bar',
+            data: {
+                labels: ['清洗溶劑製程', '銅電鍍製程'],
+                datasets: [{
+                    label: '逸散率 (mg/min)',
+                    data: [3629, 92],
+                    backgroundColor: [brilliantBlues[3], brilliantBlues[4]],
+                    borderColor: [brilliantBlues[3], brilliantBlues[4]],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                ...commonChartOptions,
+                indexAxis: 'y',
+                scales: {
+                    x: {
+                        type: 'logarithmic',
+                        ticks: { color: '#374151' },
+                        grid: { color: '#e5e7eb' },
+                        title: {
+                            display: true,
+                            text: '逸散率 (對數座標)',
+                            color: '#4b5563'
+                        }
+                    },
+                    y: {
+                        ticks: { color: '#374151' },
+                        grid: { color: '#e5e7eb' }
+                    }
+                }
+            }
+        });
+
+        // Chart 2: Ventilation Source Chart
+        const ventSourceCtx = document.getElementById('ventilationSourceChart').getContext('2d');
+        new Chart(ventSourceCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['現場量測 (最準確)', '工程文件 (次佳)', '參考文獻 (估算用)'],
+                datasets: [{
+                    label: '數據來源優先序',
+                    data: [60, 30, 10],
+                    backgroundColor: [brilliantBlues[0], brilliantBlues[1], brilliantBlues[2]],
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                 responsive: true,
+                 maintainAspectRatio: false,
+                 plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            color: '#374151',
+                            font: {
+                               size: 14
+                            }
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            title: tooltipTitleCallback
+                        }
+                    }
+                }
+            }
+        });
+
+        // Chart 3: Worker Activity Chart
+        const workerActivityCtx = document.getElementById('workerActivityChart').getContext('2d');
+        new Chart(workerActivityCtx, {
+            type: 'bar',
+            data: {
+                labels: ['勞工 A', '勞工 B (高效率)'],
+                datasets: [
+                    {
+                        label: '近場作業時間 (min)',
+                        data: [120, 40],
+                        backgroundColor: brilliantBlues[3],
+                    },
+                    {
+                        label: '遠場作業時間 (min)',
+                        data: [330, 410],
+                        backgroundColor: brilliantBlues[1],
+                    },
+                    {
+                        label: '休息時間 (min)',
+                        data: [30, 30],
+                        backgroundColor: brilliantBlues[5],
+                    }
+                ]
+            },
+            options: {
+                ...commonChartOptions,
+                scales: {
+                    x: {
+                        stacked: true,
+                        ticks: { color: '#374151' },
+                        grid: { display: false }
+                    },
+                    y: {
+                        stacked: true,
+                        ticks: { color: '#374151' },
+                        grid: { color: '#e5e7eb' },
+                        title: {
+                            display: true,
+                            text: '時間 (分鐘)',
+                            color: '#4b5563'
+                        }
+                    }
+                }
+            }
+        });
+
+    </script>
+    <!-- NEITHER Mermaid JS NOR SVG were used in this output. All charts are rendered via Chart.js on Canvas, and diagrams are built with structured HTML/CSS. -->
+</body>
+</html>
