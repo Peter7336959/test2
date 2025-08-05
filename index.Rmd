@@ -9,7 +9,7 @@ output:
     toc_float: true
     #toc_depth: 2
     lib_dir: libs
-    theme: spacelab
+    theme: lumen
     #theme: !expr sample(c( "united",  "flatly", "lumen",  "spacelab"), 1)
     highlight: default
     #(available themes are "default", "tango", "pygments", "kate", `monochrome`, `espresso`, `zenburn`, `haddock`, `breezedark`, `textmate`, `arrow`, or `rstudio`).
@@ -46,9 +46,12 @@ output:
 (**報名48人**，甄選47人) **地點：高市勞檢處**
 
 > 已順利辦理完成，感謝大家參與。
-敬請各組將演練完成檔案，於0811(週一)前上傳雲端網址分享(尊重您的分享意願)，檔案名稱為"南區第 _ 組"。[點此進入雲端網址](https://drive.google.com/drive/folders/1qNmMeDNzjll6HV5s_ax4_kbnzXCXeYcF?usp=sharing)
-另也於三、演練職災事故個案(實例)區，提供分析參考，供分組學員參閱一週。
 
+> 敬請各組將演練完成檔案，於0811(週一)前上傳雲端網址分享(尊重您的分享意願)，檔案名稱為"南區第 _ 組"。[點此進入雲端網址](https://drive.google.com/drive/folders/1qNmMeDNzjll6HV5s_ax4_kbnzXCXeYcF?usp=sharing)
+
+
+> 另也於三、演練職災事故個案(實例)區，提供分析參考，供分組學員參閱一週。
+打鐵趁熱，趁勝追擊 Strike While the Iron Is Hot....
 
 ```{r echo = FALSE, warning=FALSE, cache=TRUE,error=FALSE, message=FALSE}
 library(tidyverse)
