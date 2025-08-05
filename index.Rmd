@@ -39,40 +39,44 @@ output:
 - 0727：若遇有颱風將至或重大事故等，延期或變更事宜將於此處公告。
 - 0727：宣導會報名成功名單 (點選各區查看確認)
 
+---------------------------------------------------------
 
 ### 南區 ***(0805週二)***
 
-(**報名48人**，甄選47人) **地點：高雄市政府勞工局勞動檢查處(高雄市鹽埕區中正四路274號4樓)**
+(**報名48人**，甄選47人) **地點：高市勞檢處**
+
+> 已順利辦理完成，感謝大家參與。
+敬請各組將演練完成檔案，於0811(週一)前上傳雲端網址，檔案名稱為"南區第 _ 組"。[點此進入雲端網址](https://drive.google.com/drive/folders/1qNmMeDNzjll6HV5s_ax4_kbnzXCXeYcF?usp=sharing)
 
 ```{r echo = FALSE, warning=FALSE, cache=TRUE,error=FALSE, message=FALSE}
 library(tidyverse)
 library(readxl)
-宣導會名單 <- read_excel("報名資訊/宣導會名單_錄取.xlsx",
-col_types = c("skip", "skip", "skip",
-"skip", "skip", "text", "text", "text",
-"text", "text", "text", "skip"))
+#宣導會名單 <- read_excel("報名資訊/宣導會名單_錄取.xlsx",
+#col_types = c("skip", "skip", "skip",
+#"skip", "skip", "text", "text", "text",
+#"text", "text", "text", "skip"))
 
-宣導會名單 <- 宣導會名單 %>% rename(姓名匿稱=name, 公司匿稱=cop)
-library(kableExtra)
-宣導會名單 %>% filter(確認場次=="南區8月05日" & 亂數抽籤=="y") %>% select(-2) %>%
-  kbl() %>%
-  kable_classic(bootstrap_options = c("striped", "hover"), 
-    position =  "left", fixed_thead = T,full_width = F) %>%
-    row_spec(0, bold = T)%>%
-    column_spec(1, bold = T )%>%
-    column_spec(2, bold = T, background = "lightyellow")%>%
-    pack_rows("第1組", 1, 4,label_row_css = "background-color: #666; color: #fff;") %>%
-    pack_rows("第2組", 5, 8,label_row_css = "background-color: #666; color: #fff;") %>%
-    pack_rows("第3組", 9, 13,label_row_css = "background-color: #666; color: #fff;") %>%
-    pack_rows("第4組", 14, 18,label_row_css = "background-color: #666; color: #fff;") %>%
-    pack_rows("第5組", 19, 23,label_row_css = "background-color: #666; color: #fff;") %>%
-    pack_rows("第6組", 24, 28,label_row_css = "background-color: #666; color: #fff;") %>%
-    pack_rows("第7組", 29, 33,label_row_css = "background-color: #666; color: #fff;") %>%
-    pack_rows("第8組", 34, 38,label_row_css = "background-color: #666; color: #fff;") %>%
-    pack_rows("第9組", 39, 43,label_row_css = "background-color: #666; color: #fff;") %>%
-    pack_rows("第10組",44, 47,label_row_css = "background-color: #666; color: #fff;") %>%
-footnote(general = "按報名順序暫時分組，指定演練案例-可先參見下面案例清單")%>%
-    scroll_box(width = "500px", height = "200px")
+#宣導會名單 <- 宣導會名單 %>% rename(姓名匿稱=name, 公司匿稱=cop)
+#library(kableExtra)
+#宣導會名單 %>% filter(確認場次=="南區8月05日" & 亂數抽籤=="y") %>% #select(-2) %>%
+#  kbl() %>%
+#  kable_classic(bootstrap_options = c("striped", "hover"), 
+#    position =  "left", fixed_thead = T,full_width = F) %>%
+#    row_spec(0, bold = T)%>%
+#    column_spec(1, bold = T )%>%
+#    column_spec(2, bold = T, background = "lightyellow")%>%
+#    pack_rows("第1組", 1, 4,label_row_css = "background-color: #666; color: ##fff;") %>%
+#    pack_rows("第2組", 5, 8,label_row_css = "background-color: #666; color: ##fff;") %>%
+#    pack_rows("第3組", 9, 13,label_row_css = "background-color: #666; color: ##fff;") %>%
+#    pack_rows("第4組", 14, 18,label_row_css = "background-color: #666; #color: #fff;") %>%
+#    pack_rows("第5組", 19, 23,label_row_css = "background-color: #666; #color: #fff;") %>%
+#    pack_rows("第6組", 24, 28,label_row_css = "background-color: #666; #color: #fff;") %>%
+#    pack_rows("第7組", 29, 33,label_row_css = "background-color: #666; #color: #fff;") %>%
+#    pack_rows("第8組", 34, 38,label_row_css = "background-color: #666; #color: #fff;") %>%
+#    pack_rows("第9組", 39, 43,label_row_css = "background-color: #666; #color: #fff;") %>%
+#    pack_rows("第10組",44, 47,label_row_css = "background-color: #666; #color: #fff;") %>%
+#footnote(general = "按報名順序暫時分組，指定演練案例-可先參見下面案例清單")%#>%
+#    scroll_box(width = "500px", height = "200px")
 
 ```
 
@@ -192,6 +196,9 @@ footnote(general = "按報名順序暫時分組，指定演練案例-可先參�
 ```
 
 ------------------------------------------------------------------------
+
+
+
 
 ## 二、宣導會(工作坊)資訊 {.tabset .tabset-fade .tabset-pills}
 
