@@ -49,7 +49,9 @@ output:
 
 > **敬請各組將演練完成檔案，於0811(週一)寄出(尊重您的分享意願)，檔案名稱為"南區第 _ 組"。**
 
-><span style="color: red;">  **已於 三、演練職災事故個案(實例)區，提供分析參考，供分組學員參閱一週。**</span>
+> <span style="color: red;">**感謝南區第6組分享演練成果**</span> (著實不易，內容無關對錯，實做便有收穫，謝謝分享)
+
+> <span style="color: red;">  **已於 三、演練職災事故個案(實例)區，提供分析參考，供分組學員參閱一週。**</span>
 打鐵趁熱，趁勝追擊 Strike While the Iron Is Hot....
 
 ```{r echo = FALSE, warning=FALSE, cache=TRUE,error=FALSE, message=FALSE}
@@ -261,7 +263,8 @@ knitr::include_graphics('images/課程表.jpg')
 |  | [捲夾案1](cases/A切割夾捲/捲夾案1_演練.pdf) |  | 職安署公告 | [原始檔案](cases/A切割夾捲/捲夾案1_原始.pdf) |
 |  | [捲夾案2](cases/A切割夾捲/捲夾案2_演練.pdf) |  | 職安署公告 | [原始檔案](cases/A切割夾捲/捲夾案2_原始.pdf) |
 |  | [捲夾案3](cases/A切割夾捲/捲夾案3_演練.pdf) |  | 職安署公告 | [原始檔案](cases/A切割夾捲/捲夾案3_原始.pdf) |
-|  | [捲夾案4](cases/A切割夾捲/捲夾案4_演練.pdf) |[捲夾案4分析參考](cases/A切割夾捲/夾捲案4分析參考.pdf)   | 職安署公告 | [原始檔案](cases/A切割夾捲/捲夾案4_原始.pdf) |
+|  | [捲夾案4](cases/A切割夾捲/捲夾案4_演練.pdf) |[捲夾案4分析參考](cases/A切割夾捲/夾捲案4分析參考.pdf)   | 職安署公告 |[原始檔案](cases/A切割夾捲/捲夾案4_原始.pdf) |
+|  |  |[<span style="color: red;">南區第6組分享</span>](cases/A切割夾捲/南區第6組演練分享.pdf)  |<span style="color: red;">南區第6組</span>  | |
 |  | [捲夾案5](cases/A切割夾捲/捲夾案5_演練.pdf) | [捲夾案5分析參考](cases/A切割夾捲/夾捲案5分析參考.pdf) | 職安署公告 | [原始檔案](cases/A切割夾捲/捲夾案5_原始.pdf) |
 
 ------------------------------------------------------------------------
