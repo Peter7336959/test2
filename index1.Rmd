@@ -50,7 +50,7 @@ output:
 > **敬請各組將演練完成檔案，於0811(週一)寄出(尊重您的分享意願)，檔案名稱為"南區第 _ 組"。**
 
 
-><span style="color: red;">  **另也於 三、演練職災事故個案(實例)區，提供分析參考，供分組學員參閱一週。**</span>
+><span style="color: red;">  **已於 三、演練職災事故個案(實例)區，提供分析參考，供分組學員參閱一週。**</span>
 打鐵趁熱，趁勝追擊 Strike While the Iron Is Hot....
 
 ```{r echo = FALSE, warning=FALSE, cache=TRUE,error=FALSE, message=FALSE}
