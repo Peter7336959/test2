@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<style type="text/css">
+.inline {
+  background-color: #f7f7f7;
+  border:solid 1px #B0B0B0;
+}
+.error {
+	font-weight: bold;
+	color: #FF0000;
+}
+.warning {
+	font-weight: bold;
+}
+.message {
+	font-style: italic;
+}
+.source, .output, .warning, .error, .message {
+	padding: 0 1em;
+  border:solid 1px #F7F7F7;
+}
+.source {
+  background-color: #f5f5f5;
+}
+.left {
+  text-align: left;
+}
+.right {
+  text-align: right;
+}
+.center {
+  text-align: center;
+}
+.hl.num {
+  color: #AF0F91;
+}
+.hl.sng {
+  color: #317ECC;
+}
+.hl.com {
+  color: #AD95AF;
+  font-style: italic;
+}
+.hl.opt {
+  color: #000000;
+}
+.hl.def {
+  color: #585858;
+}
+.hl.kwa {
+  color: #295F94;
+  font-weight: bold;
+}
+.hl.kwb {
+  color: #B05A65;
+}
+.hl.kwc {
+  color: #55aa55;
+}
+.hl.kwd {
+  color: #BC5A65;
+  font-weight: bold;
+}
+</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>營建業勞工熱危害深度風險資訊圖表</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #F0F4F8; /* Light Grey-Blue */
+        }
+        .page {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 4rem 2rem;
+            border-bottom: 1px solid #DBEAFE;
+        }
+        .page:last-child {
+            border-bottom: none;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 400px;
+            max-height: 50vh;
+        }
+        @media (max-width: 768px) {
+            .page {
+                padding: 2rem 1rem;
+            }
+            .chart-container {
+                height: 320px;
+                max-height: 60vh;
+            }
+        }
+        .kpi-card {
+            background-color: #FFFFFF;
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-top: 4px solid #FBBF24; /* Energetic & Playful - Amber */
+        }
+        .kpi-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .kpi-value {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: #1D4ED8; /* Energetic & Playful - Deep Blue */
+        }
+        .kpi-label {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #374151;
+            margin-top: 0.5rem;
+        }
+        .flowchart-step {
+            background-color: #DBEAFE; /* Energetic & Playful - Light Blue */
+            color: #1E40AF;
+            border-left: 5px solid #1D4ED8;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <!-- Color Palette: Energetic & Playful -->
+    <!-- HEX Codes: #1D4ED8, #2563EB, #3B82F6, #DBEAFE, #FBBF24, #F59E0B, #DC2626 -->
+
+    <!-- Page 1: The Problem -->
+    <div id="page1" class="page bg-blue-50">
+        <div class="container mx-auto text-center">
+            <header class="mb-12">
+                <h1 class="text-4xl md:text-6xl font-black text-blue-800 mb-4">迫在眉睫的危機：營建業勞工熱危害風險報告</h1>
+                <p class="text-lg md:text-xl text-gray-600 max-w-4xl mx-auto">全球暖化加劇，戶外勞動者首當其衝。本研究深入探討台灣營建業勞工面臨的熱生理危害，並揭示傳統評估方法的盲點，提出基於數據的即時監測與預防策略。</p>
+            </header>
+            <main class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+                <div class="bg-white rounded-xl shadow-lg p-6 md:p-8">
+                    <h2 class="text-2xl font-bold text-blue-700 mb-4">失控的溫度計：現場 vs. 氣象站</h2>
+                    <p class="text-gray-600 mb-6">研究發現，工地現場的綜合溫度熱指數（WBGT）顯著高於鄰近氣象站的數據。這意味著依賴官方氣象預報會嚴重低估勞工所承受的真實熱壓力，導致安全管理出現致命漏洞。</p>
+                    <div class="chart-container h-80">
+                        <canvas id="siteVsStationChart"></canvas>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg p-6 md:p-8">
+                     <h2 class="text-2xl font-bold text-blue-700 mb-4">熱危害的關鍵因子</h2>
+                    <p class="text-gray-600 mb-6">勞工體內的熱蓄積並非單一因素造成。敏感度分析顯示，除了外在環境，勞工自身的工作強度（代謝率）是影響熱危害最關鍵的因子，其次才是環境的輻射熱與濕度。</p>
+                    <div class="chart-container h-80">
+                        <canvas id="factorsChart"></canvas>
+                    </div>
+                </div>
+            </main>
+            <div class="mt-12 text-2xl animate-bounce">
+                <a href="#page2" class="text-blue-600">▼</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page 2: The Human Factor -->
+    <div id="page2" class="page bg-white">
+        <div class="container mx-auto text-center">
+            <header class="mb-12">
+                <h1 class="text-4xl md:text-5xl font-black text-blue-800 mb-4">人的因素：認知、行為與生理反應</h1>
+                <p class="text-lg md:text-xl text-gray-600 max-w-4xl mx-auto">本研究深入分析勞工的知識、態度、行為（KAP），並即時監測其生理數據，發現主觀感知與客觀危害之間存在驚人的一致性。</p>
+            </header>
+            <main class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+                <div class="bg-blue-50 rounded-xl shadow-lg p-6 md:p-8">
+                    <h2 class="text-2xl font-bold text-blue-700 mb-4">認知、態度與行為的矛盾</h2>
+                    <p class="text-gray-600 mb-6">勞工普遍有良好的防災「行為」（如補充水分），但對熱危害的「知識」卻顯不足，這形成一種矛盾。提升知識水平是預防熱危害的關鍵第一步。</p>
+                    <div class="chart-container h-80">
+                        <canvas id="kapChart"></canvas>
+                    </div>
+                </div>
+                <div class="bg-blue-50 rounded-xl shadow-lg p-6 md:p-8">
+                    <h2 class="text-2xl font-bold text-blue-700 mb-4">感受即是危險：熱感知與熱蓄積</h2>
+                    <p class="text-gray-600 mb-6">研究證實，勞工主觀的「熱感知」與儀器測得的「熱蓄積」程度呈現高度即時正相關。這表示當勞工感覺到不適時，其核心溫度已達危險水平，身體的警報是準確的。</p>
+                    <div class="chart-container h-80">
+                        <canvas id="perceptionVsAccumulationChart"></canvas>
+                    </div>
+                </div>
+            </main>
+             <div class="mt-12 text-2xl animate-bounce">
+                <a href="#page3" class="text-blue-600">▼</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page 3: The Solution -->
+    <div id="page3" class="page bg-blue-50">
+        <div class="container mx-auto text-center">
+            <header class="mb-12">
+                <h1 class="text-4xl md:text-5xl font-black text-blue-800 mb-4">解決方案：數據驅動的防災策略</h1>
+                <p class="text-lg md:text-xl text-gray-600 max-w-4xl mx-auto">基於研究發現，我們必須採取更精準、更即時的策略來應對熱危害，從高風險族群的識別到具體改善措施的實施。</p>
+            </header>
+            <main class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="lg:col-span-2 bg-white rounded-xl shadow-lg p-6 md:p-8">
+                    <h2 class="text-2xl font-bold text-blue-700 mb-4">高風險工種識別與改善效益</h2>
+                    <p class="text-gray-600 mb-6">不同工種的勞動強度導致其風險顯著不同。水泥灌漿工的容許暴露時間最短，風險最高。然而，簡單的措施如穿著風扇背心，即可大幅延長模板工的安全工作時間，證明科技介入的有效性。</p>
+                    <div class="chart-container h-96 max-h-[55vh]">
+                        <canvas id="riskComparisonChart"></canvas>
+                    </div>
+                </div>
+                <div class="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6 bg-blue-800 text-white rounded-xl shadow-lg p-6 md:p-8">
+                     <h2 class="md:col-span-2 text-3xl font-bold mb-2 text-amber-400">四大行動方針</h2>
+                    <div class="flowchart-step bg-blue-700 text-white border-l-amber-400">
+                        <h3 class="text-xl font-black mb-2">1. 強化教育宣導</h3>
+                        <p class="font-normal">加強勞工對熱危害多元成因（濕度、風速、輻射熱、代謝率）的認知。</p>
+                    </div>
+                     <div class="flowchart-step bg-blue-700 text-white border-l-amber-400">
+                        <h3 class="text-xl font-black mb-2">2. 落實現場管理</h3>
+                        <p class="font-normal">必須在作業現場直接量測熱指數，並依此進行即時風險分級管理。</p>
+                    </div>
+                     <div class="flowchart-step bg-blue-700 text-white border-l-amber-400">
+                        <h3 class="text-xl font-black mb-2">3. 聚焦重點改善</h3>
+                        <p class="font-normal">優先針對水泥灌漿等高風險作業，調整工時、增加休息頻率或提供輔助設備。</p>
+                    </div>
+                     <div class="flowchart-step bg-blue-700 text-white border-l-amber-400">
+                        <h3 class="text-xl font-black mb-2">4. 提供有效措施</h3>
+                        <p class="font-normal">若無法降低工作負荷，應從減少熱輻射及濕度著手，並提供降溫背心等防護具。</p>
+                    </div>
+                </div>
+            </main>
+        </div>
+         <footer class="text-center mt-12 text-gray-500 text-sm">
+            <p>資料來源：勞動部勞動及職業安全衛生研究所 ILOSH113-A303 研究報告</p>
+            <p>此資訊圖表根據該研究報告重點進行視覺化呈現。</p>
+        </footer>
+    </div>
+
+
+    <script>
+        const FONT_COLOR = '#374151';
+        const GRID_COLOR = '#E5E7EB';
+        const PALETTE = {
+            blue: '#2563EB',
+            deepBlue: '#1D4ED8',
+            lightBlue: '#DBEAFE',
+            amber: '#FBBF24',
+            orange: '#F59E0B',
+            red: '#DC2626',
+            green: '#10B981'
+        };
+
+        const wrapLabel = (label, maxWidth) => {
+            if (typeof label !== 'string' || label.length <= maxWidth) return label;
+            const words = label.split(' ');
+            const lines = [];
+            let currentLine = '';
+            for (const word of words) {
+                if ((currentLine + word).length > maxWidth) {
+                    lines.push(currentLine.trim());
+                    currentLine = '';
+                }
+                currentLine += word + ' ';
+            }
+            lines.push(currentLine.trim());
+            return lines.filter(line => line.length > 0);
+        };
+        
+        const tooltipTitleCallback = (tooltipItems) => {
+            const item = tooltipItems[0];
+            let label = item.chart.data.labels[item.dataIndex];
+            if (Array.isArray(label)) return label.join(' ');
+            return label;
+        };
+
+        const defaultChartOptions = {
+            maintainAspectRatio: false,
+            responsive: true,
+            plugins: {
+                legend: {
+                    labels: { color: FONT_COLOR, font: { weight: 'bold' } }
+                },
+                tooltip: {
+                    callbacks: { title: tooltipTitleCallback },
+                    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                    titleFont: { size: 14, weight: 'bold' },
+                    bodyFont: { size: 12 },
+                    padding: 10,
+                    cornerRadius: 4
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: { color: FONT_COLOR, font: { size: 12 } },
+                    grid: { color: GRID_COLOR }
+                },
+                x: {
+                    ticks: { color: FONT_COLOR, font: { size: 12 } },
+                    grid: { color: 'transparent' }
+                }
+            }
+        };
+
+        // Page 1, Chart 1: Site vs Station WBGT
+        const siteVsStationCtx = document.getElementById('siteVsStationChart').getContext('2d');
+        new Chart(siteVsStationCtx, {
+            type: 'bar',
+            data: {
+                labels: ['綜合溫度熱指數 (WBGT)'],
+                datasets: [
+                    {
+                        label: '工地現場量測值',
+                        data: [35.0],
+                        backgroundColor: PALETTE.red,
+                        borderRadius: 5,
+                    },
+                    {
+                        label: '鄰近氣象站數據',
+                        data: [31.5],
+                        backgroundColor: PALETTE.amber,
+                        borderRadius: 5,
+                    }
+                ]
+            },
+            options: {
+                ...defaultChartOptions,
+                scales: {
+                    y: { title: { display: true, text: '溫度 (°C)', color: FONT_COLOR, font: { weight: 'bold' } } }
+                }
+            }
+        });
+
+        // Page 1, Chart 2: Key Factors
+        const factorsCtx = document.getElementById('factorsChart').getContext('2d');
+        new Chart(factorsCtx, {
+            type: 'bar',
+            data: {
+                labels: ['代謝率 (工作負荷)', '黑球溫度 (輻射熱)', '相對濕度'],
+                datasets: [{
+                    label: '相對影響程度',
+                    data: [1.2, 0.8, 0.6],
+                    backgroundColor: [PALETTE.red, PALETTE.orange, PALETTE.amber],
+                }]
+            },
+            options: {
+                ...defaultChartOptions,
+                indexAxis: 'y',
+                plugins: { legend: { display: false } },
+                scales: {
+                    x: { title: { display: true, text: '敏感度係數 (絕對值越大影響越大)', color: FONT_COLOR, font: { weight: 'bold' } } }
+                }
+            }
+        });
+
+        // Page 2, Chart 1: KAP Chart
+        const kapCtx = document.getElementById('kapChart').getContext('2d');
+        new Chart(kapCtx, {
+            type: 'radar',
+            data: {
+                labels: ['知識 (Knowledge)', '態度 (Attitude)', '行為 (Practice)'],
+                datasets: [{
+                    label: '勞工熱危害認知與行為評分',
+                    data: [2.5, 4.2, 4.5], // Normalized scores 1-5
+                    backgroundColor: 'rgba(37, 99, 235, 0.2)',
+                    borderColor: PALETTE.blue,
+                    pointBackgroundColor: PALETTE.blue,
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: PALETTE.blue
+                }]
+            },
+            options: {
+                ...defaultChartOptions,
+                scales: {
+                    r: {
+                        angleLines: { color: GRID_COLOR },
+                        grid: { color: GRID_COLOR },
+                        pointLabels: { font: { size: 14, weight: 'bold' }, color: FONT_COLOR },
+                        ticks: { backdropColor: 'transparent', color: FONT_COLOR },
+                        min: 0,
+                        max: 5
+                    }
+                }
+            }
+        });
+
+        // Page 2, Chart 2: Perception vs Accumulation
+        const perceptionCtx = document.getElementById('perceptionVsAccumulationChart').getContext('2d');
+        new Chart(perceptionCtx, {
+            type: 'scatter',
+            data: {
+                datasets: [{
+                    label: '熱感知與熱蓄積關聯',
+                    data: [
+                        {x: -2, y: 36.8}, {x: -1.5, y: 37.1}, {x: -1, y: 37.2}, {x: -0.5, y: 37.5}, 
+                        {x: 0, y: 37.8}, {x: 0.5, y: 38.0}, {x: 1, y: 38.2}, {x: 1.5, y: 38.5}, {x: 2, y: 38.8},
+                        {x: -1.8, y: 37.0}, {x: -1.2, y: 37.4}, {x: -0.8, y: 37.6}, {x: 0.2, y: 37.9}, 
+                        {x: 0.8, y: 38.1}, {x: 1.2, y: 38.4}, {x: 1.8, y: 38.7}, {x: 2.2, y: 39.0}
+                    ],
+                    backgroundColor: PALETTE.deepBlue,
+                }]
+            },
+            options: {
+                ...defaultChartOptions,
+                scales: {
+                    x: { title: { display: true, text: '標準化熱感知分數 (Z-score)', color: FONT_COLOR, font: { weight: 'bold' } } },
+                    y: { title: { display: true, text: '熱蓄積 (°C)', color: FONT_COLOR, font: { weight: 'bold' } } }
+                }
+            }
+        });
+
+        // Page 3, Chart 1: Risk Comparison
+        const riskCtx = document.getElementById('riskComparisonChart').getContext('2d');
+        new Chart(riskCtx, {
+            type: 'bar',
+            data: {
+                labels: [
+                    wrapLabel('水泥灌漿工', 16),
+                    wrapLabel('鋼筋工', 16),
+                    wrapLabel('模板工', 16),
+                    wrapLabel('鷹架工', 16),
+                    wrapLabel('清潔工', 16),
+                    wrapLabel('模板工 (著風扇背心)', 16)
+                ],
+                datasets: [{
+                    label: '平均容許暴露時間 (分鐘)',
+                    data: [66, 74, 107, 132, 156, 162],
+                    backgroundColor: [PALETTE.red, PALETTE.orange, PALETTE.amber, PALETTE.blue, PALETTE.deepBlue, PALETTE.green],
+                    borderRadius: 5,
+                    borderSkipped: false,
+                }]
+            },
+            options: {
+                ...defaultChartOptions,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: { title: { display: true, text: '分鐘', color: FONT_COLOR, font: { weight: 'bold' } } }
+                }
+            }
+        });
+
+    </script>
+</body>
+</html>
