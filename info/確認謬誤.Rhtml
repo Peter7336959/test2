@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>資訊圖表：對抗事故調查中的確認偏誤</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #f8fafc;
+        }
+        .text-balance {
+            text-wrap: balance;
+        }
+        .gradient-text {
+            background: linear-gradient(to right, #0097A7, #006064);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+            padding: 2rem;
+            border: 1px solid #e2e8f0;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.07), 0 4px 6px -4px rgb(0 0 0 / 0.07);
+        }
+        .table-custom {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1.5rem;
+        }
+        .table-custom th, .table-custom td {
+            border: 1px solid #CFD8DC;
+            padding: 1rem 1.25rem;
+            text-align: left;
+            vertical-align: top;
+        }
+        .table-custom th {
+            background-color: #ECEFF1;
+            font-weight: 700;
+            color: #37474F;
+        }
+        .table-custom tr:nth-child(even) {
+            background-color: #F8FAFC;
+        }
+        .icon-bg {
+            background-color: #E0F7FA;
+            color: #00838F;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+<body class="text-slate-800">
+
+    <main class="container mx-auto p-4 md:p-8 max-w-7xl">
+
+        <header class="text-center my-12 md:my-16">
+            <h1 class="text-4xl md:text-6xl font-black text-balance gradient-text">對抗調查的隱形殺手：確認偏誤</h1>
+            <p class="mt-4 text-lg md:text-xl font-bold text-balance text-red-600">要成為出色的調查人員，首要任務就是對抗大腦內建的認知偏誤。</p>
+        </header>
+
+        <section id="definition" class="my-16">
+            <div class="card max-w-4xl mx-auto">
+                <h2 class="text-2xl md:text-3xl font-bold text-center text-[#00838F] mb-4">一、何謂確認偏誤 (Confirmation Bias)？</h2>
+                <p class="text-center text-lg md:text-xl text-slate-700 text-balance">
+                    這是一種認知捷徑，指人們會不自覺地去尋找、解釋並偏好那些能<strong class="text-[#0097A7]">證實自己既有信念</strong>的資訊，同時傾向於<strong class="text-red-500">忽略或否定</strong>與之相悖的證據。
+                </p>
+            </div>
+        </section>
+
+        <section id="effects" class="my-16">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-[#006064] mb-12">二、確認偏誤如何影響事故調查？</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="card text-center">
+                    <div class="mx-auto icon-bg mb-4">⚖️</div>
+                    <h3 class="text-xl font-bold text-[#00838F]">過早下結論</h3>
+                    <p class="mt-2 text-slate-600">基於初步印象或傳聞，就形成一個「劇本」，例如：「又是那個粗心的員工」。</p>
+                </div>
+                <div class="card text-center">
+                    <div class="mx-auto icon-bg mb-4">🔎</div>
+                    <h3 class="text-xl font-bold text-[#00838F]">選擇性蒐證</h3>
+                    <p class="mt-2 text-slate-600">不自覺地尋找能「證明自己是對的」證據，例如只關注特定紀錄或提出引導性問題。</p>
+                </div>
+                <div class="card text-center">
+                    <div class="mx-auto icon-bg mb-4">🙈</div>
+                    <h3 class="text-xl font-bold text-[#00838F]">輕視矛盾證據</h3>
+                    <p class="mt-2 text-slate-600">當出現與預想不符的證據時，會認為其不可靠、是例外，甚至直接忽略。</p>
+                </div>
+            </div>
+            <p class="md:text-2xl text-center mt-4 text-lg text-red-700 font-bold bg-red-50 p-4 rounded-lg">這種偏誤會導致調查人員陷入「隧道視野」，錯失真正的根本原因。</p>
+        </section>
+
+        <section id="solution" class="my-16">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-[#006064] mb-12">三、哪些分析方法可以協助改善確認偏誤？</h2>
+            <div class="card">
+                <h3 class="text-2xl font-bold text-[#00838F] mb-2">例：屏障分析 (Barrier Analysis)</h3>
+                <p class="text-lg text-slate-600 mb-6">此方法專注於分析「安全屏障」。它將焦點從「人」轉移到「系統防護的有效性」，強迫調查人員全面檢視所有本應阻止事故的屏障為何失效，從而有效對抗確認偏誤。</p>
+                <h4 class="text-xl font-semibold text-slate-700">示範舉例：屏障分析工作表格</h4>
+                <p class="text-slate-600"><strong class="font-bold">事故情境：</strong>化學工廠發生有毒化學品從儲槽洩漏，導致一名員工暴露。</p>
+                <div class="overflow-x-auto mt-4">
+                    <table class="table-custom">
+                        <thead>
+                            <tr>
+                                <th>屏障 (Barrier)</th>
+                                <th>屏障類型</th>
+                                <th>屏障是否有效？</th>
+                                <th>為何失效？ / 根本原因</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="font-semibold">儲槽本身</td>
+                                <td>物理</td>
+                                <td class="text-red-600 font-bold">否</td>
+                                <td>長年腐蝕導致裂縫。<br><strong class="text-slate-500">(維護保養問題)</strong></td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">液位警報器</td>
+                                <td>物理/管理</td>
+                                <td class="text-red-600 font-bold">否</td>
+                                <td>設備故障，且定期檢查未發現。<br><strong class="text-slate-500">(設備檢查與測試問題)</strong></td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">廠房圍阻體 (Dike)</td>
+                                <td>物理</td>
+                                <td class="text-red-600 font-bold">否</td>
+                                <td>排水閥門被錯誤地保持在開啟狀態。<br><strong class="text-slate-500">(程序管理問題)</strong></td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">個人防護具 (PPE)</td>
+                                <td>人員/程序</td>
+                                <td class="text-red-600 font-bold">否</td>
+                                <td>該區域依規定不需隨時穿戴化學防護衣。<br><strong class="text-slate-500">(風險評估與作業規定問題)</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="mt-6 p-4 bg-green-50 text-green-800 font-semibold rounded-lg border border-green-200"><strong>分析結論：</strong>事故並非單一原因造成，而是由於維護、檢查、程序、風險評估等多層屏障相繼失效的結果。</p>
+            </div>
+        </section>
+
+        <section id="recommendations" class="my-16">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-[#006064] mb-12">四、結論與建議</h2>
+            <p class="text-center max-w-4xl mx-auto text-lg text-slate-600 mb-12">事故調查的最終目的不是找到代罪羔羊，而是找出系統的脆弱環節。對抗認知偏誤需要高度的自我覺察、挑戰直覺的勇氣，以及嚴格遵循結構化分析方法的紀律。</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="card text-center">
+                    <div class="mx-auto icon-bg mb-4">🏛️</div>
+                    <h3 class="text-xl font-bold text-[#00838F]">建立公正文化</h3>
+                    <p class="mt-2 text-slate-600">鼓勵通報，區分無心之過與惡意違規，創造免於恐懼的溝通環境。</p>
+                </div>
+                <div class="card text-center">
+                    <div class="mx-auto icon-bg mb-4">🧠</div>
+                    <h3 class="text-xl font-bold text-[#00838F]">投資系統性調查訓練</h3>
+                    <p class="mt-2 text-slate-600">讓調查人員熟練掌握屏障分析、RCA等工具，提升找出根本原因的能力。</p>
+                </div>
+                <div class="card text-center">
+                    <div class="mx-auto icon-bg mb-4">🤝</div>
+                    <h3 class="text-xl font-bold text-[#00838F]">落實同儕審查</h3>
+                    <p class="mt-2 text-slate-600">讓獨立的第三方檢視調查過程與結論，是挑戰個人盲點與偏誤最有效的方法之一。</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+</body>
+</html>
