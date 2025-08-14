@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<style type="text/css">
+.inline {
+  background-color: #f7f7f7;
+  border:solid 1px #B0B0B0;
+}
+.error {
+	font-weight: bold;
+	color: #FF0000;
+}
+.warning {
+	font-weight: bold;
+}
+.message {
+	font-style: italic;
+}
+.source, .output, .warning, .error, .message {
+	padding: 0 1em;
+  border:solid 1px #F7F7F7;
+}
+.source {
+  background-color: #f5f5f5;
+}
+.left {
+  text-align: left;
+}
+.right {
+  text-align: right;
+}
+.center {
+  text-align: center;
+}
+.hl.num {
+  color: #AF0F91;
+}
+.hl.sng {
+  color: #317ECC;
+}
+.hl.com {
+  color: #AD95AF;
+  font-style: italic;
+}
+.hl.opt {
+  color: #000000;
+}
+.hl.def {
+  color: #585858;
+}
+.hl.kwa {
+  color: #295F94;
+  font-weight: bold;
+}
+.hl.kwb {
+  color: #B05A65;
+}
+.hl.kwc {
+  color: #55aa55;
+}
+.hl.kwd {
+  color: #BC5A65;
+  font-weight: bold;
+}
+</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>拆解事故迷思：深入因果偏誤與為何樹分析</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #f8fafc;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            padding: 1.5rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .card-content {
+            flex-grow: 1;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -2px rgb(0 0 0 / 0.1);
+        }
+        .why-tree-container {
+            padding: 1rem;
+            border-radius: 0.5rem;
+            background-color: #f1f5f9;
+        }
+        .why-tree-node {
+            background-color: white;
+            border: 1px solid #e2e8f0;
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            text-align: center;
+            margin-bottom: 0.5rem;
+            box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+        }
+        .why-tree-level {
+            margin-left: 1.5rem;
+            border-left: 2px dashed #94a3b8;
+            padding-left: 1.5rem;
+            margin-top: 0.5rem;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-gray-800">
+
+    <header class="bg-[#005f73] text-white text-center py-12 px-4">
+        <h1 class="text-4xl md:text-5xl font-bold mb-2">拆解事故迷思</h1>
+        <p class="text-xl md:text-2xl text-[#94d2bd]">深入「因果偏誤」，學習用「為何樹」挖掘真相</p>
+    </header>
+
+    <main class="container mx-auto p-4 md:p-8">
+
+        <section id="what-is-fallacy" class="mb-16">
+            <div class="card text-center">
+                <h2 class="text-3xl font-bold text-[#005f73] mb-4">何謂因果偏誤 (Causal Fallacy)？</h2>
+                <p class="text-lg max-w-3xl mx-auto mb-6">
+                    在事故調查中，這是一種常見的認知陷阱，指調查者傾向將複雜事故*過度簡化*，歸因於單一、明顯的個人行為，而忽略背後深層次、多重交織的*系統性因素*。
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center bg-slate-50 p-6 rounded-lg">
+                    <div class="text-center">
+                        <h3 class="text-2xl font-bold text-[#ae2012] mb-2">偏誤視角：單一元兇</h3>
+                        <p class="text-6xl font-bold text-[#ae2012] mb-4">🚶‍♂️</p>
+                        <p class="text-lg">操作員未遵守SOP</p>
+                        <p class="text-sm font-bold text-red-500">(調查結束?)</p>
+                    </div>
+                    <div class="text-center">
+                        <h3 class="text-2xl font-bold text-[#0a9396] mb-2">系統視角：冰山之下</h3>
+                        <p class="text-6xl font-bold text-[#0a9396] mb-4">🕸️</p>
+                        <p class="text-lg">SOP設計不良？訓練不足？設備老舊？文化默許？</p>
+                        <p class="text-sm  font-bold text-red-500">(調查開始)</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="impacts" class="mb-16">
+            <div class="card">
+                <h2 class="text-3xl font-bold text-[#005f73] text-center mb-6">因果偏誤的代價：治標不治本</h2>
+                <p class="text-lg text-center max-w-3xl mx-auto mb-8">滿足於表面的歸因，會讓組織付出沉重代價。這些影響環環相扣，嚴重阻礙企業安全水平的提升。</p>
+                <div class="chart-container">
+                    <canvas id="impactsChart"></canvas>
+                </div>
+                <p class="text-center text-sm text-gray-600 mt-4">因果偏誤導致的四大負面影響，每一項都可能讓改善措施付諸流水。</p>
+            </div>
+        </section>
+
+        <section id="solutions" class="mb-16">
+            <h2 class="text-3xl font-bold text-[#005f73] text-center mb-8">打破思維定勢：應對偏誤的五大策略</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+                <div class="card text-center">
+                    <div class="card-content">
+                        <p class="text-5xl mb-3">🧐</p>
+                        <h3 class="text-xl font-bold text-[#0a9396] mb-2">建立系統觀</h3>
+                        <p class="text-base">認知事故是多重因素交互的結果，而非單點故障。</p>
+                    </div>
+                </div>
+                <div class="card text-center">
+                    <div class="card-content">
+                        <p class="text-5xl mb-3">🛠️</p>
+                        <h3 class="text-xl font-bold text-[#0a9396] mb-2">採用工具</h3>
+                        <p class="text-base">使用結構化分析方法，如屏障分析，強迫深度挖掘。</p>
+                    </div>
+                </div>
+                <div class="card text-center">
+                    <div class="card-content">
+                        <p class="text-5xl mb-3">🗣️</p>
+                        <h3 class="text-xl font-bold text-[#0a9396] mb-2">持續追問</h3>
+                        <p class="text-base">善用「為何樹」對每個原因至少追問五次「為什麼」。</p>
+                    </div>
+                </div>
+                <div class="card text-center">
+                    <div class="card-content">
+                        <p class="text-5xl mb-3">🤝</p>
+                        <h3 class="text-xl font-bold text-[#0a9396] mb-2">多元團隊</h3>
+                        <p class="text-base">納入不同專業背景的成員，透過交叉審查減少偏見。</p>
+                    </div>
+                </div>
+                <div class="card text-center">
+                    <div class="card-content">
+                        <p class="text-5xl mb-3">⚖️</p>
+                        <h3 class="text-xl font-bold text-[#0a9396] mb-2">公正文化</h3>
+                        <p class="text-base">鼓勵誠實報告，區分無心之過與魯莽行為。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="why-tree" class="mb-16">
+            <div class="card">
+                <h2 class="text-3xl font-bold text-[#005f73] text-center mb-6">案例解析：為何樹 (Why-Tree) 的應用</h2>
+                <p class="text-lg text-center max-w-4xl mx-auto mb-8">以「某化工廠勞工A在清洗反應槽時吸入有毒氣體昏迷」為例。若調查僅停留在「未佩戴防護具」，便陷入了因果偏誤。透過「為何樹」分析，我們能揭示更深層的系統性問題。</p>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="why-tree-container">
+                        <div class="why-tree-node font-bold bg-[#ae2012] text-white">頂端事件：勞工A吸入有毒氣體昏迷</div>
+                        <div class="why-tree-level">
+                            <div class="why-tree-node bg-[#ca6702] text-white">立即原因：未佩戴防護具</div>
+                            <div class="why-tree-level">
+                                <div class="why-tree-node bg-[#ee9b00] text-black">構成原因：防護具取用不便</div>
+                                <div class="why-tree-level">
+                                    <div class="why-tree-node bg-[#94d2bd]">可能根本原因：防護具管理制度不佳</div>
+                                </div>
+                                <div class="why-tree-node bg-[#ee9b00] text-black">構成原因：現場監督未制止</div>
+                                 <div class="why-tree-level">
+                                    <div class="why-tree-node bg-[#94d2bd]">可能根本原因：監督人力不足</div>
+                                </div>
+                            </div>
+                            <div class="why-tree-node bg-[#ca6702] text-white">立即原因：槽內殘留有毒氣體</div>
+                            <div class="why-tree-level">
+                                <div class="why-tree-node bg-[#ee9b00] text-black">構成原因：未進行氣體濃度偵測</div>
+                                <div class="why-tree-level">
+                                    <div class="why-tree-node bg-[#94d2bd]">可能根本原因：未配發偵測器</div>
+                                    <div class="why-tree-node bg-[#94d2bd]">可能根本原因：SOP未明確規定</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold text-[#005f73] mb-4">分析結果</h3>
+                        <p class="text-lg mb-4">為何樹分析揭示了事故並非單一原因造成。調查從2個<span class="font-bold text-[#ca6702]">立即原因</span>，深入挖掘出多個<span class="font-bold text-[#ee9b00]">構成原因</span>，最終指向了數個可被矯正的管理系統層級的<span class="font-bold text-[#0a9396]">根本原因</span>。</p>
+                        <div class="chart-container h-64 md:h-80">
+                            <canvas id="whyTreeChart"></canvas>
+                        </div>
+                        <p class="text-center text-sm font-bold text-red-600 mt-2">此圖表顯示，有效的調查能發現遠多於表面原因的根本性問題。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="conclusion">
+            <div class="card text-center bg-[#005f73] text-white">
+                <h2 class="text-3xl font-bold mb-6">結論：從反應到預防，提升組織安全韌性</h2>
+                <p class="text-lg max-w-3xl mx-auto mb-6">
+                    事故調查的真正價值不在於找到「誰的錯」，而在於理解「為何會發生」。因果偏誤讓我們停留在表層，而「為何樹」等系統性工具則引導我們深入問題核心。唯有挖掘並修正管理系統中的根本原因，才能打破事故循環，建立一個能夠從經驗中學習並持續進步的安全文化。
+                </p>
+                <p class="text-xl font-bold text-[#e9d8a6]">
+                    停止尋找代罪羔羊，開始建構更安全的系統。
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="text-center p-6 mt-8">
+        <p class="text-sm text-gray-500">參考資料：維基百科 & 《戰勝思考騙局》, 何明信整理分享 114.08.14</p>
+    </footer>
+
+    <script>
+        function wrapLabel(str, maxWidth) {
+            if (str.length <= maxWidth) {
+                return str;
+            }
+            const words = str.split('');
+            const lines = [];
+            let currentLine = '';
+            for (const word of words) {
+                if ((currentLine + word).length > maxWidth) {
+                    lines.push(currentLine);
+                    currentLine = '';
+                }
+                currentLine += word;
+            }
+            lines.push(currentLine);
+            return lines;
+        }
+
+        const tooltipTitleCallback = (tooltipItems) => {
+            const item = tooltipItems[0];
+            let label = item.chart.data.labels[item.dataIndex];
+            if (Array.isArray(label)) {
+                return label.join('');
+            } else {
+                return label;
+            }
+        };
+        
+        const impactsData = {
+            labels: [
+                '根本原因被忽略',
+                '矯正措施無效',
+                '事故重複發生',
+                '錯失學習機會'
+            ].map(label => wrapLabel(label, 10)),
+            datasets: [{
+                label: '偏誤的代價',
+                data: [25, 25, 25, 25],
+                backgroundColor: [
+                    '#ca6702',
+                    '#bb3e03',
+                    '#ae2012',
+                    '#9b2226'
+                ],
+                borderColor: '#ffffff',
+                borderWidth: 2,
+                hoverOffset: 4
+            }]
+        };
+
+        const impactsCtx = document.getElementById('impactsChart').getContext('2d');
+        new Chart(impactsCtx, {
+            type: 'doughnut',
+            data: impactsData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            font: {
+                                size: 12
+                            },
+                            color: '#334155'
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            title: tooltipTitleCallback
+                        }
+                    }
+                }
+            }
+        });
+
+        const whyTreeData = {
+            labels: ['立即原因', '構成原因', '根本原因'],
+            datasets: [
+                {
+                    label: '發現數量',
+                    data: [2, 5, 5],
+                    backgroundColor: ['#ca6702', '#ee9b00', '#0a9396'],
+                    borderColor: '#ffffff',
+                    borderWidth: 2
+                }
+            ]
+        };
+
+        const whyTreeCtx = document.getElementById('whyTreeChart').getContext('2d');
+        new Chart(whyTreeCtx, {
+            type: 'bar',
+            data: whyTreeData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                indexAxis: 'y',
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: '原因數量'
+                        }
+                    },
+                    y: {
+                         grid: {
+                            display: false
+                         }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    title: {
+                        display: true,
+                        text: '為何樹分析：原因分層與數量'
+                    },
+                    tooltip: {
+                        callbacks: {
+                           title: (tooltipItems) => '原因類型'
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

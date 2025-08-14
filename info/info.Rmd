@@ -37,7 +37,7 @@ output:
 # {.tabset .tabset-fade .tabset-pills}
 
 ### **1.歸因謬誤** - 0811  
-- **[歸因謬論? ](歸因謬誤.pdf)**
+- **[歸因謬論? ](歸因謬誤.pdf)**    
 - **[歸因謬誤-全圖](歸因謬誤.html)**
 ```{r, out.width='80%', fig.align='left',echo=FALSE}
 # knitr::include_graphics('歸因謬誤.png')
@@ -50,10 +50,14 @@ output:
 # knitr::include_graphics('歸因謬誤.png')
 ```
 
-### **4.因果偏誤** - 發展中
+### **3.因果偏誤** - 0814
+- **[因果偏誤? ](因果偏誤.pdf)**
+- **[因果偏誤-全圖](因果偏誤.html)**
+```{r, out.width='80%', fig.align='left',echo=FALSE}
+# knitr::include_graphics('因果偏誤.png')
+```
 
-### **5.可得性偏誤** - 發展中
 
-### **6.後見之明偏誤** - 發展中
+### **4.可得性偏誤** - 發展中
 
-### 續增中...
+### **5.後見之明偏誤** - 發展中
