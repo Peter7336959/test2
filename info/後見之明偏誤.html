@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<style type="text/css">
+.inline {
+  background-color: #f7f7f7;
+  border:solid 1px #B0B0B0;
+}
+.error {
+	font-weight: bold;
+	color: #FF0000;
+}
+.warning {
+	font-weight: bold;
+}
+.message {
+	font-style: italic;
+}
+.source, .output, .warning, .error, .message {
+	padding: 0 1em;
+  border:solid 1px #F7F7F7;
+}
+.source {
+  background-color: #f5f5f5;
+}
+.left {
+  text-align: left;
+}
+.right {
+  text-align: right;
+}
+.center {
+  text-align: center;
+}
+.hl.num {
+  color: #AF0F91;
+}
+.hl.sng {
+  color: #317ECC;
+}
+.hl.com {
+  color: #AD95AF;
+  font-style: italic;
+}
+.hl.opt {
+  color: #000000;
+}
+.hl.def {
+  color: #585858;
+}
+.hl.kwa {
+  color: #295F94;
+  font-weight: bold;
+}
+.hl.kwb {
+  color: #B05A65;
+}
+.hl.kwc {
+  color: #55aa55;
+}
+.hl.kwd {
+  color: #BC5A65;
+  font-weight: bold;
+}
+</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>後見之明偏誤 (Hindsight Bias) 資訊圖表</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #E1F5FE;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .flowchart-step {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .flowchart-arrow {
+            font-size: 2rem;
+            color: #366E8A;
+            margin: 0 1rem;
+            transform: rotate(90deg);
+        }
+        @media (min-width: 768px) {
+             .flowchart-arrow {
+                transform: rotate(0deg);
+            }
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <div class="container mx-auto p-4 md:p-8">
+
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-6xl font-bold text-[#003F5C] mb-2">後見之明偏誤</h1>
+            <h2 class="text-2xl md:text-3xl font-bold text-[#366E8A]">Hindsight Bias</h2>
+            <p class="max-w-3xl mx-auto mt-4 text-lg text-[#003F5C]">在得知結果後，我們常高估自己當初的預測能力，誤以為一切「早該知道」。這份資訊圖表將解析此一認知偏誤，並提供系統性的應對之道。</p>
+        </header>
+
+        <main>
+            <section id="impacts" class="mb-16">
+                <h3 class="text-3xl font-bold text-center text-[#003F5C] mb-8">偏誤的三大負面影響</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-white rounded-lg shadow-lg p-6 text-center border-t-4 border-[#6B9DB7]">
+                        <div class="text-5xl mb-4">🚫</div>
+                        <h4 class="text-xl font-bold text-[#003F5C] mb-2">阻礙學習</h4>
+                        <p class="text-gray-600">若認為失敗是可預見的，便不會深入探究真正原因，錯失從經驗中學習的機會。</p>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-lg p-6 text-center border-t-4 border-[#6B9DB7]">
+                        <div class="text-5xl mb-4">🧗</div>
+                        <h4 class="text-xl font-bold text-[#003F5C] mb-2">過度自信</h4>
+                        <p class="text-gray-600">持續高估預測能力，導致未來決策更依賴直覺而非分析，增加犯錯風險。</p>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-lg p-6 text-center border-t-4 border-[#6B9DB7]">
+                        <div class="text-5xl mb-4">⚖️</div>
+                        <h4 class="text-xl font-bold text-[#003F5C] mb-2">不公平評價</h4>
+                        <p class="text-gray-600">用已知結果去苛刻地評判他人過去的決策，打擊團隊士氣與創新精神。</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="solutions" class="mb-16 bg-[#A4D0E1] rounded-lg shadow-lg p-8">
+                <h3 class="text-3xl font-bold text-center text-[#003F5C] mb-8">如何應對偏誤？</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-[#E1F5FE] rounded-lg p-6">
+                        <h4 class="text-xl font-bold text-[#003F5C] mb-2">⚙️ 專注於「過程」</h4>
+                        <p class="text-gray-700">評估決策的重點應是過程的嚴謹度與邏輯，而非單純的成敗結果。</p>
+                    </div>
+                    <div class="bg-[#E1F5FE] rounded-lg p-6">
+                        <h4 class="text-xl font-bold text-[#003F5C] mb-2">🛡️ 周延「風險評估」</h4>
+                        <p class="text-gray-700">在事前系統性地評估所有潛在危害，能有效避免事後諸葛的心態。</p>
+                    </div>
+                     <div class="bg-[#E1F5FE] rounded-lg p-6">
+                        <h4 class="text-xl font-bold text-[#003F5C] mb-2">🤔 思考「其他可能」</h4>
+                        <p class="text-gray-700">主動思考不同的發展可能，有助於打破「結果是必然」的錯覺。</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="rca-intro" class="mb-16">
+                <div class="bg-white rounded-lg shadow-lg p-8">
+                    <h3 class="text-3xl font-bold text-center text-[#003F5C] mb-4">根本原因分析 (RCA)：對抗偏誤的利器</h3>
+                    <p class="text-lg text-center max-w-4xl mx-auto text-gray-700">後見之明偏誤讓我們傾向於快速指責個人，而根本原因分析 (RCA) 則強迫我們放慢腳步，透過系統化方法探究問題的深層結構性原因，將焦點從「是誰的錯」轉移到「系統哪裡出了問題」。</p>
+                </div>
+            </section>
+
+            <section id="rca-case-study" class="mb-16">
+                <h3 class="text-3xl font-bold text-center text-[#003F5C] mb-8">案例分析：工廠職災事故</h3>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                    <div class="bg-white rounded-lg shadow-lg p-8">
+                        <h4 class="text-2xl font-bold text-[#003F5C] mb-4">兩種思維的對比</h4>
+                        <p class="mb-4"><strong class="text-[#6B9DB7]">帶有偏誤的反應：</strong>「我就知道會出事！那位作業員一直都很粗心，就是他不守規定的錯。」</p>
+                        <p class="mb-6"><strong class="text-[#366E8A]">RCA分析的結論：</strong>「公司的績效制度過度側重產量，導致安全文化被長期忽視，創造了高風險的工作環境。」</p>
+                        <div class="chart-container">
+                            <canvas id="rcaChart"></canvas>
+                        </div>
+                        <p class="text-center mt-4 text-gray-600">上圖顯示了RCA如何將歸因焦點從個人轉移至系統。</p>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg shadow-lg p-8">
+                        <h4 class="text-2xl font-bold text-center text-[#003F5C] mb-6">RCA 的「五個為什麼」分析流程</h4>
+                        <div class="flex flex-col md:flex-row justify-center items-center md:items-start">
+                            <div class="flex flex-col items-center">
+                                <div class="flowchart-step">
+                                    <div class="bg-[#A4D0E1] text-[#003F5C] rounded-lg p-3 w-64 text-center">1. 為何手被捲入？<br><span class="font-bold">未停機排除故障</span></div>
+                                </div>
+                                <div class="flowchart-arrow">↓</div>
+                                <div class="flowchart-step">
+                                    <div class="bg-[#A4D0E1] text-[#003F5C] rounded-lg p-3 w-64 text-center">2. 為何不停機？<br><span class="font-bold">為趕產量績效</span></div>
+                                </div>
+                                <div class="flowchart-arrow">↓</div>
+                                <div class="flowchart-step">
+                                    <div class="bg-[#A4D0E1] text-[#003F5C] rounded-lg p-3 w-64 text-center">3. 為何為績效冒險？<br><span class="font-bold">防護罩被移除</span></div>
+                                </div>
+                                <div class="flowchart-arrow">↓</div>
+                                <div class="flowchart-step">
+                                    <div class="bg-[#A4D0E1] text-[#003F5C] rounded-lg p-3 w-64 text-center">4. 為何防護罩未裝回？<br><span class="font-bold">管理階層默許</span></div>
+                                </div>
+                                <div class="flowchart-arrow">↓</div>
+                                <div class="flowchart-step">
+                                     <div class="bg-[#003F5C] text-white rounded-lg p-3 w-64 text-center">5. 為何管理層默許？<br><span class="font-bold">生產效率至上文化</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="conclusion" class="mb-16">
+                <div class="bg-white rounded-lg shadow-lg p-8 text-center">
+                    <h3 class="text-3xl font-bold text-[#003F5C] mb-4">結論</h3>
+                    <p class="text-lg text-[#003F5C]">透過客觀分析與系統性思考，我們可以克服後見之明偏誤，從而做出更佳的決策，並建立一個持續學習的健康文化。</p>
+                </div>
+            </section>
+        </main>
+
+        <footer class="text-center mt-12 py-6 border-t border-[#6B9DB7]">
+            <p class="text-sm text-gray-500">made by Peter Ho. 114.08.15</p>
+        </footer>
+
+    </div>
+
+    <script>
+        function wrapLabel(label, maxWidth) {
+            const words = label.split(' ');
+            const lines = [];
+            let currentLine = '';
+            
+            if (label.length <= maxWidth) {
+                return label;
+            }
+
+            words.forEach(word => {
+                const testLine = currentLine.length > 0 ? `${currentLine} ${word}` : word;
+                if (testLine.length > maxWidth) {
+                    lines.push(currentLine);
+                    currentLine = word;
+                } else {
+                    currentLine = testLine;
+                }
+            });
+            lines.push(currentLine);
+            return lines;
+        }
+
+        const ctx = document.getElementById('rcaChart').getContext('2d');
+        const rcaChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['後見之明偏誤歸因', '根本原因分析歸因'],
+                datasets: [{
+                    label: '個人因素',
+                    data: [90, 15],
+                    backgroundColor: '#6B9DB7',
+                    borderColor: '#366E8A',
+                    borderWidth: 1
+                }, {
+                    label: '系統/流程因素',
+                    data: [10, 85],
+                    backgroundColor: '#003F5C',
+                    borderColor: '#003F5C',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        stacked: true,
+                        ticks: {
+                            callback: function(value) {
+                                return value + '%'
+                            }
+                        }
+                    },
+                    y: {
+                        stacked: true
+                    }
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        text: '事故歸因焦點轉移分析',
+                        font: {
+                            size: 18
+                        },
+                        color: '#003F5C'
+                    },
+                    tooltip: {
+                        callbacks: {
+                            title: function(tooltipItems) {
+                                const item = tooltipItems[0];
+                                let label = item.chart.data.labels[item.dataIndex];
+                                if (Array.isArray(label)) {
+                                    return label.join(' ');
+                                } else {
+                                    return label;
+                                }
+                            },
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                if (context.parsed.x !== null) {
+                                    label += context.parsed.x + '%';
+                                }
+                                return label;
+                            }
+                        }
+                    },
+                    legend: {
+                        position: 'top',
+                    }
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>
