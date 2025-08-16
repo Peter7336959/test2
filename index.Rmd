@@ -48,7 +48,7 @@ output:
 
 (**報名92人**，甄選44人) **地點：台中市勞動檢查處(台中市豐原區陽明街36號)**
 
-```{r echo = FALSE, warning=FALSE,  cache=TRUE,error=FALSE, message=FALSE}
+```{r echo = FALSE, warning=FALSE,  error=FALSE, message=FALSE}
 library(readxl)
 宣導會名單 <- read_excel("報名資訊/宣導會名單_錄取.xlsx",
 col_types = c("skip", "skip", "skip",
@@ -73,9 +73,9 @@ library(kableExtra)
     pack_rows("第5組", 17, 20,label_row_css = "background-color: #666; color: #fff;") %>%
     pack_rows("第6組", 21, 25,label_row_css = "background-color: #666; color: #fff;") %>%
     pack_rows("第7組", 26, 30,label_row_css = "background-color: #666; color: #fff;") %>%
-    pack_rows("第8組", 31, 35,label_row_css = "background-color: #666; color: #fff;") %>%
-    pack_rows("第9組", 36, 40,label_row_css = "background-color: #666; color: #fff;") %>%
-    pack_rows("第10組",41, 45,label_row_css = "background-color: #666; color: #fff;") %>%
+    pack_rows("第8組", 31, 34,label_row_css = "background-color: #666; color: #fff;") %>%
+    pack_rows("第9組", 35, 39,label_row_css = "background-color: #666; color: #fff;") %>%
+    pack_rows("第10組",40, 44,label_row_css = "background-color: #666; color: #fff;") %>%
 footnote(general = "按報名順序暫時分組，指定演練案例-可先參見下面案例清單")%>%
     scroll_box(width = "600px", height = "200px")
 
