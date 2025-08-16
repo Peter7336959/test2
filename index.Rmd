@@ -46,7 +46,7 @@ output:
 
 ### 中區 ***(0821 週四)***
 
-(**報名92人**，甄選45人) **地點：台中市勞動檢查處(台中市豐原區陽明街36號)**
+(**報名92人**，甄選44人) **地點：台中市勞動檢查處(台中市豐原區陽明街36號)**
 
 ```{r echo = FALSE, warning=FALSE,  cache=TRUE,error=FALSE, message=FALSE}
 library(readxl)
