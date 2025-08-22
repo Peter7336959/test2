@@ -30,60 +30,64 @@ output:
 
 ## 一、公告 {.tabset .tabset-fade .tabset-pills} 
 
-> 0815 **新增南區分享演練案例，感謝<span style="color: red;">第 2，3，4，5，6，9，10組初步成果分享。</span>(詳見下方南區完成公告)**
+> 0822 **中區(0821週四)已順利辦理完成，感謝大家參與，及中市勞檢處大力協助。**
 
-> 0815 新增 **<span style="color: red;"> 後見之明、因果、歸因、確認偏誤</span> - 事故調查時常見心理認知謬誤** (詳見[第五節](#五))
+> 0822 敬請 <span style="color: red;"> **中區**各組</span>將演練完成檔案，於<span style="color: red;">0828(週四)</span>寄出(尊重您的分享意願)，檔案名稱為”中區第_組”。
 
-- 0805：[宣導會講義 pdf](tools\職災事故調查制度實務指南教材參考 v1.pdf) 
+- 0815 南區分享演練案例，感謝<span style="color: red;">第 2，3，4，5，6，9，10組初步成果分享。</span>(詳見下方南區完成公告)**
+- 0815 新增 後見之明、因果、歸因、確認偏誤 - 事故調查時常見心理認知謬誤 (詳見[第五節](#五))
+- 0805：[宣導會講義 pdf]() 
 - 0803：分析工具解析資訊圖表 ([infographic](tools\info.html))
 - 0731：演練個案可使用自己公司案例 (案例可調整)。
-- 0730：工作坊即將開始，仍有學員未填前測問卷，請填寫[前測問卷表單](https://forms.gle/SLkZx5UksNa8v5p28)
+- 0730：工作坊即將開始，仍有學員未填前測問卷，請填寫[前測問卷表單]()
 - 0729：提供**[案例演練分析參考表格](演練案分析格式.docx)**，可先參考分析方法圖卡自行分析，以利小組討論。
 - 0727：若遇有颱風將至或重大事故等，延期或變更事宜將於此處公告。
 - 0727：宣導會報名成功名單 (點選各區查看確認)
 
 ---------------------------------------------------------
 
-### 中區 ***(0821 週四)***
+### 中區 **完成公告 - 感謝大家參與**
 
-(**報名92人**，甄選44人) **地點：台中市勞動檢查處(台中市豐原區陽明街36號)**
+- 0822 <span style="color: red;">敬請各組將演練完成檔案，於0828(週四)寄出(尊重您的分享意願)，檔案名稱為”中區第_組”。</span>
+- 0821 **中區(0821週四)已順利辦理完成，感謝大家參與。**
+- (**報名92人**，甄選44人) 於0821(週五)中市勞檢處
 
 ```{r echo = FALSE, warning=FALSE,  error=FALSE, message=FALSE}
 library(readxl)
-宣導會名單 <- read_excel("報名資訊/宣導會名單_錄取.xlsx",
-col_types = c("skip", "skip", "skip",
-"skip", "skip", "text", "text", "text",
-"text", "text", "text", "skip"))
+#宣導會名單 <- read_excel("報名資訊/宣導會名單_錄取.xlsx",
+#col_types = c("skip", "skip", "skip",
+#"skip", "skip", "text", "text", "text",
+#"text", "text", "text", "skip"))
 
-library(tidyverse)
-宣導會名單 <- 宣導會名單 %>% rename(姓名匿稱=name, 公司匿稱=cop)
-library(kableExtra)
+#library(tidyverse)
+#宣導會名單 <- 宣導會名單 %>% rename(姓名匿稱=name, 公司匿稱=cop)
+#library(kableExtra)
 #  kable(宣導會名單) 
-宣導會名單 %>% filter(確認場次=="中區8月21日" & 亂數抽籤=="y") %>% select(-2) %>%
-  kbl() %>%
-  kable_classic(bootstrap_options = c("striped", "hover"), 
-    position =  "left", fixed_thead = T,full_width = F) %>%
-    row_spec(0, bold = T)%>%
-    column_spec(1, bold = T )%>%
-    column_spec(2, bold = T, background = "lightyellow")%>%
-    pack_rows("第1組", 1, 4,label_row_css = "background-color: #666; color: #fff;") %>%
-    pack_rows("第2組", 5, 8,label_row_css = "background-color: #666; color: #fff;") %>%
-    pack_rows("第3組", 9, 12,label_row_css = "background-color: #666; color: #fff;") %>%
-    pack_rows("第4組", 13, 16,label_row_css = "background-color: #666; color: #fff;") %>%
-    pack_rows("第5組", 17, 20,label_row_css = "background-color: #666; color: #fff;") %>%
-    pack_rows("第6組", 21, 25,label_row_css = "background-color: #666; color: #fff;") %>%
-    pack_rows("第7組", 26, 30,label_row_css = "background-color: #666; color: #fff;") %>%
-    pack_rows("第8組", 31, 34,label_row_css = "background-color: #666; color: #fff;") %>%
-    pack_rows("第9組", 35, 39,label_row_css = "background-color: #666; color: #fff;") %>%
-    pack_rows("第10組",40, 44,label_row_css = "background-color: #666; color: #fff;") %>%
-footnote(general = "按報名順序暫時分組，指定演練案例-可先參見下面案例清單")%>%
-    scroll_box(width = "600px", height = "200px")
+#宣導會名單 %>% filter(確認場次=="中區8月21日" & 亂數抽籤=="y") %>% select(-2) %>%
+#  kbl() %>%
+#  kable_classic(bootstrap_options = c("striped", "hover"), 
+#    position =  "left", fixed_thead = T,full_width = F) %>%
+#    row_spec(0, bold = T)%>%
+#    column_spec(1, bold = T )%>%
+#    column_spec(2, bold = T, background = "lightyellow")%>%
+#    pack_rows("第1組", 1, 4,label_row_css = "background-color: #666; color: #fff;") %>%
+#    pack_rows("第2組", 5, 8,label_row_css = "background-color: #666; color: #fff;") %>%
+#    pack_rows("第3組", 9, 12,label_row_css = "background-color: #666; color: #fff;") %>%
+#    pack_rows("第4組", 13, 16,label_row_css = "background-color: #666; color: #fff;") %>%
+#    pack_rows("第5組", 17, 20,label_row_css = "background-color: #666; color: #fff;") %>%
+#    pack_rows("第6組", 21, 25,label_row_css = "background-color: #666; color: #fff;") %>%
+#    pack_rows("第7組", 26, 30,label_row_css = "background-color: #666; color: #fff;") %>%
+#    pack_rows("第8組", 31, 34,label_row_css = "background-color: #666; color: #fff;") %>%
+#    pack_rows("第9組", 35, 39,label_row_css = "background-color: #666; color: #fff;") %>%
+#    pack_rows("第10組",40, 44,label_row_css = "background-color: #666; color: #fff;") %>%
+#footnote(general = "按報名順序暫時分組，指定演練案例-可先參見下面案例清單")%>%
+#    scroll_box(width = "600px", height = "200px")
 
 ```
 
 ------------------------------------------------------------------------
 
-### 南區**完成公告 - 感謝大家參與** 
+### 南區完成公告 
 
 > 0815 <span style="color: red;">**感謝南區第 2，3，4，5，6，9及10 組完整分享演練成果(詳見[第三節](#三))**</span> 
 
@@ -213,7 +217,7 @@ footnote(general = "按報名順序暫時分組，指定演練案例-可先參�
 
 ### 事故調查分析方法圖卡
 
--   [事故調查分析方法圖卡：電子檔下載](事故調查制度實務指南-分析方法圖卡.pdf)
+-   [事故調查分析方法圖卡：電子檔下載]
 
 ------------------------------------------------------------------------
 
@@ -373,7 +377,7 @@ knitr::include_graphics('images/課程表.jpg')
 
 ### 附錄 **(分析方法圖卡等)**
 
-> [事故調查分析方法圖卡：電子檔下載](事故調查制度實務指南-分析方法圖卡.pdf)
+> [事故調查分析方法圖卡：電子檔下載]
 
 -   附錄 A 「事故成因分析/圖 (ECFA/ECFC)」使用參考圖卡
 -   附錄 B 「時間序列表」使用參考圖卡
