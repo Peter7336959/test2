@@ -9,7 +9,7 @@ output:
     toc_float: true
     #toc_depth: 2
     lib_dir: libs
-    theme: spacelab
+    theme: united
     #theme: !expr sample(c( "united",  "flatly", "lumen",  "spacelab"), 1)
     highlight: default
     #(available themes are "default", "tango", "pygments", "kate", `monochrome`, `espresso`, `zenburn`, `haddock`, `breezedark`, `textmate`, `arrow`, or `rstudio`).
@@ -208,6 +208,13 @@ footnote(general = "按報名順序暫時分組，指定演練案例-可先參�
 ```
 
 ------------------------------------------------------------------------
+
+### 活動照片集(0823)
+
+#### 活動照片 ([中/南區研討會](image.html))
+
+------------------------------------------------------------------------
+
 
 ## 二、宣導會(工作坊)資訊 {.tabset .tabset-fade .tabset-pills}
 

@@ -1,0 +1,64 @@
+---
+title: 活動照片集
+
+format: 
+  html: 
+    fig-cap-location: top
+    fig-align: left
+    fig-width: 200
+    fig-height: 200
+lightbox:
+  match: auto
+  effect: fade
+  desc-position: right
+  loop: true
+  css-class: "my-css-class"
+
+---
+
+## 1.南區研討活動
+
+::: {#南區活動 layout-ncol="3"}
+![處長致詞](images\宣導會照片\南區\1.jpg){group="南區"}
+
+![個案研討1](images\宣導會照片\南區\5.jpg){group="南區"}
+
+![個案研討2](images\宣導會照片\南區\5a.jpg){group="南區"}
+
+![個案研討3](images\宣導會照片\南區\5b.jpg){ group="南區"}
+
+![個案研討4](images\宣導會照片\南區\5c.jpg){ group="南區"}
+
+![個案研討5](images\宣導會照片\南區\5a.jpg){ group="南區"}
+
+![處長主持研討互動](images\宣導會照片\南區\6.jpg){ group="南區"}
+
+![會場告示](images\宣導會照片\南區\會場指示.jpg){ group="南區"}
+
+:::
+
+
+## 2.中區研討活動
+
+::: {#pictures layout-ncol="3"}
+![處長致詞1](images\宣導會照片\中區\1.jpg){ group="中區"}
+
+![處長致詞1](images\宣導會照片\中區\2.jpg){ group="中區"}
+
+![課堂授課](images\宣導會照片\中區\3.jpg){ group="中區"}
+
+![個案研討1](images\宣導會照片\中區\5.jpg){ group="中區"}
+
+![個案研討2](images\宣導會照片\中區\6.jpg){ group="中區"}
+
+![個案研討3](images\宣導會照片\中區\7.jpg){ group="中區"}
+
+![個案研討4](images\宣導會照片\中區\8.jpg){ group="中區"}
+
+![個案研討5](images\宣導會照片\中區\9.jpg){ group="中區"}
+
+![個案分享研討](images\宣導會照片\中區\10.jpg){ group="中區"}
+
+![會場報到](images\宣導會照片\中區\11.jpg){ group="中區"}
+:::
+
