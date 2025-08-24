@@ -1,0 +1,76 @@
+---
+title: "Dashboard"
+author: "Peter Ho"
+format: 
+  dashboard:
+    logo: images/指引封面.jpg
+    scrolling: true
+---
+
+## Row {height="30%"}
+
+```{r}
+#| content: valuebox
+#| title: "Spam per day"
+spam=50
+list(
+  icon = "trash",
+  color = "danger",
+  value = spam
+)
+```
+
+```{r}
+#| content: valuebox
+#| title: "Article per day"
+article=33
+list(
+  icon = "pencil",
+  color = "primary",
+  value = article
+)
+```
+
+## Row {height="40%"}
+
+```{r}
+knitr::kable(mtcars)
+
+```
+
+## Row {height="30%"}
+
+### Column {.tabset}
+
+```{r}
+#| title: Chart 2
+library(leaflet)
+leaflet() %>%
+  addTiles() %>% 
+  addMarkers(lng=174.768, lat=-36.852, 
+             popup="The birthplace of R")
+```
+
+```{r}
+#| title: Chart 3
+#| #| fig-width: 10
+#| fig-height: 8
+plot(cars)
+```
+
+### Column
+
+```{r}
+#| title: Chart 4
+```
+
+# 高雄 {orientation="columns" scrolling="true"}
+
+## 高雄
+
+```{r}
+#| title: Chart 4
+library(DT)
+datatable(mtcars)
+```
+

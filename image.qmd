@@ -29,7 +29,7 @@ lightbox:
 
 ![個案研討4](images\宣導會照片\南區\5c.jpg){ group="南區"}
 
-![個案研討5](images\宣導會照片\南區\5a.jpg){ group="南區"}
+![個案研討5](images\宣導會照片\南區\6.jpg){ group="南區"}
 
 ![處長主持研討互動](images\宣導會照片\南區\6.jpg){ group="南區"}
 
