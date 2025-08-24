@@ -57,6 +57,6 @@ lightbox:
 ![個案研討5](images\宣導會照片\中區\9.jpg){group="中區"}
 
 ![個案分享研討](images\宣導會照片\中區\10.jpg){group="中區"}
-
-![會場報到](images\宣導會照片\中區\11.jpg){group="中區"}
 :::
+
+![會場報到](images/宣導會照片/中區/11.JPG){fig-align="left"}
