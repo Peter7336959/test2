@@ -39,7 +39,7 @@ lightbox:
 ## 2.中區研討活動
 
 ::: {#中區活動 layout-ncol="3"}
-![處長致詞1](images\宣導會照片\中區\1.jpg){group="中區" width="200"}
+![處長致詞1](images/宣導會照片/中區/1.jpg){group="中區" width="200"}
 
 ![處長致詞1](images\宣導會照片\中區\2.jpg){group="中區" width="200"}
 
