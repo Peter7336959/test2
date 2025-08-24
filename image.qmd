@@ -10,9 +10,9 @@ format:
     default-image-extension: jpg
     
 lightbox:
-  match: auto
-  effect: fade
-  desc-position: right
+  #match: auto
+  #effect: fade
+  desc-position: left
   loop: true
 ---
 
