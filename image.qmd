@@ -10,8 +10,8 @@ format:
     default-image-extension: jpg
     
 lightbox:
-  #match: auto
-  #effect: fade
+  match: auto
+  effect: fade
   desc-position: left
   loop: true
 ---
