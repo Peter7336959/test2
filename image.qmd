@@ -19,7 +19,7 @@ lightbox:
 ## 1.南區研討活動
 
 ::: {#南區活動 layout-ncol="3"}
-![處長致詞](images\宣導會照片\南區\1.jpg){group="南區" width="200"}
+![課堂授課](images\宣導會照片\南區\1.jpg){group="南區" width="200"}
 
 ![個案研討1](images\宣導會照片\南區\5.jpg){group="南區" width="200"}
 
@@ -31,7 +31,7 @@ lightbox:
 
 ![個案研討5](images\宣導會照片\南區\6.jpg){group="南區" width="200"}
 
-![處長主持研討互動](images\宣導會照片\南區\6.jpg){group="南區" width="200"}
+![研討互動](images\宣導會照片\南區\6.jpg){group="南區" width="200"}
 
 ![會場告示](images\宣導會照片\南區\會場指示.jpg){group="南區" width="200"}
 :::
@@ -42,11 +42,11 @@ lightbox:
 ## 2.中區研討活動
 
 ::: {#中區活動 layout-nrow="4"}
-![處長致詞1](images/宣導會照片/中區/1.JPG){width="200" group="中區"} 
+![課堂授課1](images/宣導會照片/中區/1.JPG){width="200" group="中區"} 
 
-![處長致詞2](images/宣導會照片/中區/2.JPG){width="200" group="中區"}
+![課堂授課2](images/宣導會照片/中區/2.JPG){width="200" group="中區"}
 
-![課堂授課](images/宣導會照片/中區/3.JPG){width="200" group="中區"}
+![課堂授課3](images/宣導會照片/中區/3.JPG){width="200" group="中區"}
 
 ![個案研討1](images/宣導會照片/中區/5.JPG){width="200" group="中區"}
 
