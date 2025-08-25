@@ -36,29 +36,6 @@ lightbox:
 ![會場告示](images\宣導會照片\南區\會場指示.jpg){group="南區" width="200"}
 :::
 
-## 2.中區研討活動
-
-::: {#中區活動 layout-nrow="4"}
-![處長致詞1](images/宣導會照片/中區/1.jpg){.lightbox group="中區" width="200"}
-
-![處長致詞2](images\宣導會照片\中區\2.jpg){group="中區" width="200"}
-
-![課堂授課](images\宣導會照片\中區\3.jpg){group="中區" width="200"}
-
-![個案研討1](images\宣導會照片\中區\5.jpg){group="中區" width="200"}
-
-![個案研討2](images\宣導會照片\中區\6.jpg){group="中區" width="200"}
-
-![個案研討3](images\宣導會照片\中區\7.jpg){group="中區" width="200"}
-
-![個案研討4](images\宣導會照片\中區\8.jpg){group="中區" width="200"}
-
-![個案研討5](images\宣導會照片\中區\9.jpg){group="中區" width="200"}
-
-![個案分享研討](images\宣導會照片\中區\10.jpg){group="中區" width="200"}
-
-![會場報到](images/宣導會照片/中區/11.JPG){.lightbox group="中區" width="200"}
-:::
 
 ------------------------------------------------------------------------
 
