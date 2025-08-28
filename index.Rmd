@@ -48,7 +48,45 @@ output:
 
 ---------------------------------------------------------
 
-### 中區 **完成公告 - 感謝大家參與**
+### 北區1 ***(0902 週二)***
+
+(**報名87人**，甄選41人) **地點：職安署北區職業安全衛生中心(新北市新莊區中平路439號 - 北棟10樓1015會議室)**
+
+```{r echo = FALSE, warning=FALSE,  cache=TRUE,error=FALSE, message=FALSE}
+library(readxl)
+宣導會名單 <- read_excel("報名資訊/宣導會名單_錄取.xlsx",
+col_types = c("skip", "skip", "skip",
+"skip", "skip", "text", "text", "text",
+"text", "text", "text", "skip"))
+
+library(tidyverse)
+宣導會名單 <- 宣導會名單 %>% rename(姓名匿稱=name, 公司匿稱=cop)
+library(kableExtra)
+宣導會名單 %>% filter(確認場次=="北區9月02日"& 亂數抽籤=="y") %>% select(-2) %>%
+  kbl() %>%
+  kable_classic(bootstrap_options = c("striped", "hover"), 
+    position =  "left", fixed_thead = T,full_width = F) %>%
+    row_spec(0, bold = T)%>%
+    column_spec(1, bold = T )%>%
+    column_spec(2, bold = T, background = "lightyellow")%>%
+    pack_rows("第1組", 1, 4,label_row_css = "background-color: #666; color: #fff;") %>%
+    pack_rows("第2組", 5, 8,label_row_css = "background-color: #666; color: #fff;") %>%
+    pack_rows("第3組", 9, 12,label_row_css = "background-color: #666; color: #fff;") %>%
+    pack_rows("第4組", 13, 16,label_row_css = "background-color: #666; color: #fff;") %>%
+    pack_rows("第5組", 17, 20,label_row_css = "background-color: #666; color: #fff;") %>%
+    pack_rows("第6組", 21, 24,label_row_css = "background-color: #666; color: #fff;") %>%
+    pack_rows("第7組", 25, 28,label_row_css = "background-color: #666; color: #fff;") %>%
+    pack_rows("第8組", 29, 32,label_row_css = "background-color: #666; color: #fff;") %>%
+    pack_rows("第9組", 33, 36,label_row_css = "background-color: #666; color: #fff;") %>%
+    pack_rows("第10組",37, 41,label_row_css = "background-color: #666; color: #fff;") %>%
+footnote(general = "按報名順序暫時分組，指定演練案例-可先參見下面案例清單")%>%
+    scroll_box(width = "600px", height = "200px")
+
+```
+
+------------------------------------------------------------------------
+
+### 中區 **完成公告**
 
 > 0822 **中區(0821週四)已順利辦理完成，感謝大家參與。**
 
@@ -134,44 +172,6 @@ library(readxl)
 
 ------------------------------------------------------------------------
 
-
-### 北區1 ***(0902 週二)***
-
-(**報名87人**，甄選41人) **地點：職安署北區職業安全衛生中心(新北市新莊區中平路439號 - 北棟10樓1015會議室)**
-
-```{r echo = FALSE, warning=FALSE,  cache=TRUE,error=FALSE, message=FALSE}
-library(readxl)
-宣導會名單 <- read_excel("報名資訊/宣導會名單_錄取.xlsx",
-col_types = c("skip", "skip", "skip",
-"skip", "skip", "text", "text", "text",
-"text", "text", "text", "skip"))
-
-library(tidyverse)
-宣導會名單 <- 宣導會名單 %>% rename(姓名匿稱=name, 公司匿稱=cop)
-library(kableExtra)
-宣導會名單 %>% filter(確認場次=="北區9月02日"& 亂數抽籤=="y") %>% select(-2) %>%
-  kbl() %>%
-  kable_classic(bootstrap_options = c("striped", "hover"), 
-    position =  "left", fixed_thead = T,full_width = F) %>%
-    row_spec(0, bold = T)%>%
-    column_spec(1, bold = T )%>%
-    column_spec(2, bold = T, background = "lightyellow")%>%
-    pack_rows("第1組", 1, 4,label_row_css = "background-color: #666; color: #fff;") %>%
-    pack_rows("第2組", 5, 8,label_row_css = "background-color: #666; color: #fff;") %>%
-    pack_rows("第3組", 9, 12,label_row_css = "background-color: #666; color: #fff;") %>%
-    pack_rows("第4組", 13, 16,label_row_css = "background-color: #666; color: #fff;") %>%
-    pack_rows("第5組", 17, 20,label_row_css = "background-color: #666; color: #fff;") %>%
-    pack_rows("第6組", 21, 24,label_row_css = "background-color: #666; color: #fff;") %>%
-    pack_rows("第7組", 25, 28,label_row_css = "background-color: #666; color: #fff;") %>%
-    pack_rows("第8組", 29, 32,label_row_css = "background-color: #666; color: #fff;") %>%
-    pack_rows("第9組", 33, 36,label_row_css = "background-color: #666; color: #fff;") %>%
-    pack_rows("第10組",37, 41,label_row_css = "background-color: #666; color: #fff;") %>%
-footnote(general = "按報名順序暫時分組，指定演練案例-可先參見下面案例清單")%>%
-    scroll_box(width = "600px", height = "200px")
-
-```
-
-------------------------------------------------------------------------
 
 ### 北區2 ***(0918 週四)***
 
@@ -423,7 +423,7 @@ knitr::include_graphics('images/課程表.jpg')
 |  |  |  |  |
 
 
-## 五、**常見認知謬誤** {#五}
+## 五、常見認知謬誤 {#五}
 
 - 事故調查[常見認知謬誤](info\info.html)
   1. 歸因偏誤 0811
