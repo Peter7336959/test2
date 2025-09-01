@@ -9,7 +9,7 @@ output:
     toc_float: true
     #toc_depth: 2
     lib_dir: libs
-    theme: united
+    theme: spacelab
     #theme: !expr sample(c( "united",  "flatly", "lumen",  "spacelab"), 1)
     highlight: default
     #(available themes are "default", "tango", "pygments", "kate", `monochrome`, `espresso`, `zenburn`, `haddock`, `breezedark`, `textmate`, `arrow`, or `rstudio`).
@@ -30,25 +30,25 @@ output:
 
 ## 一、公告 {.tabset .tabset-fade .tabset-pills} 
 
-- 0825：中區分享演練案例，感謝第 4，6，7 組初步成果分享(詳見[第三節](#三))
-- 0822：中區研討會(0821週四)已順利辦理完成，感謝大家參與，及中市勞檢處大力協助。
-- 0815：南區分享演練案例，感謝第2，3，4，5，6，9，10組初步成果分享(詳見[第三節](#三))。
-- 0815：新增 後見之明、因果、歸因、確認偏誤 - 事故調查時常見心理認知謬誤。
-- 0805：宣導會講義 pdf。 
-- 0803：分析方法解析資訊圖表-infographic
+> 0815 **新增南區分享演練案例，感謝<span style="color: red;">第 2，3，4，5，6，9，10組初步成果分享。</span>(詳見下方南區完成公告)**
+
+> 0815 新增 **<span style="color: red;"> 後見之明、因果、歸因、確認偏誤</span> - 事故調查時常見心理認知謬誤** (詳見[第五節](#五))
+
+- 0805：[宣導會講義 pdf](tools\職災事故調查制度實務指南教材參考 v1.pdf) 
+- 0803：分析工具解析資訊圖表 ([infographic](tools\info.html))
 - 0731：演練個案可使用自己公司案例 (案例可調整)。
-- 0730：工作坊即將開始，仍有學員未填前測問卷，請課前填寫前測問卷表單
-- 0729：提供案例演練分析參考表格，可先參考分析方法圖卡自行分析，以利小組討論。
+- 0730：工作坊即將開始，仍有學員未填前測問卷，請填寫[前測問卷表單](https://forms.gle/SLkZx5UksNa8v5p28)
+- 0729：提供**[案例演練分析參考表格](演練案分析格式.docx)**，可先參考分析方法圖卡自行分析，以利小組討論。
 - 0727：若遇有颱風將至或重大事故等，延期或變更事宜將於此處公告。
 - 0727：宣導會報名成功名單 (點選各區查看確認)
 
 ---------------------------------------------------------
 
-### 北區1 ***(0902 週二)***
+### 中區 ***(0821 週四)***
 
-(**報名87人**，甄選41人) **地點：職安署北區職業安全衛生中心(新北市新莊區中平路439號 - 北棟10樓1015會議室)**
+(**報名92人**，甄選44人) **地點：台中市勞動檢查處(台中市豐原區陽明街36號)**
 
-```{r echo = FALSE, warning=FALSE,  cache=TRUE,error=FALSE, message=FALSE}
+```{r echo = FALSE, warning=FALSE,  error=FALSE, message=FALSE}
 library(readxl)
 宣導會名單 <- read_excel("報名資訊/宣導會名單_錄取.xlsx",
 col_types = c("skip", "skip", "skip",
@@ -58,7 +58,8 @@ col_types = c("skip", "skip", "skip",
 library(tidyverse)
 宣導會名單 <- 宣導會名單 %>% rename(姓名匿稱=name, 公司匿稱=cop)
 library(kableExtra)
-宣導會名單 %>% filter(確認場次=="北區9月02日"& 亂數抽籤=="y") %>% select(-2) %>%
+#  kable(宣導會名單) 
+宣導會名單 %>% filter(確認場次=="中區8月21日" & 亂數抽籤=="y") %>% select(-2) %>%
   kbl() %>%
   kable_classic(bootstrap_options = c("striped", "hover"), 
     position =  "left", fixed_thead = T,full_width = F) %>%
@@ -70,11 +71,11 @@ library(kableExtra)
     pack_rows("第3組", 9, 12,label_row_css = "background-color: #666; color: #fff;") %>%
     pack_rows("第4組", 13, 16,label_row_css = "background-color: #666; color: #fff;") %>%
     pack_rows("第5組", 17, 20,label_row_css = "background-color: #666; color: #fff;") %>%
-    pack_rows("第6組", 21, 24,label_row_css = "background-color: #666; color: #fff;") %>%
-    pack_rows("第7組", 25, 28,label_row_css = "background-color: #666; color: #fff;") %>%
-    pack_rows("第8組", 29, 32,label_row_css = "background-color: #666; color: #fff;") %>%
-    pack_rows("第9組", 33, 36,label_row_css = "background-color: #666; color: #fff;") %>%
-    pack_rows("第10組",37, 41,label_row_css = "background-color: #666; color: #fff;") %>%
+    pack_rows("第6組", 21, 25,label_row_css = "background-color: #666; color: #fff;") %>%
+    pack_rows("第7組", 26, 30,label_row_css = "background-color: #666; color: #fff;") %>%
+    pack_rows("第8組", 31, 34,label_row_css = "background-color: #666; color: #fff;") %>%
+    pack_rows("第9組", 35, 39,label_row_css = "background-color: #666; color: #fff;") %>%
+    pack_rows("第10組",40, 44,label_row_css = "background-color: #666; color: #fff;") %>%
 footnote(general = "按報名順序暫時分組，指定演練案例-可先參見下面案例清單")%>%
     scroll_box(width = "600px", height = "200px")
 
@@ -82,54 +83,9 @@ footnote(general = "按報名順序暫時分組，指定演練案例-可先參�
 
 ------------------------------------------------------------------------
 
-### 中區 完成公告
+### 南區**完成公告 - 感謝大家參與** 
 
-> 0825 **感謝中區第 4，6，7 組分享演練成果(詳見[第三節](#三))**
-
-- 0822 敬請**中區**各組將演練完成檔案，於0828(週四)寄出(尊重您的分享意願)，檔案名稱為”中區第_組”。[參考分析已公布](#三) 
-- 0822 **中區(0821週四)已順利辦理完成，感謝大家參與。**
-- 0822 敬請各組將演練完成檔案，於0828(週四)寄出(尊重您的分享意願)，檔案名稱為”中區第_組”。
-- 0822 **中區(0821週四)已順利辦理完成，感謝大家參與。**
-- (**報名92人**，甄選44人) 於0821(週五)中市勞檢處
-
-```{r echo = FALSE, warning=FALSE,  error=FALSE, message=FALSE}
-library(readxl)
-#宣導會名單 <- read_excel("報名資訊/宣導會名單_錄取.xlsx",
-#col_types = c("skip", "skip", "skip",
-#"skip", "skip", "text", "text", "text",
-#"text", "text", "text", "skip"))
-
-#library(tidyverse)
-#宣導會名單 <- 宣導會名單 %>% rename(姓名匿稱=name, 公司匿稱=cop)
-#library(kableExtra)
-#  kable(宣導會名單) 
-#宣導會名單 %>% filter(確認場次=="中區8月21日" & 亂數抽籤=="y") %>% select(-2) %>%
-#  kbl() %>%
-#  kable_classic(bootstrap_options = c("striped", "hover"), 
-#    position =  "left", fixed_thead = T,full_width = F) %>%
-#    row_spec(0, bold = T)%>%
-#    column_spec(1, bold = T )%>%
-#    column_spec(2, bold = T, background = "lightyellow")%>%
-#    pack_rows("第1組", 1, 4,label_row_css = "background-color: #666; color: #fff;") %>%
-#    pack_rows("第2組", 5, 8,label_row_css = "background-color: #666; color: #fff;") %>%
-#    pack_rows("第3組", 9, 12,label_row_css = "background-color: #666; color: #fff;") %>%
-#    pack_rows("第4組", 13, 16,label_row_css = "background-color: #666; color: #fff;") %>%
-#    pack_rows("第5組", 17, 20,label_row_css = "background-color: #666; color: #fff;") %>%
-#    pack_rows("第6組", 21, 25,label_row_css = "background-color: #666; color: #fff;") %>%
-#    pack_rows("第7組", 26, 30,label_row_css = "background-color: #666; color: #fff;") %>%
-#    pack_rows("第8組", 31, 34,label_row_css = "background-color: #666; color: #fff;") %>%
-#    pack_rows("第9組", 35, 39,label_row_css = "background-color: #666; color: #fff;") %>%
-#    pack_rows("第10組",40, 44,label_row_css = "background-color: #666; color: #fff;") %>%
-#footnote(general = "按報名順序暫時分組，指定演練案例-可先參見下面案例清單")%>%
-#    scroll_box(width = "600px", height = "200px")
-
-```
-
-------------------------------------------------------------------------
-
-### 南區完成公告 
-
-> 0815 **感謝南區第 2，3，4，5，6，9及10 組完整分享演練成果(詳見[第三節](#三))**
+> 0815 <span style="color: red;">**感謝南區第 2，3，4，5，6，9及10 組完整分享演練成果(詳見[第三節](#三))**</span> 
 
 - 0805 **敬請各組將演練完成檔案，於0811(週一)寄出(尊重您的分享意願)，檔案名稱為"南區第 _ 組"。**
 - 0805 **已於 三、演練職災事故個案(實例)區，分享學員初步成果。**
@@ -171,6 +127,44 @@ library(readxl)
 ------------------------------------------------------------------------
 
 
+### 北區1 ***(0902 週二)***
+
+(**報名87人**，甄選41人) **地點：職安署北區職業安全衛生中心(新北市新莊區中平路439號 - 北棟10樓1015會議室)**
+
+```{r echo = FALSE, warning=FALSE,  cache=TRUE,error=FALSE, message=FALSE}
+library(readxl)
+宣導會名單 <- read_excel("報名資訊/宣導會名單_錄取.xlsx",
+col_types = c("skip", "skip", "skip",
+"skip", "skip", "text", "text", "text",
+"text", "text", "text", "skip"))
+
+library(tidyverse)
+宣導會名單 <- 宣導會名單 %>% rename(姓名匿稱=name, 公司匿稱=cop)
+library(kableExtra)
+宣導會名單 %>% filter(確認場次=="北區9月02日"& 亂數抽籤=="y") %>% select(-2) %>%
+  kbl() %>%
+  kable_classic(bootstrap_options = c("striped", "hover"), 
+    position =  "left", fixed_thead = T,full_width = F) %>%
+    row_spec(0, bold = T)%>%
+    column_spec(1, bold = T )%>%
+    column_spec(2, bold = T, background = "lightyellow")%>%
+    pack_rows("第1組", 1, 4,label_row_css = "background-color: #666; color: #fff;") %>%
+    pack_rows("第2組", 5, 8,label_row_css = "background-color: #666; color: #fff;") %>%
+    pack_rows("第3組", 9, 12,label_row_css = "background-color: #666; color: #fff;") %>%
+    pack_rows("第4組", 13, 16,label_row_css = "background-color: #666; color: #fff;") %>%
+    pack_rows("第5組", 17, 20,label_row_css = "background-color: #666; color: #fff;") %>%
+    pack_rows("第6組", 21, 24,label_row_css = "background-color: #666; color: #fff;") %>%
+    pack_rows("第7組", 25, 28,label_row_css = "background-color: #666; color: #fff;") %>%
+    pack_rows("第8組", 29, 32,label_row_css = "background-color: #666; color: #fff;") %>%
+    pack_rows("第9組", 33, 36,label_row_css = "background-color: #666; color: #fff;") %>%
+    pack_rows("第10組",37, 41,label_row_css = "background-color: #666; color: #fff;") %>%
+footnote(general = "按報名順序暫時分組，指定演練案例-可先參見下面案例清單")%>%
+    scroll_box(width = "600px", height = "200px")
+
+```
+
+------------------------------------------------------------------------
+
 ### 北區2 ***(0918 週四)***
 
 (**報名40人**，甄選40人) **地點：職安署北區職業安全衛生中心(新北市新莊區中平路439號 - 北棟10樓1015會議室)**
@@ -209,13 +203,6 @@ footnote(general = "按報名順序暫時分組，指定演練案例-可先參�
 
 ------------------------------------------------------------------------
 
-### 活動照片集(0823)
-
-#### 活動照片 ([中/南區研討會](image.html))
-
-------------------------------------------------------------------------
-
-
 ## 二、宣導會(工作坊)資訊 {.tabset .tabset-fade .tabset-pills}
 
 
@@ -226,7 +213,7 @@ footnote(general = "按報名順序暫時分組，指定演練案例-可先參�
 
 ### 事故調查分析方法圖卡
 
--   [事故調查分析方法圖卡：電子檔下載]
+-   [事故調查分析方法圖卡：電子檔下載](事故調查制度實務指南-分析方法圖卡.pdf)
 
 ------------------------------------------------------------------------
 
@@ -267,21 +254,6 @@ knitr::include_graphics('images/課程表.jpg')
 
 ------------------------------------------------------------------------
 
-### 捲夾案
-
-| 職災類型 | 演練個案 | 分析參考 | 公告訊息 | 完整檔案 |
-|:--------------|:--------------|:--------------|:--------------|:--------------|
-| 捲夾\*5參考案 |  |  |  |  |
-|  | [捲夾案1](cases/A切割夾捲/捲夾案1_演練.pdf) |  | 職安署公告 | [原始檔案](cases/A切割夾捲/捲夾案1_原始.pdf) |
-|  | [捲夾案2](cases/A切割夾捲/捲夾案2_演練.pdf) |[<span style="color: darkgreen;">*分析參考</span>](cases/A切割夾捲/夾捲案2分析參考.pdf)   | 職安署公告 | [原始檔案](cases/A切割夾捲/捲夾案2_原始.pdf) |
-|  | [捲夾案3](cases/A切割夾捲/捲夾案3_演練.pdf) |  | 職安署公告 | [原始檔案](cases/A切割夾捲/捲夾案3_原始.pdf) |
-|  | [捲夾案4](cases/A切割夾捲/捲夾案4_演練.pdf) |[<span style="color: darkgreen;">*分析參考</span>](cases/A切割夾捲/夾捲案4分析參考.pdf)  |參考用 |[原始檔案](cases/A切割夾捲/捲夾案4_原始.pdf) |
-|  |  |[<span style="color: red;">中區第6組分享</span>](cases/A切割夾捲/中區第6組演練分享.pdf)  |<span style="color: red;">中區第6組</span>  | |
-|  |  |[<span style="color: red;">南區第6組分享</span>](cases/A切割夾捲/南區第6組演練分享.pdf)  |<span style="color: red;">@南區第6組</span>  | |
-|  | [捲夾案5](cases/A切割夾捲/捲夾案5_演練.pdf) | | 職安署公告 | [原始檔案](cases/A切割夾捲/捲夾案5_原始.pdf) |
-
-------------------------------------------------------------------------
-
 ### 墜落案
 
 | 職災類型 | 演練個案 | 分析參考 | 公告訊息 | 完整檔案 |
@@ -289,9 +261,22 @@ knitr::include_graphics('images/課程表.jpg')
 | 墜落\*3參考案 |  |  |  |  |
 |  | [墜落案1](cases/F墜落/墜落案1_演練.pdf) |  | 職安署公告 | [原始檔案](cases/F墜落/墜落案1_原始.pdf) |
 |  | [墜落案2](cases/F墜落/墜落案2_演練.pdf) |  | 職安署公告 | [原始檔案](cases/F墜落/墜落案2_原始.pdf) |
-|  | [墜落案3](cases/F墜落/墜落案3_演練.pdf) |[<span style="color: darkgreen;">*分析參考</span>](cases/F墜落/墜落案3_分析參考.pdf)  | 參考用 | [原始檔案](cases/F墜落/墜落案3_原始.pdf) |
-|  |  |[<span style="color: red;">中區第7組分享</span>](cases/F墜落/中區第7組演練分享.pdf)  |<span style="color: red;"> @中區第7組</span>| |
+|  | [墜落案3](cases/F墜落/墜落案3_演練.pdf) | | 職安署公告 | [原始檔案](cases/F墜落/墜落案3_原始.pdf) |
 |  |  |[<span style="color: red;">南區第2組分享</span>](cases/F墜落/南區第2組演練分享.pdf)  |<span style="color: red;"> @南區第2組</span>| |
+
+------------------------------------------------------------------------
+
+### 局限空間案
+
+| 職災類型 | 演練個案 | 分析參考 | 公告訊息 | 完整檔案 |
+|:--------------|:--------------|:--------------|:--------------|:--------------|
+| 局限空間\*5參考案 |  |  |  |  |
+|  | [局限空間案1](cases/C局限空間/局限案例1_演練.pdf) |  | 職安署電子書 | [原始檔案](cases/C局限空間/局限案例1_原始.pdf) |
+|  | [局限空間案2](cases/C局限空間/局限案例2_演練.pdf) |  | 職安署電子書 | [原始檔案](cases/C局限空間/局限案例2_原始.pdf) |
+|  | [局限空間案3](cases/C局限空間/局限案例3_演練.pdf) |  | 職安署電子書 | [原始檔案](cases/C局限空間/局限案例3_原始.pdf) |
+|  | [局限空間案4](cases/C局限空間/局限案例4_演練.pdf) |  | 職安署電子書 | [原始檔案](cases/C局限空間/局限案例4_原始.pdf) |
+|  | [局限空間案5](cases/C局限空間/局限案例5_演練.pdf) | | 職安署電子書 | [原始檔案](cases/C局限空間/局限案例5_原始.pdf) |
+|  |  | [<span style="color: red;">南區第3組分享</span>](cases/C局限空間/局限案例5演練參考.pdf)  |<span style="color: red;"> @南區第3組</span> | |
 
 ------------------------------------------------------------------------
 
@@ -303,28 +288,11 @@ knitr::include_graphics('images/課程表.jpg')
 |  | [倒塌崩塌1](cases/D倒塌崩塌/倒塌案1_演練.pdf) |  | 職安署公告 | [原始檔案](cases/D倒塌崩塌/倒塌案1_原始.pdf) |
 |  | [倒塌崩塌2](cases/D倒塌崩塌/倒塌案2_演練.pdf) |  | 職安署公告 | [原始檔案](cases/D倒塌崩塌/倒塌案2_原始.pdf) |
 |  | [倒塌崩塌3](cases/D倒塌崩塌/倒塌案3_演練.pdf) |  | 職安署公告 | [原始檔案](cases/D倒塌崩塌/倒塌案3_原始.pdf) |
-|  | [倒塌崩塌4](cases/D倒塌崩塌/倒塌案4_演練.pdf) |[<span style="color: darkgreen;">*分析參考</span>](cases/D倒塌崩塌/倒塌案4_分析參考.pdf)  | 職安署公告 | [原始檔案](cases/D倒塌崩塌/倒塌案4_原始.pdf) |
- |  | |[<span style="color: red;">中區第4組分享</span>](cases/D倒塌崩塌/中區第4組演練分享.pdf)  |<span style="color: red;">@中區第4組</span>   | |
+|  | [倒塌崩塌4](cases/D倒塌崩塌/倒塌案4_演練.pdf) || 職安署公告 | [原始檔案](cases/D倒塌崩塌/倒塌案4_原始.pdf) |
  |  | |[<span style="color: red;">南區第4組分享</span>](cases/D倒塌崩塌/南區第4組演練分享.pdf)  |<span style="color: red;">@南區第4組</span>   | |
 |  | |[<span style="color: red;">南區第9組分享</span>](cases/D倒塌崩塌/南區第9組演練分享.pdf)  |<span style="color: red;">@南區第9組</span>   | | 
 
 ------------------------------------------------------------------------
-
-
-### 局限空間案
-
-| 職災類型 | 演練個案 | 分析參考 | 公告訊息 | 完整檔案 |
-|:--------------|:--------------|:--------------|:--------------|:--------------|
-| 局限空間\*5參考案 |  |  |  |  |
-|  | [局限案1](cases/C局限空間/局限案例1_演練.pdf) |[<span style="color: darkgreen;">*分析參考</span>](cases/C局限空間/侷限案1_分析參考.pdf)   | 參考用 | [原始檔案](cases/C局限空間/局限案例1_原始.pdf) |
-|  | [局限案2](cases/C局限空間/局限案例2_演練.pdf) |  | 職安署電子書 | [原始檔案](cases/C局限空間/局限案例2_原始.pdf) |
-|  | [局限空間案3](cases/C局限空間/局限案例3_演練.pdf) |  | 職安署電子書 | [原始檔案](cases/C局限空間/局限案例3_原始.pdf) |
-|  | [局限空間案4](cases/C局限空間/局限案例4_演練.pdf) |  | 職安署電子書 | [原始檔案](cases/C局限空間/局限案例4_原始.pdf) |
-|  | [局限空間案5](cases/C局限空間/局限案例5_演練.pdf) |[<span style="color: darkgreen;">*分析參考</span>](cases/C局限空間/局限案例5_分析參考.pdf)  | 參考用 | [原始檔案](cases/C局限空間/局限案例5_原始.pdf) |
-|  |  | [<span style="color: red;">南區第3組分享</span>](cases/C局限空間/局限案例5演練參考.pdf)  |<span style="color: red;"> @南區第3組</span> | |
-
-------------------------------------------------------------------------
-
 
 ### 感電案
 
@@ -334,14 +302,26 @@ knitr::include_graphics('images/課程表.jpg')
 |  | [感電案1](cases/E感電/感電案1_演練.pdf) |  | 職安署公告 | [原始檔案](cases/E感電/感電案1_原始.pdf) |
 | | |[<span style="color: red;">南區第10組分享</span>](cases/E感電/南區第10組演練分享.pdf) |<span style="color: red;">@南區第10組</span>   |  
 |  | [感電案2](cases/E感電/感電案2_演練.pdf) |  | 職安署公告 | [原始檔案](cases/E感電/感電案2_原始.pdf) |
-|  | [感電案3](cases/E感電/感電案3_演練.pdf) |[<span style="color: darkgreen;">*分析參考</span>](cases/E感電/感電案3_分析參考.pdf)  | 參考用 | [原始檔案](cases/E感電/感電案3_原始.pdf) |
+|  | [感電案3](cases/E感電/感電案3_演練.pdf) | | 職安署公告 | [原始檔案](cases/E感電/感電案3_原始.pdf) |
 |  |  |[<span style="color: red;">南區第5組分享</span>](cases/E感電/南區第5組演練分享.pdf) |<span style="color: red;">@南區第5組</span>  |
 |  
 |  | [感電案4](cases/E感電/感電案4_演練.pdf) |  | 職安署公告 | [原始檔案](cases/E感電/感電案4_原始.pdf) |
 
 ------------------------------------------------------------------------
 
+### 捲夾案
 
+| 職災類型 | 演練個案 | 分析參考 | 公告訊息 | 完整檔案 |
+|:--------------|:--------------|:--------------|:--------------|:--------------|
+| 捲夾\*5參考案 |  |  |  |  |
+|  | [捲夾案1](cases/A切割夾捲/捲夾案1_演練.pdf) |  | 職安署公告 | [原始檔案](cases/A切割夾捲/捲夾案1_原始.pdf) |
+|  | [捲夾案2](cases/A切割夾捲/捲夾案2_演練.pdf) |  | 職安署公告 | [原始檔案](cases/A切割夾捲/捲夾案2_原始.pdf) |
+|  | [捲夾案3](cases/A切割夾捲/捲夾案3_演練.pdf) |  | 職安署公告 | [原始檔案](cases/A切割夾捲/捲夾案3_原始.pdf) |
+|  | [捲夾案4](cases/A切割夾捲/捲夾案4_演練.pdf) | | 職安署公告 |[原始檔案](cases/A切割夾捲/捲夾案4_原始.pdf) |
+|  |  |[<span style="color: red;">南區第6組分享</span>](cases/A切割夾捲/南區第6組演練分享.pdf)  |<span style="color: red;">@南區第6組</span>  | |
+|  | [捲夾案5](cases/A切割夾捲/捲夾案5_演練.pdf) | | 職安署公告 | [原始檔案](cases/A切割夾捲/捲夾案5_原始.pdf) |
+
+------------------------------------------------------------------------
 
 ### 火災爆炸案
 
@@ -393,7 +373,7 @@ knitr::include_graphics('images/課程表.jpg')
 
 ### 附錄 **(分析方法圖卡等)**
 
-> [事故調查分析方法圖卡：電子檔下載]
+> [事故調查分析方法圖卡：電子檔下載](事故調查制度實務指南-分析方法圖卡.pdf)
 
 -   附錄 A 「事故成因分析/圖 (ECFA/ECFC)」使用參考圖卡
 -   附錄 B 「時間序列表」使用參考圖卡
@@ -421,7 +401,7 @@ knitr::include_graphics('images/課程表.jpg')
 |  |  |  |  |
 
 
-## 五、常見認知謬誤 {#五}
+## 五、**常見認知謬誤** {#五}
 
 - 事故調查[常見認知謬誤](info\info.html)
   1. 歸因偏誤 0811
@@ -429,12 +409,3 @@ knitr::include_graphics('images/課程表.jpg')
   3. 因果偏誤 0814
   4. 後見之明偏誤 0815
   ...
-
-## 六、宣導資料下載 (宣導會當日提供連結)
-
-- [前測問卷表單](https://forms.gle/w39STrPbwhmPyH298)
-- [案例演練分析參考表格](演練案分析格式.docx)
-- [宣導會講義 pdf](tools\職災事故調查制度實務指南教材參考 v1.pdf)
-- [事故調查分析方法圖卡 pdf](事故調查制度實務指南-分析方法圖卡.pdf)
-- [事故調查制度實務指南 pdf](R5-事故調查制度實務指南-中華製程安全學會編撰.pdf)
-- [分析方法解析資訊圖表 infographic](tools\info.html))
