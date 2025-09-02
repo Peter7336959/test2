@@ -319,7 +319,7 @@ knitr::include_graphics('images/課程表.jpg')
 |  | [局限案1](cases/C局限空間/局限案例1_演練.pdf) |[<span style="color: darkgreen;">*分析參考</span>](cases/C局限空間/侷限案1_分析參考.pdf)   | 參考用 | [原始檔案](cases/C局限空間/局限案例1_原始.pdf) |
 |  | [局限案2](cases/C局限空間/局限案例2_演練.pdf) |  | 職安署電子書 | [原始檔案](cases/C局限空間/局限案例2_原始.pdf) |
 |  | [局限空間案3](cases/C局限空間/局限案例3_演練.pdf) |  | 職安署電子書 | [原始檔案](cases/C局限空間/局限案例3_原始.pdf) |
-|  | [局限空間案4](cases/C局限空間/局限案例4_演練.pdf) |  | 職安署電子書 | [原始檔案](cases/C局限空間/局限案例4_原始.pdf) |
+|  | [局限空間案4](cases/C局限空間/局限案例4_演練.pdf) |[<span style="color: darkgreen;">*分析參考</span>](cases/C局限空間/局限案例4_分析參考.pdf)  | 職安署電子書 | [原始檔案](cases/C局限空間/局限案例4_原始.pdf) |
 |  | [局限空間案5](cases/C局限空間/局限案例5_演練.pdf) |[<span style="color: darkgreen;">*分析參考</span>](cases/C局限空間/局限案例5_分析參考.pdf)  | 參考用 | [原始檔案](cases/C局限空間/局限案例5_原始.pdf) |
 |  |  | [<span style="color: red;">南區第3組分享</span>](cases/C局限空間/局限案例5演練參考.pdf)  |<span style="color: red;"> @南區第3組</span> | |
 
@@ -333,7 +333,7 @@ knitr::include_graphics('images/課程表.jpg')
 | 感電\*4參考案 |  |  |  |  |
 |  | [感電案1](cases/E感電/感電案1_演練.pdf) |  | 職安署公告 | [原始檔案](cases/E感電/感電案1_原始.pdf) |
 | | |[<span style="color: red;">南區第10組分享</span>](cases/E感電/南區第10組演練分享.pdf) |<span style="color: red;">@南區第10組</span>   |  
-|  | [感電案2](cases/E感電/感電案2_演練.pdf) |  | 職安署公告 | [原始檔案](cases/E感電/感電案2_原始.pdf) |
+|  | [感電案2](cases/E感電/感電案2_演練.pdf) |[<span style="color: darkgreen;">*分析參考</span>](cases/E感電/感電案2_分析參考.pdf)  | 職安署公告 | [原始檔案](cases/E感電/感電案2_原始.pdf) |
 |  | [感電案3](cases/E感電/感電案3_演練.pdf) |[<span style="color: darkgreen;">*分析參考</span>](cases/E感電/感電案3_分析參考.pdf)  | 參考用 | [原始檔案](cases/E感電/感電案3_原始.pdf) |
 |  |  |[<span style="color: red;">南區第5組分享</span>](cases/E感電/南區第5組演練分享.pdf) |<span style="color: red;">@南區第5組</span>  |
 |  
@@ -352,7 +352,7 @@ knitr::include_graphics('images/課程表.jpg')
 |  | [火災爆炸案2](cases/B火災爆炸/火災爆炸案2_演練.pdf) |  | 職安署公告 | [原始檔案](cases/B火災爆炸/火災爆炸案2_原始.pdf) |
 |  | [火災爆炸案3](cases/B火災爆炸/火災爆炸案3_演練.pdf) |  | 職安署公告 | [原始檔案](cases/B火災爆炸/火災爆炸案3_原始.pdf) |
 |  | [火災爆炸案4](cases/B火災爆炸/火災爆炸案4_演練.pdf) |  | 職安署公告 | [原始檔案](cases/B火災爆炸/火災爆炸案4_原始.pdf) |
-|  | [火災爆炸案5](cases/B火災爆炸/火災爆炸案5_演練.pdf) |  | 職安署公告 | [原始檔案](cases/B火災爆炸/火災爆炸案5_原始.pdf) |
+|  | [火災爆炸案5](cases/B火災爆炸/火災爆炸案5_演練.pdf) |[<span style="color: darkgreen;">*分析參考</span>](cases/B火災爆炸/火災爆炸案5_分析參考.pdf)   | 職安署公告 | [原始檔案](cases/B火災爆炸/火災爆炸案5_原始.pdf) |
 
 ------------------------------------------------------------------------
 
@@ -363,6 +363,7 @@ knitr::include_graphics('images/課程表.jpg')
 |:--------------|:--------------|:--------------|:--------------|:--------------|
 | 熱疾病\*2參考案 |  |  |  |  |
 |  | [熱疾病案1](cases/H熱疾病/熱疾病案1_演練.pdf) |  | 職安署公告 | [原始檔案](cases/H熱疾病/熱疾病案1_原始.pdf) |
+|  | [熱疾病案1](cases/H熱疾病/熱疾病案1_演練.pdf) |[<span style="color: darkgreen;">*分析參考</span>](cases/H熱疾病/熱疾病案1_分析參考.pdf)   |  | [原始檔案](cases/H熱疾病/熱疾病案1_原始.pdf) |
 |  | [熱疾病案2](cases/H熱疾病/熱疾病案2_演練.pdf) | | 職安署公告 | [原始檔案](cases/H熱疾病/熱疾病案2_原始.pdf) |
 
 ------------------------------------------------------------------------
