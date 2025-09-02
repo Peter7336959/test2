@@ -29,6 +29,10 @@ output:
 ------------------------------------------------------------------------
 
 ## 一、公告 {.tabset .tabset-fade .tabset-pills} 
+> 0902：北區第一場研討會(0902週一)已順利辦理完成，感謝大家參與，及北區職安衛中心協助。
+
+> 0902：敬請**<span style="color: red;">北區第一場</span>**各組將演練完成檔案，於<span style="color: red;">0909(週二)前</span>寄出(尊重您的分享意願)，檔案名稱為”北區1第__組”。 
+
 
 - 0825：中區分享演練案例，感謝第 4，6，7 組初步成果分享(詳見[第三節](#三))
 - 0822：中區研討會(0821週四)已順利辦理完成，感謝大家參與，及中市勞檢處大力協助。
@@ -44,39 +48,42 @@ output:
 
 ---------------------------------------------------------
 
-### 北區1 ***(0902 週二)***
+### 北區1 ***完成公告***
+
+- 0902 北區第一場研討會(0902週一)已順利辦理完成，感謝大家參與，及北區職安衛中心協助。
+
 
 (**報名87人**，甄選41人) **地點：職安署北區職業安全衛生中心(新北市新莊區中平路439號 - 北棟10樓1015會議室)**
 
 ```{r echo = FALSE, warning=FALSE,  cache=TRUE,error=FALSE, message=FALSE}
-library(readxl)
-宣導會名單 <- read_excel("報名資訊/宣導會名單_錄取.xlsx",
-col_types = c("skip", "skip", "skip",
-"skip", "skip", "text", "text", "text",
-"text", "text", "text", "skip"))
+#library(readxl)
+#宣導會名單 <- read_excel("報名資訊/宣導會名單_錄取.xlsx",
+#col_types = c("skip", "skip", "skip",
+#"skip", "skip", "text", "text", "text",
+#"text", "text", "text", "skip"))
 
-library(tidyverse)
-宣導會名單 <- 宣導會名單 %>% rename(姓名匿稱=name, 公司匿稱=cop)
-library(kableExtra)
-宣導會名單 %>% filter(確認場次=="北區9月02日"& 亂數抽籤=="y") %>% select(-2) %>%
-  kbl() %>%
-  kable_classic(bootstrap_options = c("striped", "hover"), 
-    position =  "left", fixed_thead = T,full_width = F) %>%
-    row_spec(0, bold = T)%>%
-    column_spec(1, bold = T )%>%
-    column_spec(2, bold = T, background = "lightyellow")%>%
-    pack_rows("第1組", 1, 4,label_row_css = "background-color: #666; color: #fff;") %>%
-    pack_rows("第2組", 5, 8,label_row_css = "background-color: #666; color: #fff;") %>%
-    pack_rows("第3組", 9, 12,label_row_css = "background-color: #666; color: #fff;") %>%
-    pack_rows("第4組", 13, 16,label_row_css = "background-color: #666; color: #fff;") %>%
-    pack_rows("第5組", 17, 20,label_row_css = "background-color: #666; color: #fff;") %>%
-    pack_rows("第6組", 21, 24,label_row_css = "background-color: #666; color: #fff;") %>%
-    pack_rows("第7組", 25, 28,label_row_css = "background-color: #666; color: #fff;") %>%
-    pack_rows("第8組", 29, 32,label_row_css = "background-color: #666; color: #fff;") %>%
-    pack_rows("第9組", 33, 36,label_row_css = "background-color: #666; color: #fff;") %>%
-    pack_rows("第10組",37, 41,label_row_css = "background-color: #666; color: #fff;") %>%
-footnote(general = "按報名順序暫時分組，指定演練案例-可先參見下面案例清單")%>%
-    scroll_box(width = "600px", height = "200px")
+#library(tidyverse)
+#宣導會名單 <- 宣導會名單 %>% rename(姓名匿稱=name, 公司匿稱=cop)
+#library(kableExtra)
+#宣導會名單 %>% filter(確認場次=="北區9月02日"& 亂數抽籤=="y") %>% select(-2) %>%
+#  kbl() %>%
+#  kable_classic(bootstrap_options = c("striped", "hover"), 
+#    position =  "left", fixed_thead = T,full_width = F) %>%
+#    row_spec(0, bold = T)%>%
+#    column_spec(1, bold = T )%>%
+#    column_spec(2, bold = T, background = "lightyellow")%>%
+#    pack_rows("第1組", 1, 4,label_row_css = "background-color: #666; color: #fff;") %>%
+#    pack_rows("第2組", 5, 8,label_row_css = "background-color: #666; color: #fff;") %>%
+#    pack_rows("第3組", 9, 12,label_row_css = "background-color: #666; color: #fff;") %>%
+#    pack_rows("第4組", 13, 16,label_row_css = "background-color: #666; color: #fff;") %>%
+#    pack_rows("第5組", 17, 20,label_row_css = "background-color: #666; color: #fff;") %>%
+#    pack_rows("第6組", 21, 24,label_row_css = "background-color: #666; color: #fff;") %>%
+#    pack_rows("第7組", 25, 28,label_row_css = "background-color: #666; color: #fff;") %>%
+#    pack_rows("第8組", 29, 32,label_row_css = "background-color: #666; color: #fff;") %>%
+#    pack_rows("第9組", 33, 36,label_row_css = "background-color: #666; color: #fff;") %>%
+#    pack_rows("第10組",37, 41,label_row_css = "background-color: #666; color: #fff;") %>%
+#footnote(general = "按報名順序暫時分組，指定演練案例-可先參見下面案例清單")%>%
+#    scroll_box(width = "600px", height = "200px")
 
 ```
 
@@ -86,7 +93,7 @@ footnote(general = "按報名順序暫時分組，指定演練案例-可先參�
 
 > 0825 **感謝中區第 4，6，7 組分享演練成果(詳見[第三節](#三))**
 
-- 0822 敬請**中區**各組將演練完成檔案，於0828(週四)寄出(尊重您的分享意願)，檔案名稱為”中區第_組”。[參考分析已公布](#三) 
+- 0822 敬請**中區**各組將演練完成檔案，於0828(週四)寄出(尊重您的分享意願)，檔案名稱為”中區第_組”。 
 - 0822 **中區(0821週四)已順利辦理完成，感謝大家參與。**
 - 0822 敬請各組將演練完成檔案，於0828(週四)寄出(尊重您的分享意願)，檔案名稱為”中區第_組”。
 - 0822 **中區(0821週四)已順利辦理完成，感謝大家參與。**
@@ -209,9 +216,9 @@ footnote(general = "按報名順序暫時分組，指定演練案例-可先參�
 
 ------------------------------------------------------------------------
 
-### 活動照片集(0823)
+### 活動照片集(0902)
 
-#### 活動照片 ([中/南區研討會](image.html))
+#### 活動照片 ([北/中/南區研討會](image.html))
 
 ------------------------------------------------------------------------
 
@@ -319,7 +326,7 @@ knitr::include_graphics('images/課程表.jpg')
 |  | [局限案1](cases/C局限空間/局限案例1_演練.pdf) |[<span style="color: darkgreen;">*分析參考</span>](cases/C局限空間/侷限案1_分析參考.pdf)   | 參考用 | [原始檔案](cases/C局限空間/局限案例1_原始.pdf) |
 |  | [局限案2](cases/C局限空間/局限案例2_演練.pdf) |  | 職安署電子書 | [原始檔案](cases/C局限空間/局限案例2_原始.pdf) |
 |  | [局限空間案3](cases/C局限空間/局限案例3_演練.pdf) |  | 職安署電子書 | [原始檔案](cases/C局限空間/局限案例3_原始.pdf) |
-|  | [局限空間案4](cases/C局限空間/局限案例4_演練.pdf) |  | 職安署電子書 | [原始檔案](cases/C局限空間/局限案例4_原始.pdf) |
+|  | [局限空間案4](cases/C局限空間/局限案例4_演練.pdf) |[<span style="color: darkgreen;">*分析參考</span>](cases/C局限空間/局限案例4_分析參考.pdf)  | 職安署電子書 | [原始檔案](cases/C局限空間/局限案例4_原始.pdf) |
 |  | [局限空間案5](cases/C局限空間/局限案例5_演練.pdf) |[<span style="color: darkgreen;">*分析參考</span>](cases/C局限空間/局限案例5_分析參考.pdf)  | 參考用 | [原始檔案](cases/C局限空間/局限案例5_原始.pdf) |
 |  |  | [<span style="color: red;">南區第3組分享</span>](cases/C局限空間/局限案例5演練參考.pdf)  |<span style="color: red;"> @南區第3組</span> | |
 
@@ -333,7 +340,7 @@ knitr::include_graphics('images/課程表.jpg')
 | 感電\*4參考案 |  |  |  |  |
 |  | [感電案1](cases/E感電/感電案1_演練.pdf) |  | 職安署公告 | [原始檔案](cases/E感電/感電案1_原始.pdf) |
 | | |[<span style="color: red;">南區第10組分享</span>](cases/E感電/南區第10組演練分享.pdf) |<span style="color: red;">@南區第10組</span>   |  
-|  | [感電案2](cases/E感電/感電案2_演練.pdf) |  | 職安署公告 | [原始檔案](cases/E感電/感電案2_原始.pdf) |
+|  | [感電案2](cases/E感電/感電案2_演練.pdf) |[<span style="color: darkgreen;">*分析參考</span>](cases/E感電/感電案2_分析參考.pdf)  | 職安署公告 | [原始檔案](cases/E感電/感電案2_原始.pdf) |
 |  | [感電案3](cases/E感電/感電案3_演練.pdf) |[<span style="color: darkgreen;">*分析參考</span>](cases/E感電/感電案3_分析參考.pdf)  | 參考用 | [原始檔案](cases/E感電/感電案3_原始.pdf) |
 |  |  |[<span style="color: red;">南區第5組分享</span>](cases/E感電/南區第5組演練分享.pdf) |<span style="color: red;">@南區第5組</span>  |
 |  
@@ -352,7 +359,7 @@ knitr::include_graphics('images/課程表.jpg')
 |  | [火災爆炸案2](cases/B火災爆炸/火災爆炸案2_演練.pdf) |  | 職安署公告 | [原始檔案](cases/B火災爆炸/火災爆炸案2_原始.pdf) |
 |  | [火災爆炸案3](cases/B火災爆炸/火災爆炸案3_演練.pdf) |  | 職安署公告 | [原始檔案](cases/B火災爆炸/火災爆炸案3_原始.pdf) |
 |  | [火災爆炸案4](cases/B火災爆炸/火災爆炸案4_演練.pdf) |  | 職安署公告 | [原始檔案](cases/B火災爆炸/火災爆炸案4_原始.pdf) |
-|  | [火災爆炸案5](cases/B火災爆炸/火災爆炸案5_演練.pdf) |  | 職安署公告 | [原始檔案](cases/B火災爆炸/火災爆炸案5_原始.pdf) |
+|  | [火災爆炸案5](cases/B火災爆炸/火災爆炸案5_演練.pdf) |[<span style="color: darkgreen;">*分析參考</span>](cases/B火災爆炸/火災爆炸案5_分析參考.pdf)   | 職安署公告 | [原始檔案](cases/B火災爆炸/火災爆炸案5_原始.pdf) |
 
 ------------------------------------------------------------------------
 
@@ -362,7 +369,7 @@ knitr::include_graphics('images/課程表.jpg')
 | 職災類型 | 演練個案 | 分析參考 | 公告訊息 | 完整檔案 |
 |:--------------|:--------------|:--------------|:--------------|:--------------|
 | 熱疾病\*2參考案 |  |  |  |  |
-|  | [熱疾病案1](cases/H熱疾病/熱疾病案1_演練.pdf) |  | 職安署公告 | [原始檔案](cases/H熱疾病/熱疾病案1_原始.pdf) |
+|  | [熱疾病案1](cases/H熱疾病/熱疾病案1_演練.pdf) |[<span style="color: darkgreen;">*分析參考</span>](cases/H熱疾病/熱疾病案1_分析參考.pdf)   |  | [原始檔案](cases/H熱疾病/熱疾病案1_原始.pdf) |
 |  | [熱疾病案2](cases/H熱疾病/熱疾病案2_演練.pdf) | | 職安署公告 | [原始檔案](cases/H熱疾病/熱疾病案2_原始.pdf) |
 
 ------------------------------------------------------------------------

@@ -75,15 +75,13 @@ lightbox:
 
 ![個案研討2](images/宣導會照片/北區1/6.JPG){width="200" group="北區1"}
 
-![個案分享1](images/宣導會照片/北區1/4.JPG){width="200" group="北區1"}
+![個案分享1](images/宣導會照片/北區1/7.JPG){width="200" group="北區1"}
 
-![個案分享2](images/宣導會照片/北區1/7.JPG){width="200" group="北區1"}
+![個案分享2](images/宣導會照片/北區1/8.JPG){width="200" group="北區1"}
 
-![個案分享3](images/宣導會照片/北區1/8.JPG){width="200" group="北區1"}
+![個案分享3](images/宣導會照片/北區1/9.JPG){width="200" group="北區1"}
 
-![個案分享4](images/宣導會照片/北區1/9.JPG){width="200" group="北區1"}
-
-![學員活動](images/宣導會照片/北區1/10.JPG){width="200" group="北區1"}
+![個案分享4](images/宣導會照片/北區1/10.JPG){width="200" group="北區1"}
 
 :::
 
@@ -93,6 +91,23 @@ lightbox:
 ## 4.北區研討活動第二場(0918)
 
 ::: {#北區活動 layout-nrow="4"}
+![課堂授課1](images/宣導會照片/北區2/1.JPG){width="200" group="北區2"}
 
+![課堂授課2](images/宣導會照片/北區2/2.JPG){width="200" group="北區2"}
 
+![課堂授課3](images/宣導會照片/北區2/3.JPG){width="200" group="北區2"}
+
+![個案研討2](images/宣導會照片/北區2/5.JPG){width="200" group="北區2"}
+
+![個案研討2](images/宣導會照片/北區2/6.JPG){width="200" group="北區2"}
+
+![個案研討3](images/宣導會照片/北區2/7.JPG){width="200" group="北區2"}
+
+![個案研討4](images/宣導會照片/北區2/8.JPG){width="200" group="北區2"}
+
+![個案研討5](images/宣導會照片/北區2/9.JPG){width="200" group="北區2"}
+
+![個案分享研討](images/宣導會照片/北區2/10.JPG){width="200" group="北區2"}
+
+![會場報到](images/宣導會照片/北區2/11.JPG){width="200" group="北區2"}
 :::
