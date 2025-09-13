@@ -48,6 +48,45 @@ output:
 
 ---------------------------------------------------------
 
+
+### 北區2 (0918 週四)
+
+(**報名40人**，甄選40人) **地點：職安署北區職業安全衛生中心(新北市新莊區中平路439號 - 北棟10樓1015會議室)**
+
+```{r echo = FALSE, warning=FALSE, cache=TRUE,error=FALSE, message=FALSE}
+library(readxl)
+宣導會名單 <- read_excel("報名資訊/宣導會名單_錄取.xlsx",
+col_types = c("skip", "skip", "skip",
+"skip", "skip", "text", "text", "text",
+"text", "text", "text", "skip"))
+
+library(tidyverse)
+宣導會名單 <- 宣導會名單 %>% rename(姓名匿稱=name, 公司匿稱=cop)
+library(kableExtra)
+#  kable(宣導會名單) 
+宣導會名單 %>% filter(確認場次=="北區9月18日" & 亂數抽籤=="y") %>% select(-2) %>%
+  kbl() %>%
+  kable_classic(bootstrap_options = c("striped", "hover"), 
+    position =  "left", fixed_thead = T,full_width = F) %>%
+    row_spec(0, bold = T)%>%
+    column_spec(1, bold = T )%>%
+    column_spec(2, bold = T, background = "lightyellow")%>%
+    pack_rows("第1組", 1, 4,label_row_css = "background-color: #666; color: #fff;") %>%
+    pack_rows("第2組", 5, 8,label_row_css = "background-color: #666; color: #fff;") %>%
+    pack_rows("第3組", 9, 12,label_row_css = "background-color: #666; color: #fff;") %>%
+    pack_rows("第4組", 13, 16,label_row_css = "background-color: #666; color: #fff;") %>%
+    pack_rows("第5組", 17, 20,label_row_css = "background-color: #666; color: #fff;") %>%
+    pack_rows("第6組", 21, 24,label_row_css = "background-color: #666; color: #fff;") %>%
+    pack_rows("第7組", 25, 29,label_row_css = "background-color: #666; color: #fff;") %>%
+    pack_rows("第8組", 30, 34,label_row_css = "background-color: #666; color: #fff;") %>%
+    pack_rows("第9組", 35, 38,label_row_css = "background-color: #666; color: #fff;") %>%
+    pack_rows("第10組", 39, 40,label_row_css = "background-color: #666; color: #fff;") %>%
+footnote(general = "按報名順序暫時分組，指定演練案例-可先參見下面案例清單")%>%
+    scroll_box(width = "600px", height = "200px")
+
+```
+
+------------------------------------------------------------------------
 ### 北區1 ***完成公告***
 
 - 0913：感謝**<span style="color: red;">第2，8，10組</span>**初步成果分享(詳見[第三節](#三))
@@ -174,44 +213,6 @@ library(readxl)
 
 ------------------------------------------------------------------------
 
-
-### 北區2 (0918 週四)
-
-(**報名40人**，甄選40人) **地點：職安署北區職業安全衛生中心(新北市新莊區中平路439號 - 北棟10樓1015會議室)**
-
-```{r echo = FALSE, warning=FALSE, cache=TRUE,error=FALSE, message=FALSE}
-library(readxl)
-宣導會名單 <- read_excel("報名資訊/宣導會名單_錄取.xlsx",
-col_types = c("skip", "skip", "skip",
-"skip", "skip", "text", "text", "text",
-"text", "text", "text", "skip"))
-
-library(tidyverse)
-宣導會名單 <- 宣導會名單 %>% rename(姓名匿稱=name, 公司匿稱=cop)
-library(kableExtra)
-#  kable(宣導會名單) 
-宣導會名單 %>% filter(確認場次=="北區9月18日" & 亂數抽籤=="y") %>% select(-2) %>%
-  kbl() %>%
-  kable_classic(bootstrap_options = c("striped", "hover"), 
-    position =  "left", fixed_thead = T,full_width = F) %>%
-    row_spec(0, bold = T)%>%
-    column_spec(1, bold = T )%>%
-    column_spec(2, bold = T, background = "lightyellow")%>%
-    pack_rows("第1組", 1, 4,label_row_css = "background-color: #666; color: #fff;") %>%
-    pack_rows("第2組", 5, 8,label_row_css = "background-color: #666; color: #fff;") %>%
-    pack_rows("第3組", 9, 12,label_row_css = "background-color: #666; color: #fff;") %>%
-    pack_rows("第4組", 13, 16,label_row_css = "background-color: #666; color: #fff;") %>%
-    pack_rows("第5組", 17, 20,label_row_css = "background-color: #666; color: #fff;") %>%
-    pack_rows("第6組", 21, 24,label_row_css = "background-color: #666; color: #fff;") %>%
-    pack_rows("第7組", 25, 29,label_row_css = "background-color: #666; color: #fff;") %>%
-    pack_rows("第8組", 30, 34,label_row_css = "background-color: #666; color: #fff;") %>%
-    pack_rows("第9組", 35, 39,label_row_css = "background-color: #666; color: #fff;") %>%
-footnote(general = "按報名順序暫時分組，指定演練案例-可先參見下面案例清單")%>%
-    scroll_box(width = "600px", height = "200px")
-
-```
-
-------------------------------------------------------------------------
 
 ### **活動照片集(0902)**
 
