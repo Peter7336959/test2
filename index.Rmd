@@ -80,7 +80,7 @@ library(kableExtra)
     pack_rows("第8組", 30, 33,label_row_css = "background-color: #666; color: #fff;") %>%
     pack_rows("第9組", 34, 37,label_row_css = "background-color: #666; color: #fff;") %>%
     pack_rows("第10組", 38, 41,label_row_css = "background-color: #666; color: #fff;") %>%
-footnote(general = "按報名順序暫時分組，指定演練案例-可先參見下面案例清單")%>%
+footnote(general = "按報名順序暫時分組，上課時可再調整。指定演練案例-可先參見下面案例清單")%>%
     scroll_box(width = "600px", height = "200px")
 
 ```
