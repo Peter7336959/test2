@@ -50,7 +50,7 @@ output:
 
 ### 北區2 (0918 週四)
 
-(**報名40人**，甄選40人) **地點：職安署北區職業安全衛生中心(新北市新莊區中平路439號 - 北棟10樓1015會議室)**
+(**報名41人**，甄選41人) **地點：職安署北區職業安全衛生中心(新北市新莊區中平路439號 - 北棟10樓1015會議室)**
 
 ```{r echo = FALSE, warning=FALSE, cache=TRUE,error=FALSE, message=FALSE}
 library(readxl)
@@ -79,7 +79,7 @@ library(kableExtra)
     pack_rows("第7組", 25, 29,label_row_css = "background-color: #666; color: #fff;") %>%
     pack_rows("第8組", 30, 34,label_row_css = "background-color: #666; color: #fff;") %>%
     pack_rows("第9組", 35, 38,label_row_css = "background-color: #666; color: #fff;") %>%
-    pack_rows("第10組", 39, 40,label_row_css = "background-color: #666; color: #fff;") %>%
+    pack_rows("第10組", 39, 41,label_row_css = "background-color: #666; color: #fff;") %>%
 footnote(general = "按報名順序暫時分組，指定演練案例-可先參見下面案例清單")%>%
     scroll_box(width = "600px", height = "200px")
 
