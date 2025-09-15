@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<style type="text/css">
+.inline {
+  background-color: #f7f7f7;
+  border:solid 1px #B0B0B0;
+}
+.error {
+	font-weight: bold;
+	color: #FF0000;
+}
+.warning {
+	font-weight: bold;
+}
+.message {
+	font-style: italic;
+}
+.source, .output, .warning, .error, .message {
+	padding: 0 1em;
+  border:solid 1px #F7F7F7;
+}
+.source {
+  background-color: #f5f5f5;
+}
+.left {
+  text-align: left;
+}
+.right {
+  text-align: right;
+}
+.center {
+  text-align: center;
+}
+.hl.num {
+  color: #AF0F91;
+}
+.hl.sng {
+  color: #317ECC;
+}
+.hl.com {
+  color: #AD95AF;
+  font-style: italic;
+}
+.hl.opt {
+  color: #000000;
+}
+.hl.def {
+  color: #585858;
+}
+.hl.kwa {
+  color: #295F94;
+  font-weight: bold;
+}
+.hl.kwb {
+  color: #B05A65;
+}
+.hl.kwc {
+  color: #55aa55;
+}
+.hl.kwd {
+  color: #BC5A65;
+  font-weight: bold;
+}
+</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>職災事故ECFC事件成因圖生成器</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: "Microsoft JhengHei", "微軟正黑體", sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #3498db, #2c3e50);
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .description {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            padding: 0;
+        }
+        
+        .input-section {
+            padding: 25px;
+            background: #f9fafb;
+            border-bottom: 1px solid #eaecef;
+        }
+        
+        .output-section {
+            padding: 25px;
+            background: white;
+            min-height: 500px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .section-title {
+            font-size: 20px;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #3498db;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        
+        .event-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .event-title {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .event-controls {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background: #3498db;
+            color: white;
+        }
+        
+        .btn-danger {
+            background: #e74c3c;
+            color: white;
+        }
+        
+        .btn-success {
+            background: #2ecc71;
+            color: white;
+        }
+        
+        .btn-warning {
+            background: #f39c12;
+            color: white;
+        }
+        
+        .btn-sm {
+            padding: 5px 10px;
+            font-size: 12px;
+        }
+        
+        .btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        
+        input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        
+        .condition {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            gap: 10px;
+        }
+        
+        .condition input {
+            flex: 1;
+            margin-bottom: 0;
+        }
+        
+        .condition .remove-condition {
+            color: #e74c3c;
+            cursor: pointer;
+            font-size: 18px;
+            padding: 5px;
+        }
+        
+        .time-inputs {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .time-inputs .time-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .time-inputs .time-group label {
+            font-size: 12px;
+            margin-bottom: 2px;
+        }
+        
+        .time-inputs input {
+            width: 70px;
+        }
+        
+        #ecfc-canvas-container {
+            width: 100%;
+            flex: 1;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: white;
+            margin-bottom: 20px;
+            overflow: auto;
+            position: relative;
+        }
+        
+        #ecfc-svg {
+            min-width: 100%;
+            min-height: 400px;
+        }
+        
+        .canvas-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 15px 0;
+        }
+        
+        .canvas-controls button {
+            padding: 8px 15px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .notes {
+            background: #fff8e1;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #ffc107;
+        }
+        
+        .notes h3 {
+            color: #d35400;
+            margin-bottom: 10px;
+        }
+        
+        .notes ul {
+            padding-left: 20px;
+        }
+        
+        .notes li {
+            margin-bottom: 8px;
+        }
+        
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+        }
+        
+        .checkbox-group input {
+            width: auto;
+            margin: 0 10px 0 0;
+        }
+        
+        .sub-conditions {
+            margin-left: 30px;
+            padding-left: 15px;
+            border-left: 2px dashed #ccc;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #7f8c8d;
+            font-size: 14px;
+            border-top: 1px solid #eaecef;
+        }
+        
+        /* 縮放控制 */
+        .zoom-controls {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 10;
+        }
+        
+        .zoom-controls button {
+            width: 40px;
+            height: 40px;
+            font-size: 20px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 0 5px;
+        }
+        
+        .condition-checkbox {
+            display: flex;
+            align-items: center;
+            margin-left: 10px;
+        }
+        
+        .condition-checkbox input {
+            width: auto;
+            margin-right: 5px;
+        }
+        
+        .condition-checkbox label {
+            margin: 0;
+            font-size: 12px;
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>職災事故ECFC事件成因圖生成器</h1>
+            <p class="description">輸入職災事故的事件鏈與條件，自動生成ECFC事件成因圖</p>
+        </header>
+        
+        <div class="main-content">
+            <div class="input-section">
+                <h2 class="section-title">事件與條件輸入</h2>
+                
+                <div id="events-container">
+                    <div class="form-group event" data-id="1">
+                        <div class="event-header">
+                            <span class="event-title">事件 #1</span>
+                            <div class="event-controls">
+                                <button class="btn btn-danger" onclick="removeEvent(1)"><i class="fas fa-trash"></i></button>
+                            </div>
+                        </div>
+                        
+                        <label>事件內容 (N+V):</label>
+                        <input type="text" class="event-content" placeholder="例如: 機器故障">
+                        
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="event-pending-1" class="event-pending">
+                            <label for="event-pending-1">待確認</label>
+                        </div>
+                        
+                        <label>時間:</label>
+                        <div class="time-inputs">
+                            <div class="time-group">
+                                <label>月</label>
+                                <input type="number" min="0" max="12" placeholder="月" class="time-month">
+                            </div>
+                            <div class="time-group">
+                                <label>日</label>
+                                <input type="number" min="0" max="31" placeholder="日" class="time-day">
+                            </div>
+                            <div class="time-group">
+                                <label>時</label>
+                                <input type="number" min="0" max="23" placeholder="時" class="time-hour">
+                            </div>
+                            <div class="time-group">
+                                <label>分</label>
+                                <input type="number" min="0" max="59" placeholder="分" class="time-minute">
+                            </div>
+                        </div>
+                        
+                        <label>條件:</label>
+                        <div class="conditions">
+                            <div class="condition" data-id="1">
+                                <input type="text" placeholder="條件內容">
+                                <div class="condition-checkbox">
+                                    <input type="checkbox" id="condition-pending-1-1" class="condition-pending">
+                                    <label for="condition-pending-1-1">待確認</label>
+                                </div>
+                                <div>
+                                    <button class="btn btn-warning btn-sm" onclick="addSubCondition(1, 1)"><i class="fas fa-level-down-alt"></i></button>
+                                    <span class="remove-condition" onclick="removeCondition(1, 1)"><i class="fas fa-times-circle"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button class="btn btn-primary" onclick="addCondition(1)"><i class="fas fa-plus"></i> 新增條件</button>
+                    </div>
+                </div>
+                
+                <button class="btn btn-success" onclick="addEvent()" style="width: 100%; margin-top: 20px;"><i class="fas fa-plus-circle"></i> 新增事件</button>
+                
+                <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="generateECFC()"><i class="fas fa-sync-alt"></i> 生成ECFC圖</button>
+                    <button class="btn btn-danger" onclick="clearAll()"><i class="fas fa-trash"></i> 清除全部</button>
+                </div>
+            </div>
+            
+            <div class="output-section">
+                <h2 class="section-title">ECFC事件成因圖</h2>
+                
+                <div class="canvas-controls">
+                    <button class="btn btn-primary" onclick="downloadPNG()"><i class="fas fa-download"></i> 下載PNG</button>
+                </div>
+                
+                <div id="ecfc-canvas-container">
+                    <div class="zoom-controls">
+                        <button onclick="zoomOut()">-</button>
+                        <button onclick="resetZoom()">100%</button>
+                        <button onclick="zoomIn()">+</button>
+                    </div>
+                    <svg width="100%" height="100%" id="ecfc-svg"></svg>
+                </div>
+                
+                <div class="notes">
+                    <h3><i class="fas fa-exclamation-circle"></i> ECFC注意事項</h3>
+                    <ul>
+                        <li>ECFC圖應從左至右水平排列，表示事件發生的時間順序</li>
+                        <li>每個事件應包含明確的事件內容和時間信息</li>
+                        <li>事件條件應具體明確，一個事件可以有多個條件</li>
+                        <li>使用箭頭表示事件之間的因果關係</li>
+                        <li>確保所有條件和事件都有清晰的標籤</li>
+                        <li>時間信息應盡可能精確，包括月、日、時、分</li>
+                        <li>待確認的事件或條件會以虛線邊框顯示</li>
+                        <li>條件顯示在事件上方，並以虛線箭頭連接</li>
+                        <li>定期檢查和更新ECFC圖以反映最新信息</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>職災事故ECFC事件成因圖生成器 &copy; 2023 工安管理系統</p>
+        </footer>
+    </div>
+
+    <script>
+        let eventCount = 1;
+        let conditionCount = 1;
+        let zoomLevel = 1;
+        
+        // 添加新事件
+        function addEvent() {
+            eventCount++;
+            const newEvent = document.createElement('div');
+            newEvent.className = 'form-group event';
+            newEvent.dataset.id = eventCount;
+            
+            newEvent.innerHTML = `
+                <div class="event-header">
+                    <span class="event-title">事件 #${eventCount}</span>
+                    <div class="event-controls">
+                        <button class="btn btn-danger" onclick="removeEvent(${eventCount})"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+                
+                <label>事件內容 (N+V):</label>
+                <input type="text" class="event-content" placeholder="例如: 機器故障">
+                
+                <div class="checkbox-group">
+                    <input type="checkbox" id="event-pending-${eventCount}" class="event-pending">
+                    <label for="event-pending-${eventCount}">待確認</label>
+                </div>
+                
+                <label>時間:</label>
+                <div class="time-inputs">
+                    <div class="time-group">
+                        <label>月</label>
+                        <input type="number" min="0" max="12" placeholder="月" class="time-month">
+                    </div>
+                    <div class="time-group">
+                        <label>日</label>
+                        <input type="number" min="0" max="31" placeholder="日" class="time-day">
+                    </div>
+                    <div class="time-group">
+                        <label>時</label>
+                        <input type="number" min="0" max="23" placeholder="時" class="time-hour">
+                    </div>
+                    <div class="time-group">
+                        <label>分</label>
+                        <input type="number" min="0" max="59" placeholder="分" class="time-minute">
+                    </div>
+                </div>
+                
+                <label>條件:</label>
+                <div class="conditions">
+                    <div class="condition" data-id="${conditionCount}">
+                        <input type="text" placeholder="條件內容">
+                        <div class="condition-checkbox">
+                            <input type="checkbox" id="condition-pending-${eventCount}-${conditionCount}" class="condition-pending">
+                            <label for="condition-pending-${eventCount}-${conditionCount}">待確認</label>
+                        </div>
+                        <div>
+                            <button class="btn btn-warning btn-sm" onclick="addSubCondition(${eventCount}, ${conditionCount})"><i class="fas fa-level-down-alt"></i></button>
+                            <span class="remove-condition" onclick="removeCondition(${eventCount}, ${conditionCount})"><i class="fas fa-times-circle"></i></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="btn btn-primary" onclick="addCondition(${eventCount})"><i class="fas fa-plus"></i> 新增條件</button>
+            `;
+            
+            conditionCount++;
+            document.getElementById('events-container').appendChild(newEvent);
+        }
+        
+        // 移除事件
+        function removeEvent(id) {
+            if (document.querySelectorAll('.event').length <= 1) {
+                alert('至少需要保留一個事件');
+                return;
+            }
+            
+            const eventToRemove = document.querySelector(`.event[data-id="${id}"]`);
+            if (eventToRemove) {
+                eventToRemove.remove();
+            }
+        }
+        
+        // 添加條件
+        function addCondition(eventId) {
+            const conditionsContainer = document.querySelector(`.event[data-id="${eventId}"] .conditions`);
+            const newCondition = document.createElement('div');
+            newCondition.className = 'condition';
+            newCondition.dataset.id = conditionCount;
+            newCondition.innerHTML = `
+                <input type="text" placeholder="條件內容">
+                <div class="condition-checkbox">
+                    <input type="checkbox" id="condition-pending-${eventId}-${conditionCount}" class="condition-pending">
+                    <label for="condition-pending-${eventId}-${conditionCount}">待確認</label>
+                </div>
+                <div>
+                    <button class="btn btn-warning btn-sm" onclick="addSubCondition(${eventId}, ${conditionCount})"><i class="fas fa-level-down-alt"></i></button>
+                    <span class="remove-condition" onclick="removeCondition(${eventId}, ${conditionCount})"><i class="fas fa-times-circle"></i></span>
+                </div>
+            `;
+            conditionsContainer.appendChild(newCondition);
+            conditionCount++;
+        }
+        
+        // 添加子條件
+        function addSubCondition(eventId, conditionId) {
+            const conditionEl = document.querySelector(`.event[data-id="${eventId}"] .condition[data-id="${conditionId}"]`);
+            if (!conditionEl) return;
+            
+            // 檢查是否已經有子條件容器
+            let subConditionsContainer = conditionEl.nextElementSibling;
+            if (!subConditionsContainer || !subConditionsContainer.classList.contains('sub-conditions')) {
+                subConditionsContainer = document.createElement('div');
+                subConditionsContainer.className = 'sub-conditions';
+                conditionEl.parentNode.insertBefore(subConditionsContainer, conditionEl.nextSibling);
+            }
+            
+            const newSubCondition = document.createElement('div');
+            newSubCondition.className = 'condition';
+            newSubCondition.dataset.id = conditionCount;
+            newSubCondition.innerHTML = `
+                <input type="text" placeholder="子條件內容">
+                <div class="condition-checkbox">
+                    <input type="checkbox" id="subcondition-pending-${eventId}-${conditionCount}" class="condition-pending">
+                    <label for="subcondition-pending-${eventId}-${conditionCount}">待確認</label>
+                </div>
+                <div>
+                    <span class="remove-condition" onclick="removeSubCondition(${eventId}, ${conditionCount})"><i class="fas fa-times-circle"></i></span>
+                </div>
+            `;
+            subConditionsContainer.appendChild(newSubCondition);
+            conditionCount++;
+        }
+        
+        // 移除條件
+        function removeCondition(eventId, conditionId) {
+            const conditionEl = document.querySelector(`.event[data-id="${eventId}"] .condition[data-id="${conditionId}"]`);
+            if (conditionEl) {
+                // 檢查是否有子條件
+                const nextEl = conditionEl.nextElementSibling;
+                if (nextEl && nextEl.classList.contains('sub-conditions')) {
+                    if (nextEl.querySelectorAll('.condition').length > 0) {
+                        if (!confirm('此條件有子條件，確定要刪除嗎？')) {
+                            return;
+                        }
+                    }
+                    nextEl.remove();
+                }
+                
+                conditionEl.remove();
+            }
+        }
+        
+        // 移除子條件
+        function removeSubCondition(eventId, conditionId) {
+            const conditionEl = document.querySelector(`.event[data-id="${eventId}"] .condition[data-id="${conditionId}"]`);
+            if (conditionEl) {
+                conditionEl.remove();
+            }
+        }
+        
+        // 生成ECFC圖
+        function generateECFC() {
+            const events = [];
+            document.querySelectorAll('.event').forEach(eventEl => {
+                const conditions = [];
+                eventEl.querySelectorAll('.conditions > .condition').forEach(conditionEl => {
+                    const subConditions = [];
+                    const subContainer = conditionEl.nextElementSibling;
+                    
+                    if (subContainer && subContainer.classList.contains('sub-conditions')) {
+                        subContainer.querySelectorAll('.condition').forEach(subConditionEl => {
+                            if (subConditionEl.querySelector('input').value.trim() !== '') {
+                                subConditions.push({
+                                    id: subConditionEl.dataset.id,
+                                    content: subConditionEl.querySelector('input').value.trim(),
+                                    isPending: subConditionEl.querySelector('.condition-pending').checked,
+                                    isSubCondition: true
+                                });
+                            }
+                        });
+                    }
+                    
+                    if (conditionEl.querySelector('input').value.trim() !== '' || subConditions.length > 0) {
+                        conditions.push({
+                            id: conditionEl.dataset.id,
+                            content: conditionEl.querySelector('input').value.trim(),
+                            isPending: conditionEl.querySelector('.condition-pending').checked,
+                            subConditions: subConditions,
+                            isSubCondition: false
+                        });
+                    }
+                });
+                
+                const month = eventEl.querySelector('.time-month').value || '';
+                const day = eventEl.querySelector('.time-day').value || '';
+                const hour = eventEl.querySelector('.time-hour').value || '0';
+                const minute = eventEl.querySelector('.time-minute').value || '0';
+                const isPending = eventEl.querySelector('.event-pending').checked;
+                
+                // 格式化時間顯示
+                let timeStr = '';
+                if (month) timeStr += `${month}月`;
+                if (day) timeStr += `${day}日`;
+                timeStr += `${hour}時${minute}分`;
+                
+                events.push({
+                    id: eventEl.dataset.id,
+                    content: eventEl.querySelector('.event-content').value || '未命名事件',
+                    conditions: conditions,
+                    time: timeStr,
+                    isPending: isPending
+                });
+            });
+            
+            drawECFC(events);
+        }
+        
+        // 繪製ECFC圖
+        function drawECFC(events) {
+            const svg = document.getElementById('ecfc-svg');
+            svg.innerHTML = ''; // 清除舊的SVG內容
+            
+            // 設置縮放
+            svg.style.transform = `scale(${zoomLevel})`;
+            svg.style.transformOrigin = 'top left';
+            
+            if (events.length === 0) {
+                svg.innerHTML = '<text x="50%" y="50%" text-anchor="middle" fill="#999">請先輸入事件數據</text>';
+                return;
+            }
+            
+            const svgWidth = Math.max(svg.parentElement.clientWidth, events.length * 300);
+            const svgHeight = 600;
+            svg.setAttribute('width', svgWidth);
+            svg.setAttribute('height', svgHeight);
+            
+            const eventWidth = 200;
+            const eventSpacing = 100;
+            const startX = 100;
+            const startY = svgHeight / 2 + 100; // 降低事件位置，為條件留出空間
+            
+            // 繪製事件鏈
+            events.forEach((event, index) => {
+                const x = startX + index * (eventWidth + eventSpacing);
+                
+                // 計算條件總高度
+                let conditionsHeight = 0;
+                event.conditions.forEach(condition => {
+                    conditionsHeight += 30; // 條件本身高度
+                    conditionsHeight += condition.subConditions.length * 25; // 子條件高度
+                });
+                
+                // 繪製條件（在事件上方）
+                let condY = startY - 100;
+                event.conditions.forEach((condition, condIndex) => {
+                    // 繪製條件橢圓形（粉紅色）
+                    const ellipse = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
+                    ellipse.setAttribute('cx', x + eventWidth/2);
+                    ellipse.setAttribute('cy', condY);
+                    ellipse.setAttribute('rx', 80);
+                    ellipse.setAttribute('ry', 20);
+                    ellipse.setAttribute('fill', '#f8bbd0');
+                    ellipse.setAttribute('stroke', condition.isPending ? '#e91e63' : '#ad1457');
+                    ellipse.setAttribute('stroke-width', '2');
+                    if (condition.isPending) {
+                        ellipse.setAttribute('stroke-dasharray', '5,5');
+                    }
+                    svg.appendChild(ellipse);
+                    
+                    const condText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                    condText.setAttribute('x', x + eventWidth/2);
+                    condText.setAttribute('y', condY + 5);
+                    condText.setAttribute('text-anchor', 'middle');
+                    condText.setAttribute('fill', '#333');
+                    condText.setAttribute('font-size', '12');
+                    condText.textContent = condition.content;
+                    svg.appendChild(condText);
+                    
+                    // 連接線（條件到事件）- 虛線箭頭
+                    const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                    line.setAttribute('x1', x + eventWidth/2);
+                    line.setAttribute('y1', condY + 20);
+                    line.setAttribute('x2', x + eventWidth/2);
+                    line.setAttribute('y2', startY - 60);
+                    line.setAttribute('stroke', '#ad1457');
+                    line.setAttribute('stroke-width', '2');
+                    line.setAttribute('stroke-dasharray', '5,5');
+                    svg.appendChild(line);
+                    
+                    // 繪製箭頭
+                    const arrow = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                    arrow.setAttribute('d', `M${x + eventWidth/2 - 5},${startY - 65} L${x + eventWidth/2},${startY - 55} L${x + eventWidth/2 + 5},${startY - 65}`);
+                    arrow.setAttribute('fill', '#ad1457');
+                    svg.appendChild(arrow);
+                    
+                    // 繪製子條件
+                    condition.subConditions.forEach((subCondition, subIndex) => {
+                        const subY = condY + 30 + subIndex * 25;
+                        
+                        // 繪製子條件橢圓形（淺粉紅色）
+                        const subEllipse = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
+                        subEllipse.setAttribute('cx', x + eventWidth/2);
+                        subEllipse.setAttribute('cy', subY);
+                        subEllipse.setAttribute('rx', 80);
+                        subEllipse.setAttribute('ry', 20);
+                        subEllipse.setAttribute('fill', '#fce4ec');
+                        subEllipse.setAttribute('stroke', subCondition.isPending ? '#e91e63' : '#ad1457');
+                        subEllipse.setAttribute('stroke-width', '2');
+                        if (subCondition.isPending) {
+                            subEllipse.setAttribute('stroke-dasharray', '5,5');
+                        }
+                        svg.appendChild(subEllipse);
+                        
+                        const subText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                        subText.setAttribute('x', x + eventWidth/2);
+                        subText.setAttribute('y', subY + 5);
+                        subText.setAttribute('text-anchor', 'middle');
+                        subText.setAttribute('fill', '#333');
+                        subText.setAttribute('font-size', '12');
+                        subText.textContent = subCondition.content;
+                        svg.appendChild(subText);
+                        
+                        // 連接線（子條件到父條件）
+                        const subLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                        subLine.setAttribute('x1', x + eventWidth/2);
+                        subLine.setAttribute('y1', subY - 20);
+                        subLine.setAttribute('x2', x + eventWidth/2);
+                        subLine.setAttribute('y2', condY + 20);
+                        subLine.setAttribute('stroke', '#ad1457');
+                        subLine.setAttribute('stroke-width', '1');
+                        subLine.setAttribute('stroke-dasharray', '3,3');
+                        svg.appendChild(subLine);
+                    });
+                    
+                    condY += condition.subConditions.length * 25 + 30;
+                });
+                
+                // 繪製事件矩形（黃色底色）
+                const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+                rect.setAttribute('x', x);
+                rect.setAttribute('y', startY - 60);
+                rect.setAttribute('width', eventWidth);
+                rect.setAttribute('height', 120);
+                rect.setAttribute('rx', 10);
+                rect.setAttribute('ry', 10);
+                rect.setAttribute('fill', '#fff9c4');
+                rect.setAttribute('stroke', event.isPending ? '#f39c12' : '#ffc107');
+                rect.setAttribute('stroke-width', '2');
+                if (event.isPending) {
+                    rect.setAttribute('stroke-dasharray', '5,5');
+                }
+                svg.appendChild(rect);
+                
+                // 繪製事件編號
+                const idText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                idText.setAttribute('x', x + 10);
+                idText.setAttribute('y', startY - 35);
+                idText.setAttribute('fill', '#f57f17');
+                idText.setAttribute('font-weight', 'bold');
+                idText.textContent = `事件 ${event.id}`;
+                svg.appendChild(idText);
+                
+                // 繪製事件內容
+                const contentText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                contentText.setAttribute('x', x + eventWidth/2);
+                contentText.setAttribute('y', startY - 10);
+                contentText.setAttribute('text-anchor', 'middle');
+                contentText.setAttribute('fill', '#333');
+                contentText.setAttribute('font-weight', 'bold');
+                contentText.textContent = event.content;
+                svg.appendChild(contentText);
+                
+                // 繪製時間
+                const timeText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                timeText.setAttribute('x', x + eventWidth/2);
+                timeText.setAttribute('y', startY + 15);
+                timeText.setAttribute('text-anchor', 'middle');
+                timeText.setAttribute('fill', '#d32f2f');
+                timeText.textContent = event.time;
+                svg.appendChild(timeText);
+                
+                // 繪製連接箭頭（事件之間）
+                if (index > 0) {
+                    const arrow = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                    const prevX = startX + (index-1) * (eventWidth + eventSpacing) + eventWidth;
+                    const arrowX = x - 15;
+                    
+                    arrow.setAttribute('d', `M${prevX},${startY} L${arrowX},${startY} L${arrowX-10},${startY-7} M${arrowX},${startY} L${arrowX-10},${startY+7}`);
+                    arrow.setAttribute('stroke', '#2196f3');
+                    arrow.setAttribute('stroke-width', '2');
+                    arrow.setAttribute('fill', 'none');
+                    svg.appendChild(arrow);
+                }
+            });
+        }
+        
+        // 縮放功能
+        function zoomIn() {
+            if (zoomLevel < 2) {
+                zoomLevel += 0.1;
+                generateECFC();
+            }
+        }
+        
+        function zoomOut() {
+            if (zoomLevel > 0.5) {
+                zoomLevel -= 0.1;
+                generateECFC();
+            }
+        }
+        
+        function resetZoom() {
+            zoomLevel = 1;
+            generateECFC();
+        }
+        
+        // 下載PNG功能
+        function downloadPNG() {
+            alert("PNG下載功能需要額外的庫支持，實際應用中可以使用html2canvas或dom-to-image等庫實現");
+            // 示例代碼:
+            // domtoimage.toPng(document.getElementById('ecfc-svg'))
+            //   .then(function (dataUrl) {
+            //     var link = document.createElement('a');
+            //     link.download = 'ecfc-diagram.png';
+            //     link.href = dataUrl;
+            //     link.click();
+            //   });
+        }
+        
+        // 清除所有輸入
+        function clearAll() {
+            if (confirm('確定要清除所有輸入嗎？')) {
+                document.getElementById('events-container').innerHTML = '';
+                document.getElementById('ecfc-svg').innerHTML = '';
+                eventCount = 0;
+                conditionCount = 1;
+                addEvent();
+            }
+        }
+        
+        // 初始化
+        window.onload = function() {
+            generateECFC();
+        };
+    </script>
+</body>
+</html>

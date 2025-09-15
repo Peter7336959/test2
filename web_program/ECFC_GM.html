@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<style type="text/css">
+.inline {
+  background-color: #f7f7f7;
+  border:solid 1px #B0B0B0;
+}
+.error {
+	font-weight: bold;
+	color: #FF0000;
+}
+.warning {
+	font-weight: bold;
+}
+.message {
+	font-style: italic;
+}
+.source, .output, .warning, .error, .message {
+	padding: 0 1em;
+  border:solid 1px #F7F7F7;
+}
+.source {
+  background-color: #f5f5f5;
+}
+.left {
+  text-align: left;
+}
+.right {
+  text-align: right;
+}
+.center {
+  text-align: center;
+}
+.hl.num {
+  color: #AF0F91;
+}
+.hl.sng {
+  color: #317ECC;
+}
+.hl.com {
+  color: #AD95AF;
+  font-style: italic;
+}
+.hl.opt {
+  color: #000000;
+}
+.hl.def {
+  color: #585858;
+}
+.hl.kwa {
+  color: #295F94;
+  font-weight: bold;
+}
+.hl.kwb {
+  color: #B05A65;
+}
+.hl.kwc {
+  color: #55aa55;
+}
+.hl.kwd {
+  color: #BC5A65;
+  font-weight: bold;
+}
+</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ECFC 事件成因圖產生器</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', 'Noto Sans TC', sans-serif;
+        }
+        /* 定義 ECFC 圖形樣式 */
+        .event-box {
+            background-color: #FFD700; /* 黃色 */
+            border: 2px solid #B8860B;
+            color: #333;
+            padding: 8px 12px;
+            border-radius: 8px;
+            text-align: center;
+            min-width: 140px;
+            max-width: 200px;
+            position: relative;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .event-box-presumptive {
+            background-color: #ADD8E6; /* 藍色 */
+            border: 2px dashed #4682B4;
+        }
+        .condition-box {
+            background-color: #FFB6C1; /* 粉紅色 */
+            border: 2px solid #CD5C5C;
+            color: #333;
+            padding: 6px 10px;
+            border-radius: 9999px; /* 橢圓形 */
+            text-align: center;
+            min-width: 120px;
+            max-width: 180px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .condition-box-presumptive {
+            background-color: #ADD8E6; /* 藍色 */
+            border: 2px dashed #4682B4;
+        }
+        .event-time {
+            font-size: 0.8rem;
+            color: #555;
+            margin-top: 4px;
+        }
+        .event-number {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #4A5568;
+            color: white;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+            border: 2px solid white;
+        }
+        /* 主事件鏈之間的連接線 */
+        .event-link::after {
+            content: '';
+            position: absolute;
+            left: 100%;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px; /* 線的長度 */
+            height: 3px;
+            background-color: #4A5568;
+            font-weight: bold;
+        }
+        .event-link:not(:last-child)::before {
+            content: '';
+            position: absolute;
+            left: calc(100% + 50px);
+            top: 50%;
+            transform: translateY(-50%) rotate(45deg);
+            width: 10px;
+            height: 10px;
+            border-top: 3px solid #4A5568;
+            border-right: 3px solid #4A5568;
+        }
+        .input-group {
+            border-left: 4px solid #4A5568;
+            padding-left: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .delete-btn {
+            background: #E53E3E;
+            color: white;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            line-height: 24px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.2s;
+        }
+        .delete-btn:hover {
+            background: #C53030;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800 p-4 md:p-8">
+
+    <div class="max-w-7xl mx-auto">
+        <header class="text-center mb-8">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-700">ECFC 事件成因圖產生器</h1>
+            <p class="text-gray-500 mt-2">輸入職災事故的事件鏈與對應條件，自動繪製事件成因圖。</p>
+        </header>
+
+        <main class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- 輸入區 -->
+            <div id="input-section" class="lg:col-span-1 bg-white p-6 rounded-lg shadow-lg">
+                <h2 class="text-2xl font-bold mb-4 border-b pb-2">輸入資料</h2>
+                <div id="event-list">
+                    <!-- 事件輸入框將動態添加到這裡 -->
+                </div>
+                <button id="add-event-btn" class="mt-4 w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition-colors">
+                    ＋ 新增事件
+                </button>
+            </div>
+
+            <!-- 繪圖區 -->
+            <div class="lg:col-span-2 bg-white p-6 rounded-lg shadow-lg relative min-h-[400px]">
+                <h2 class="text-2xl font-bold mb-4 border-b pb-2">ECFC 事件成因圖</h2>
+                <div id="ecfc-container" class="overflow-x-auto pb-8">
+                    <div id="ecfc-chart" class="relative pt-20 pb-4 inline-flex items-end gap-x-16">
+                        <!-- ECFC 圖形將在這裡繪製 -->
+                    </div>
+                    <svg id="svg-canvas" class="absolute top-0 left-0 w-full h-full pointer-events-none">
+                        <defs>
+                            <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="8" refY="3.5" orient="auto">
+                                <polygon points="0 0, 10 3.5, 0 7" fill="#718096" />
+                            </marker>
+                        </defs>
+                    </svg>
+                </div>
+            </div>
+        </main>
+        
+        <!-- 注意事項 -->
+        <footer class="mt-8 bg-white p-6 rounded-lg shadow-lg">
+            <h3 class="text-xl font-bold mb-3">ECFC 繪製注意事項</h3>
+            <ul class="list-disc list-inside space-y-2 text-gray-600">
+                <li><strong class="font-semibold text-gray-700">基於證據：</strong>圖表中的每個「事件」和「條件」都應基於可靠的證據。若是推測，請勾選「待確認」。</li>
+                <li><strong class="font-semibold text-gray-700">時間順序：</strong>事件應嚴格按照時間順序從左到右排列，構成主要事件鏈。</li>
+                <li><strong class="font-semibold text-gray-700">清晰描述：</strong>事件描述應簡潔且精確，建議使用「主詞(人/物) + 動詞」格式。條件則描述影響事件的狀態。</li>
+                <li><strong class="font-semibold text-gray-700">圖形規範：</strong>
+                    <ul class="list-decimal list-inside ml-6 mt-1">
+                        <li><span class="font-semibold text-yellow-600">黃色方框</span> 代表已確認的「事件」。</li>
+                        <li><span class="font-semibold text-pink-600">粉紅色橢圓</span> 代表影響事件的「條件」。</li>
+                        <li><span class="font-semibold text-blue-600">藍色虛線框/橢圓</span> 代表「待確認」的事件或條件。</li>
+                        <li><strong class="font-semibold text-gray-700">粗實線箭頭</strong> 連接主要事件，代表時序進程。</li>
+                        <li><strong class="font-semibold text-gray-700">虛線箭頭</strong> 從條件指向事件，代表影響關係。</li>
+                    </ul>
+                </li>
+                 <li><strong class="font-semibold text-gray-700">動態更新：</strong>ECFC 是一個動態工具，應隨著調查進展和新證據的出現而不斷更新和完善。</li>
+            </ul>
+        </footer>
+    </div>
+
+    <script>
+        // DOM 元素獲取
+        const addEventBtn = document.getElementById('add-event-btn');
+        const eventList = document.getElementById('event-list');
+        const ecfcChart = document.getElementById('ecfc-chart');
+        const svgCanvas = document.getElementById('svg-canvas');
+
+        // 資料儲存
+        let events = [];
+        let nextEventId = 1;
+
+        // --- 核心功能 ---
+
+        // 重新繪製整個應用程式介面
+        function render() {
+            renderInputList();
+            renderECFC();
+            // 使用 setTimeout 確保 DOM 更新後再繪製連接線
+            setTimeout(drawConnections, 50); 
+        }
+
+        // 渲染輸入列表
+        function renderInputList() {
+            eventList.innerHTML = '';
+            // 根據事件 ID 排序，確保顯示順序正確
+            events.sort((a, b) => a.id - b.id);
+            events.forEach(event => {
+                const eventDiv = document.createElement('div');
+                eventDiv.className = 'input-group relative';
+                eventDiv.innerHTML = `
+                    <div class="flex justify-between items-center mb-2">
+                        <h3 class="text-lg font-semibold">事件 #${event.id}</h3>
+                        <div class="delete-btn" onclick="removeEvent(${event.id})">×</div>
+                    </div>
+                    <div class="space-y-2">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">事件內容 (N+V)</label>
+                            <input type="text" value="${event.content}" onchange="updateEvent(${event.id}, 'content', this.value)" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">時間 (月/時/分)</label>
+                            <input type="text" value="${event.time}" onchange="updateEvent(${event.id}, 'time', this.value)" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                        </div>
+                        <div class="flex items-center">
+                            <input type="checkbox" ${event.isPresumptive ? 'checked' : ''} onchange="updateEvent(${event.id}, 'isPresumptive', this.checked)" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                            <label class="ml-2 block text-sm text-gray-900">待確認事件</label>
+                        </div>
+                    </div>
+                    <div id="conditions-for-event-${event.id}" class="mt-3 pl-4 border-l-2 border-gray-200 space-y-2">
+                        ${renderConditionsInput(event)}
+                    </div>
+                    <button onclick="addCondition(${event.id})" class="mt-3 text-sm text-blue-600 hover:text-blue-800">+ 新增條件</button>
+                `;
+                eventList.appendChild(eventDiv);
+            });
+        }
+
+        // 渲染條件的輸入框
+        function renderConditionsInput(event) {
+            return event.conditions.map((condition, index) => `
+                <div class="relative flex items-center group">
+                    <input type="text" value="${condition.content}" onchange="updateCondition(${event.id}, ${index}, 'content', this.value)" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm pr-16" placeholder="條件 ${index + 1}">
+                    <div class="absolute right-7 flex items-center">
+                       <input type="checkbox" ${condition.isPresumptive ? 'checked' : ''} onchange="updateCondition(${event.id}, ${index}, 'isPresumptive', this.checked)" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                    </div>
+                    <div class="delete-btn absolute right-0" onclick="removeCondition(${event.id}, ${index})">×</div>
+                </div>
+            `).join('');
+        }
+
+        // 渲染 ECFC 圖形
+        function renderECFC() {
+            ecfcChart.innerHTML = '';
+             // 根據事件 ID 排序，確保繪製順序正確
+            const sortedEvents = [...events].sort((a, b) => a.id - b.id);
+            sortedEvents.forEach((event, index) => {
+                const eventWrapper = document.createElement('div');
+                eventWrapper.className = 'flex flex-col-reverse items-center relative'; // Changed to flex-col-reverse
+                eventWrapper.id = `ecfc-event-wrapper-${event.id}`;
+
+                // 繪製事件
+                const eventEl = document.createElement('div');
+                eventEl.id = `ecfc-event-${event.id}`;
+                eventEl.className = `relative ${index < sortedEvents.length - 1 ? 'event-link' : ''}`;
+                
+                const eventBox = document.createElement('div');
+                eventBox.className = event.isPresumptive ? 'event-box event-box-presumptive' : 'event-box';
+                eventBox.innerHTML = `
+                    <div class="event-number">${event.id}</div>
+                    <div>${event.content || '事件內容'}</div>
+                    <div class="event-time">${event.time || '時間'}</div>
+                `;
+                
+                eventEl.appendChild(eventBox);
+                
+                // 繪製條件
+                const conditionsContainer = document.createElement('div');
+                conditionsContainer.className = 'flex flex-col-reverse items-center gap-y-2 mb-8';
+                event.conditions.forEach((condition, condIndex) => {
+                    const conditionEl = document.createElement('div');
+                    conditionEl.textContent = condition.content;
+                    conditionEl.className = condition.isPresumptive ? 'condition-box condition-box-presumptive' : 'condition-box';
+                    conditionEl.id = `ecfc-condition-${event.id}-${condIndex}`;
+                    conditionsContainer.appendChild(conditionEl);
+                });
+                
+                eventWrapper.appendChild(eventEl); // Event at the bottom
+                eventWrapper.appendChild(conditionsContainer); // Conditions above the event
+                ecfcChart.appendChild(eventWrapper);
+            });
+        }
+
+        // 繪製 SVG 連接線
+        function drawConnections() {
+            svgCanvas.innerHTML = '';
+            const chartContainer = document.getElementById('ecfc-container');
+            // 獲取容器的滾動位置
+            const scrollLeft = chartContainer.scrollLeft;
+            const scrollTop = chartContainer.scrollTop;
+            
+            // 獲取繪圖區域相對於視窗的位置
+            const chartRect = ecfcChart.getBoundingClientRect();
+            
+            events.forEach(event => {
+                const eventBox = document.querySelector(`#ecfc-event-${event.id} > div`);
+                if (!eventBox) return;
+
+                // 獲取事件方塊相對於視窗的位置
+                const eventRect = eventBox.getBoundingClientRect();
+
+                // 計算事件方塊頂部中心點在SVG畫布上的座標
+                const eventTopCenterX = eventRect.left + eventRect.width / 2 - chartRect.left + scrollLeft;
+                const eventTopCenterY = eventRect.top - chartRect.top + scrollTop;
+
+                event.conditions.forEach((condition, index) => {
+                    const conditionEl = document.getElementById(`ecfc-condition-${event.id}-${index}`);
+                    if (!conditionEl) return;
+
+                    // 獲取條件橢圓相對於視窗的位置
+                    const condRect = conditionEl.getBoundingClientRect();
+                    // 計算條件橢圓底部中心點在SVG畫布上的座標
+                    const condBottomCenterX = condRect.left + condRect.width / 2 - chartRect.left + scrollLeft;
+                    const condBottomCenterY = condRect.bottom - chartRect.top + scrollTop;
+
+                    // 繪製從條件到事件的虛線
+                    const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                    line.setAttribute('x1', condBottomCenterX);
+                    line.setAttribute('y1', condBottomCenterY);
+                    line.setAttribute('x2', eventTopCenterX);
+                    line.setAttribute('y2', eventTopCenterY);
+                    line.setAttribute('stroke', '#718096');
+                    line.setAttribute('stroke-width', '2');
+                    line.setAttribute('stroke-dasharray', '5,5');
+                    line.setAttribute('marker-end', 'url(#arrowhead)');
+                    svgCanvas.appendChild(line);
+                });
+            });
+        }
+
+        // --- 事件處理函數 ---
+
+        // 新增事件
+        function addEvent() {
+            const newId = events.length > 0 ? Math.max(...events.map(e => e.id)) + 1 : 1;
+            events.push({
+                id: newId,
+                content: '',
+                time: '',
+                isPresumptive: false,
+                conditions: []
+            });
+            render();
+        }
+
+        // 移除事件
+        window.removeEvent = function(eventId) {
+            events = events.filter(e => e.id !== eventId);
+            render();
+        }
+
+        // 更新事件資料
+        window.updateEvent = function(eventId, key, value) {
+            const event = events.find(e => e.id === eventId);
+            if (event) {
+                event[key] = value;
+            }
+            render();
+        }
+
+        // 新增條件
+        window.addCondition = function(eventId) {
+            const event = events.find(e => e.id === eventId);
+            if (event) {
+                event.conditions.push({ content: '', isPresumptive: false });
+            }
+            render();
+        }
+        
+        // 移除條件
+        window.removeCondition = function(eventId, conditionIndex) {
+            const event = events.find(e => e.id === eventId);
+            if (event) {
+                event.conditions.splice(conditionIndex, 1);
+            }
+            render();
+        }
+
+        // 更新條件資料
+        window.updateCondition = function(eventId, conditionIndex, key, value) {
+            const event = events.find(e => e.id === eventId);
+            if (event && event.conditions[conditionIndex]) {
+                event.conditions[conditionIndex][key] = value;
+            }
+            render();
+        }
+
+
+        // --- 初始化 ---
+        addEventBtn.addEventListener('click', addEvent);
+        
+        // 初始載入一個事件方便開始
+        addEvent();
+
+        // 監聽視窗大小變化，重新繪製連接線
+        window.addEventListener('resize', render);
+        document.getElementById('ecfc-container').addEventListener('scroll', drawConnections);
+    </script>
+
+</body>
+</html>
+
