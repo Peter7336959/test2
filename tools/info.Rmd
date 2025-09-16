@@ -79,10 +79,3 @@ knitr::include_graphics('info_RCA_3.png')
 knitr::include_graphics('info_RCA_4.png')
 ```
 
-## 指南資料
-[事故調查制度實務指南 (草稿)]()
-(版權所有，請勿做商業用途或營利用)
-
-## 宣導會講義
-[事故調查宣導會講義]()
-(版權所有，請勿做商業用途或營利用)
