@@ -63,7 +63,8 @@ library(tidyverse)
 宣導會名單 <- 宣導會名單 %>% rename(姓名匿稱=name, 公司匿稱=cop)
 library(kableExtra)
 #  kable(宣導會名單) 
-宣導會名單 %>% filter(確認場次=="北區9月18日" & 亂數抽籤=="y") %>% select(-2) %>%
+宣導會名單 %>% filter(確認場次=="北區9月18日" & 亂數抽籤=="y") %>% 
+  select(-2) %>% arrange(分組)%>%
   kbl() %>%
   kable_classic(bootstrap_options = c("striped", "hover"), 
     position =  "left", fixed_thead = T,full_width = F) %>%
@@ -74,13 +75,13 @@ library(kableExtra)
     pack_rows("第2組", 5, 8,label_row_css = "background-color: #666; color: #fff;") %>%
     pack_rows("第3組", 9, 12,label_row_css = "background-color: #666; color: #fff;") %>%
     pack_rows("第4組", 13, 16,label_row_css = "background-color: #666; color: #fff;") %>%
-    pack_rows("第5組", 17, 20,label_row_css = "background-color: #666; color: #fff;") %>%
-    pack_rows("第6組", 21, 24,label_row_css = "background-color: #666; color: #fff;") %>%
-    pack_rows("第7組", 25, 29,label_row_css = "background-color: #666; color: #fff;") %>%
-    pack_rows("第8組", 30, 33,label_row_css = "background-color: #666; color: #fff;") %>%
-    pack_rows("第9組", 34, 37,label_row_css = "background-color: #666; color: #fff;") %>%
-    pack_rows("第10組", 38, 41,label_row_css = "background-color: #666; color: #fff;") %>%
-footnote(general = "按報名順序暫時分組，上課時可再調整。指定演練案例-可先參見下面案例清單")%>%
+    pack_rows("第5組", 17, 21,label_row_css = "background-color: #666; color: #fff;") %>%
+    pack_rows("第6組", 22, 25,label_row_css = "background-color: #666; color: #fff;") %>%
+    pack_rows("第7組", 26, 30,label_row_css = "background-color: #666; color: #fff;") %>%
+    pack_rows("第8組", 31, 34,label_row_css = "background-color: #666; color: #fff;") %>%
+    pack_rows("第9組", 35, 38,label_row_css = "background-color: #666; color: #fff;") %>%
+    pack_rows("第10組", 39, 42,label_row_css = "background-color: #666; color: #fff;") %>%
+footnote(general = "暫時分組，上課時可再調整。指定演練案例-可先參見下面案例清單")%>%
     scroll_box(width = "600px", height = "200px")
 
 ```
