@@ -54,10 +54,10 @@ output:
 
 ```{r echo = FALSE, warning=FALSE, error=FALSE, message=FALSE}
 library(readxl)
-宣導會名單 <- read_excel("報名資訊/宣導會名單_錄取.xlsx",
+宣導會名單 <- read_excel("報名資訊\宣導會名單_錄取.xlsx",
 col_types = c("skip", "skip", "skip",
 "skip", "skip", "text", "text", "text",
-"text", "text", "text", "skip"))
+"text", "text", "text","skip"))
 
 library(tidyverse)
 宣導會名單 <- 宣導會名單 %>% rename(姓名匿稱=name, 公司匿稱=cop)
