@@ -9,7 +9,7 @@ output:
     toc_float: true
     #toc_depth: 2
     lib_dir: libs
-    theme: lumen
+    theme: united
     #theme: !expr sample(c( "united",  "flatly", "lumen",  "spacelab"), 1)
     highlight: default
     #(available themes are "default", "tango", "pygments", "kate", `monochrome`, `espresso`, `zenburn`, `haddock`, `breezedark`, `textmate`, `arrow`, or `rstudio`).
@@ -30,9 +30,13 @@ output:
 
 ## 一、公告 {.tabset .tabset-fade .tabset-pills}
 
--   0913：**北區第1場分享演練案例，感謝[第2，8，10組]{style="color: red;"}初步成果分享(詳見[第三節](#三))**
+> 0918：**北區第2場研討會(0918週四)已順利辦理完成，感謝大家參與，及北區職安衛中心協助。**
+
+> 0918：敬請北區第2場各組將演練完成檔案，於**[0924(週三)]{style="color: red;"}前**寄出(尊重您的分享意願)，檔案名稱為”北區2第\_\_組”。
+
+-   0913：北區第1場分享演練案例，感謝第2，8，10組初步成果分享(詳見[第三節](#三))
 -   0904：中區第5組分享演練案例-感電案3
--   0904：北區第1場之**職安回訓6小時證明**，北區職安衛中心**作業需要約一週時間**。
+-   0904：北區第1場之職安回訓6小時證明，北區職安衛中心，作業需要約一週時間。
 -   0902：敬請北區第一場各組將演練完成檔案，於0909(週二)前寄出(尊重您的分享意願)，檔案名稱為”北區1第\_\_組”。
 -   0825：中區分享演練案例，感謝第 4，6，7 組初步成果分享(詳見[第三節](#三))
 -   0822：中區研討會(0821週四)已順利辦理完成，感謝大家參與，及中市勞檢處大力協助。
@@ -48,46 +52,47 @@ output:
 
 ------------------------------------------------------------------------
 
-### 北區2 (0918 週四)
+### 北區2 **完成公告**
 
-(**報名43人**，甄選43人) **地點：職安署北區職業安全衛生中心(新北市新莊區中平路439號 - 北棟10樓1015會議室)**
+- 0918 北區第2場研討會(0918週四)已順利辦理完成，感謝大家參與，及北區職安衛中心協助。
+- (**報名43人**，甄選43人) **地點：職安署北區職業安全衛生中心(新北市新莊區中平路439號 - 北棟10樓1015會議室)**
 
 ```{r echo = FALSE, warning=FALSE, error=FALSE, message=FALSE}
-library(readxl)
-宣導會名單 <- read_excel("報名資訊/宣導會名單_錄取.xlsx",
-col_types = c("skip", "skip", "skip",
-"skip", "skip", "text", "text", "text",
-"text", "text", "text", "skip"))
+#library(readxl)
+#宣導會名單 <- read_excel("報名資訊/宣導會名單_錄取.xlsx",
+#col_types = c("skip", "skip", "skip",
+#"skip", "skip", "text", "text", "text",
+#"text", "text", "text", "skip"))
 
-library(tidyverse)
-宣導會名單 <- 宣導會名單 %>% rename(姓名匿稱=name, 公司匿稱=cop)
-library(kableExtra)
+#library(tidyverse)
+#宣導會名單 <- 宣導會名單 %>% rename(姓名匿稱=name, 公司匿稱=cop)
+#library(kableExtra)
 #  kable(宣導會名單) 
-宣導會名單 %>% filter(確認場次=="北區9月18日" & 亂數抽籤=="y") %>% 
-  select(-2) %>% arrange(分組)%>%
-  kbl() %>%
-  kable_classic(bootstrap_options = c("striped", "hover"), 
-    position =  "left", fixed_thead = T,full_width = F) %>%
-    row_spec(0, bold = T)%>%
-    column_spec(1, bold = T )%>%
-    column_spec(2, bold = T, background = "lightyellow")%>%
-    pack_rows("第1組", 1, 3,label_row_css = "background-color: #666; color: #fff;") %>%
-    pack_rows("第2組", 4, 7,label_row_css = "background-color: #666; color: #fff;") %>%
-    pack_rows("第3組", 8, 11,label_row_css = "background-color: #666; color: #fff;") %>%
-    pack_rows("第4組", 12, 15,label_row_css = "background-color: #666; color: #fff;") %>%
-    pack_rows("第5組", 16, 20,label_row_css = "background-color: #666; color: #fff;") %>%
-    pack_rows("第6組", 21, 24,label_row_css = "background-color: #666; color: #fff;") %>%
-    pack_rows("第7組", 25, 29,label_row_css = "background-color: #666; color: #fff;") %>%
-    pack_rows("第8組", 30, 33,label_row_css = "background-color: #666; color: #fff;") %>%
-    pack_rows("第9組", 34, 37,label_row_css = "background-color: #666; color: #fff;") %>%
-    pack_rows("第10組", 38, 41,label_row_css = "background-color: #666; color: #fff;") %>%
-footnote(general = "暫時分組，上課時可再調整。指定演練案例-可先參見下面案例清單")%>%
-    scroll_box(width = "600px", height = "200px")
+#宣導會名單 %>% filter(確認場次=="北區9月18日" & 亂數抽籤=="y") %>% 
+#  select(-2) %>% arrange(分組)%>%
+#  kbl() %>%
+#  kable_classic(bootstrap_options = c("striped", "hover"), 
+#    position =  "left", fixed_thead = T,full_width = F) %>%
+#    row_spec(0, bold = T)%>%
+#    column_spec(1, bold = T )%>%
+#    column_spec(2, bold = T, background = "lightyellow")%>%
+#    pack_rows("第1組", 1, 3,label_row_css = "background-color: #666; color: #fff;") %>%
+#    pack_rows("第2組", 4, 7,label_row_css = "background-color: #666; color: #fff;") %>%
+#    pack_rows("第3組", 8, 11,label_row_css = "background-color: #666; color: #fff;") %>%
+#    pack_rows("第4組", 12, 15,label_row_css = "background-color: #666; color: #fff;") %>%
+#    pack_rows("第5組", 16, 20,label_row_css = "background-color: #666; color: #fff;") %>%
+#    pack_rows("第6組", 21, 24,label_row_css = "background-color: #666; color: #fff;") %>%
+#    pack_rows("第7組", 25, 29,label_row_css = "background-color: #666; color: #fff;") %>%
+#    pack_rows("第8組", 30, 33,label_row_css = "background-color: #666; color: #fff;") %>%
+#    pack_rows("第9組", 34, 37,label_row_css = "background-color: #666; color: #fff;") %>%
+#    pack_rows("第10組", 38, 41,label_row_css = "background-color: #666; color: #fff;") %>%
+# footnote(general = "暫時分組，上課時可再調整。指定演練案例-可先參見下面案例清單")%>%
+#    scroll_box(width = "600px", height = "200px")
 ```
 
 ------------------------------------------------------------------------
 
-### 北區1 ***完成公告***
+### 北區1 完成公告
 
 -   0913：感謝[**第2，8，10組**]{style="color: red;"}初步成果分享(詳見[第三節](#三))
 -   0902 北區第一場研討會(0902週一)已順利辦理完成，感謝大家參與，及北區職安衛中心協助。
