@@ -71,19 +71,18 @@ library(kableExtra)
     row_spec(0, bold = T)%>%
     column_spec(1, bold = T )%>%
     column_spec(2, bold = T, background = "lightyellow")%>%
-    pack_rows("第1組", 1, 4,label_row_css = "background-color: #666; color: #fff;") %>%
-    pack_rows("第2組", 5, 8,label_row_css = "background-color: #666; color: #fff;") %>%
-    pack_rows("第3組", 9, 12,label_row_css = "background-color: #666; color: #fff;") %>%
-    pack_rows("第4組", 13, 16,label_row_css = "background-color: #666; color: #fff;") %>%
-    pack_rows("第5組", 17, 21,label_row_css = "background-color: #666; color: #fff;") %>%
-    pack_rows("第6組", 22, 25,label_row_css = "background-color: #666; color: #fff;") %>%
-    pack_rows("第7組", 26, 30,label_row_css = "background-color: #666; color: #fff;") %>%
-    pack_rows("第8組", 31, 34,label_row_css = "background-color: #666; color: #fff;") %>%
-    pack_rows("第9組", 35, 38,label_row_css = "background-color: #666; color: #fff;") %>%
-    pack_rows("第10組", 39, 42,label_row_css = "background-color: #666; color: #fff;") %>%
+    pack_rows("第1組", 1, 3,label_row_css = "background-color: #666; color: #fff;") %>%
+    pack_rows("第2組", 4, 7,label_row_css = "background-color: #666; color: #fff;") %>%
+    pack_rows("第3組", 8, 11,label_row_css = "background-color: #666; color: #fff;") %>%
+    pack_rows("第4組", 12, 15,label_row_css = "background-color: #666; color: #fff;") %>%
+    pack_rows("第5組", 16, 20,label_row_css = "background-color: #666; color: #fff;") %>%
+    pack_rows("第6組", 21, 24,label_row_css = "background-color: #666; color: #fff;") %>%
+    pack_rows("第7組", 25, 29,label_row_css = "background-color: #666; color: #fff;") %>%
+    pack_rows("第8組", 30, 33,label_row_css = "background-color: #666; color: #fff;") %>%
+    pack_rows("第9組", 34, 37,label_row_css = "background-color: #666; color: #fff;") %>%
+    pack_rows("第10組", 38, 41,label_row_css = "background-color: #666; color: #fff;") %>%
 footnote(general = "暫時分組，上課時可再調整。指定演練案例-可先參見下面案例清單")%>%
     scroll_box(width = "600px", height = "200px")
-
 ```
 
 ------------------------------------------------------------------------
@@ -94,7 +93,7 @@ footnote(general = "暫時分組，上課時可再調整。指定演練案例-�
 -   0902 北區第一場研討會(0902週一)已順利辦理完成，感謝大家參與，及北區職安衛中心協助。
 -   (報名87人，甄選41人) 地點：職安署北區職業安全衛生中心(新北市新莊區中平路439號 - 北棟10樓1015會議室)
 
-```{r echo = FALSE, warning=FALSE,  cache=TRUE,error=FALSE, message=FALSE}
+```{r echo = FALSE, warning=FALSE,,error=FALSE, message=FALSE}
 #library(readxl)
 #宣導會名單 <- read_excel("報名資訊/宣導會名單_錄取.xlsx",
 #col_types = c("skip", "skip", "skip",
@@ -180,7 +179,7 @@ library(readxl)
 -   0805 **南區(0805週二)已順利辦理完成，感謝大家參與。**
 -   (**報名48人**，甄選47人) **於0805(週二)高市勞檢處**
 
-```{r echo = FALSE, warning=FALSE, cache=TRUE,error=FALSE, message=FALSE}
+```{r echo = FALSE, warning=FALSE, ,error=FALSE, message=FALSE}
 library(tidyverse)
 library(readxl)
 #宣導會名單 <- read_excel("報名資訊/宣導會名單_錄取.xlsx",
@@ -433,9 +432,9 @@ knitr::include_graphics('images/課程表.jpg')
 ## 六、宣導資料下載 (宣導會當日提供連結) {#六} 
 
 - **(尊重智慧財產，請勿做商業用途或營利使用)**
--   [前測問卷表單]
+-   [前測問卷表單](https://forms.gle/PTMPhKcQkLFAkfJH7)
 -   [案例演練分析參考表格](演練案分析格式.docx)
--   [宣導會講義 pdf]
--   [事故調查分析方法圖卡 pdf]
--   [事故調查制度實務指南 pdf]
--   [分析方法解析資訊圖表](tools\info.html) - infographic
+-   [宣導會講義 pdf](事故調查研討會講義.pdf)
+-   [事故調查分析方法圖卡 pdf](事故調查制度實務指南-分析方法圖卡.pdf)
+-   [事故調查制度實務指南 pdf](tools\R6-事故調查制度實務指南-中華製程安全學會編撰.pdf)
+-   [分析方法解析資訊圖表 infographic](tools\info.html))
