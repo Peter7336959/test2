@@ -99,9 +99,17 @@ lightbox:
 
 ![個案研討1](images/宣導會照片/北區2/4.jpg){group="北區2" width="80%"}
 
-![個案研討2](images/宣導會照片/北區2/5.jpg){group="北區2" width="80%"} ![個案研討3](images/宣導會照片/北區2/6.jpg){group="北區2" width="80%"} ![個案研討4](images/宣導會照片/北區2/7.jpg){group="北區2" width="80%"} ![個案研討5](images/宣導會照片/北區2/8.jpg){group="北區2" width="80%"}
+![個案研討2](images/宣導會照片/北區2/5.jpg){group="北區2" width="80%"}
 
-![個案研討6](images/宣導會照片/北區2/9.jpg){group="北區2" width="80%"} ![個案研討7](images/宣導會照片/北區2/10.jpg){group="北區2" width="80%"}
+![個案研討3](images/宣導會照片/北區2/6.jpg){group="北區2" width="80%"}
+
+![個案研討4](images/宣導會照片/北區2/7.jpg){group="北區2" width="80%"}
+
+![個案研討5](images/宣導會照片/北區2/8.jpg){group="北區2" width="80%"}
+
+![個案研討6](images/宣導會照片/北區2/9.jpg){group="北區2" width="80%"}
+
+![個案研討7](images/宣導會照片/北區2/10.jpg){group="北區2" width="80%"}
 
 ![個案研討8](images/宣導會照片/北區2/11.jpg){group="北區2" width="80%"}
 
