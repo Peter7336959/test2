@@ -282,7 +282,7 @@ knitr::include_graphics('images/課程表.jpg')
 |  | [局限案2](cases/C局限空間/局限案例2_演練.pdf) | [<span style="color: darkgreen;">\*分析參考</span>](cases/C局限空間/局限案例2_分析參考.pdf)  | 職安署電子書 | [原始檔案](cases/C局限空間/局限案例2_原始.pdf) |
 |  | [局限空間案3](cases/C局限空間/局限案例3_演練.pdf) | [<span style="color: darkgreen;">\*分析參考</span>](cases/C局限空間/局限案例3_分析參考.pdf)  | 職安署電子書 | [原始檔案](cases/C局限空間/局限案例3_原始.pdf) |
 |  | [局限空間案4](cases/C局限空間/局限案例4_演練.pdf) | [<span style="color: darkgreen;">\*分析參考</span>](cases/C局限空間/局限案例4_分析參考.pdf) | 職安署電子書 | [原始檔案](cases/C局限空間/局限案例4_原始.pdf) |
-|  |  |[[北區2第8組分享](cases/C局限空間/北區2第8組演練分享.pdf)]{style="color: red;"}   |  |@北區2第8組 |
+|  |  |[[北區2第8組分享](cases/C局限空間/北區2第8組演練分享.pdf)]{style="color: red;"}   | @北區2第8組| |
 |  | [局限空間案5](cases/C局限空間/局限案例5_演練.pdf) | [<span style="color: darkgreen;">\*分析參考</span>](cases/C局限空間/局限案例5_分析參考.pdf) | 參考用 | [原始檔案](cases/C局限空間/局限案例5_原始.pdf) |
 |  |  | [[南區第3組分享](cases/C局限空間/局限案例5演練參考.pdf)]{style="color: red;"} | [ @南區第3組]{style="color: red;"} |  |
 
