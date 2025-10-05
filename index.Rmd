@@ -293,10 +293,10 @@ knitr::include_graphics('images/課程表.jpg')
 | 職災類型 | 演練個案 | 分析參考 | 公告訊息 | 完整檔案 |
 |:--------------|:--------------|:--------------|:--------------|:--------------|
 | 倒塌崩塌\*4參考案 |  |  |  |  |
-|  | [倒塌崩塌1](cases/D倒塌崩塌/倒塌案1_演練.pdf) | [<span style="color: darkgreen;">\*分析參考</span>](cases/D倒塌崩塌/倒塌案1_分析參考.pdf)  | 職安署公告 | [原始檔案](cases/D倒塌崩塌/倒塌案1_原始.pdf) |
-|  | [倒塌崩塌2](cases/D倒塌崩塌/倒塌案2_演練.pdf) | [<span style="color: darkgreen;">\*分析參考</span>](cases/D倒塌崩塌/倒塌案2_分析參考.pdf)  | 職安署公告 | [原始檔案](cases/D倒塌崩塌/倒塌案2_原始.pdf) |
-|  | [倒塌崩塌3](cases/D倒塌崩塌/倒塌案3_演練.pdf) | [<span style="color: darkgreen;">\*分析參考</span>](cases/D倒塌崩塌/倒塌案3_分析參考.pdf)  | 職安署公告 | [原始檔案](cases/D倒塌崩塌/倒塌案3_原始.pdf) |
-|  | [倒塌崩塌4](cases/D倒塌崩塌/倒塌案4_演練.pdf) | [<span style="color: darkgreen;">\*分析參考</span>](cases/D倒塌崩塌/倒塌案4_分析參考.pdf) | 職安署公告 | [原始檔案](cases/D倒塌崩塌/倒塌案4_原始.pdf) |
+|  | [倒塌崩塌案1](cases/D倒塌崩塌/倒塌案1_演練.pdf) | [<span style="color: darkgreen;">\*分析參考</span>](cases/D倒塌崩塌/倒塌案1_分析參考.pdf)  | 職安署公告 | [原始檔案](cases/D倒塌崩塌/倒塌案1_原始.pdf) |
+|  | [倒塌崩塌案2](cases/D倒塌崩塌/倒塌案2_演練.pdf) | [<span style="color: darkgreen;">\*分析參考</span>](cases/D倒塌崩塌/倒塌案2_分析參考.pdf)  | 職安署公告 | [原始檔案](cases/D倒塌崩塌/倒塌案2_原始.pdf) |
+|  | [倒塌崩塌案3](cases/D倒塌崩塌/倒塌案3_演練.pdf) | [<span style="color: darkgreen;">\*分析參考</span>](cases/D倒塌崩塌/倒塌案3_分析參考.pdf)  | 職安署公告 | [原始檔案](cases/D倒塌崩塌/倒塌案3_原始.pdf) |
+|  | [倒塌崩塌案4](cases/D倒塌崩塌/倒塌案4_演練.pdf) | [<span style="color: darkgreen;">\*分析參考</span>](cases/D倒塌崩塌/倒塌案4_分析參考.pdf) | 職安署公告 | [原始檔案](cases/D倒塌崩塌/倒塌案4_原始.pdf) |
 |  |  | [[中區第4組分享](cases/D倒塌崩塌/中區第4組演練分享.pdf)]{style="color: red;"} | @中區第4組 |  |
 |  |  | [[南區第4組分享](cases/D倒塌崩塌/南區第4組演練分享.pdf)]{style="color: red;"} | @南區第4組 |  |
 |  |  | [[南區第9組分享](cases/D倒塌崩塌/南區第9組演練分享.pdf)]{style="color: red;"} | @南區第9組 |  |
@@ -340,8 +340,8 @@ knitr::include_graphics('images/課程表.jpg')
 | 職災類型 | 演練個案 | 分析參考 | 公告訊息 | 完整檔案 |
 |:--------------|:--------------|:--------------|:--------------|:--------------|
 | 局限空間\*5參考案 |  |  |  |  |
-|  | [局限案1](cases/C局限空間/局限案例1_演練.pdf) | [<span style="color: darkgreen;">\*分析參考</span>](cases/C局限空間/侷限案1_分析參考.pdf) | 參考用 | [原始檔案](cases/C局限空間/局限案例1_原始.pdf) |
-|  | [局限案2](cases/C局限空間/局限案例2_演練.pdf) | [<span style="color: darkgreen;">\*分析參考</span>](cases/C局限空間/局限案例2_分析參考.pdf)  | 職安署電子書 | [原始檔案](cases/C局限空間/局限案例2_原始.pdf) |
+|  | [局限空間案1](cases/C局限空間/局限案例1_演練.pdf) | [<span style="color: darkgreen;">\*分析參考</span>](cases/C局限空間/局限案例1_分析參考.pdf) | 參考用 | [原始檔案](cases/C局限空間/局限案例1_原始.pdf) |
+|  | [局限空間案2](cases/C局限空間/局限案例2_演練.pdf) | [<span style="color: darkgreen;">\*分析參考</span>](cases/C局限空間/局限案例2_分析參考.pdf)  | 職安署電子書 | [原始檔案](cases/C局限空間/局限案例2_原始.pdf) |
 |  | [局限空間案3](cases/C局限空間/局限案例3_演練.pdf) | [<span style="color: darkgreen;">\*分析參考</span>](cases/C局限空間/局限案例3_分析參考.pdf)  | 職安署電子書 | [原始檔案](cases/C局限空間/局限案例3_原始.pdf) |
 |  | [局限空間案4](cases/C局限空間/局限案例4_演練.pdf) | [<span style="color: darkgreen;">\*分析參考</span>](cases/C局限空間/局限案例4_分析參考.pdf) | 職安署電子書 | [原始檔案](cases/C局限空間/局限案例4_原始.pdf) |
 |  |  |[[北區2第8組分享](cases/C局限空間/北區2第8組演練分享.pdf)]{style="color: red;"}   | @北區2第8組| |
