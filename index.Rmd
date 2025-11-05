@@ -442,5 +442,5 @@ knitr::include_graphics('images/課程表.jpg')
 -   [案例演練分析參考表格](演練案分析格式.docx)
 -   [宣導會講義 pdf](事故調查研討會講義.pdf)
 -   [事故調查分析方法圖卡 pdf](事故調查制度實務指南-分析方法圖卡.pdf)
--   [事故調查制度實務指南 pdf](tools\R8-事故調查制度實務指南 - 1011.pdf)
+-   [事故調查制度實務指南 pdf]
 -   [分析方法解析資訊圖表 infographic](tools\info.html))
