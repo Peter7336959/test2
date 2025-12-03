@@ -100,14 +100,6 @@
     .section-transition {
       transition: all 0.5s ease-in-out;
     }
-    
-    .chat-bubble-user {
-      border-bottom-right-radius: 0;
-    }
-    
-    .chat-bubble-ai {
-      border-bottom-left-radius: 0;
-    }
 
     /* Animation Utilities */
     @keyframes pulse-slow {
@@ -138,55 +130,6 @@
   <button onclick="toggleMenu()" class="fixed bottom-6 right-6 z-50 bg-slate-800 text-white p-4 rounded-full shadow-lg md:hidden hover:bg-slate-700 transition-colors">
     <i data-lucide="menu"></i>
   </button>
-
-  <!-- ================= AI Assistant Button ================= -->
-  <button onclick="toggleAiModal()" class="fixed bottom-6 left-6 z-40 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white p-4 rounded-full shadow-2xl transition-all hover:scale-110 flex items-center gap-2 group">
-    <i data-lucide="sparkles" class="group-hover:animate-spin"></i>
-    <span class="font-bold hidden md:inline">AI 應變助手</span>
-  </button>
-
-  <!-- ================= AI Assistant Modal ================= -->
-  <div id="ai-modal" class="fixed inset-0 bg-black/50 z-50 hidden items-center justify-center p-4 backdrop-blur-sm">
-    <div class="bg-white w-full max-w-2xl rounded-2xl shadow-2xl overflow-hidden flex flex-col h-[80vh] animate-fade-in-up">
-      
-      <!-- Header -->
-      <div class="bg-slate-900 text-white p-4 flex justify-between items-center">
-        <div class="flex items-center gap-2">
-          <i data-lucide="sparkles" class="text-yellow-400"></i>
-          <h3 class="font-bold text-lg">AI 應變助手 (Powered by Gemini)</h3>
-        </div>
-        <button onclick="toggleAiModal()" class="hover:bg-slate-700 p-2 rounded-full transition-colors">
-          <i data-lucide="x"></i>
-        </button>
-      </div>
-
-      <!-- Chat Area -->
-      <div id="chat-container" class="flex-1 overflow-y-auto p-4 space-y-4 bg-slate-50">
-        <div class="flex justify-start">
-          <div class="max-w-[85%] p-4 rounded-2xl bg-white border border-slate-200 text-slate-800 chat-bubble-ai shadow-sm">
-            <p class="whitespace-pre-wrap leading-relaxed">你好！我是你的 AI 應變助手。我可以協助你生成演練情境、提供化學品應變建議，或檢核你的應變計畫。請告訴我你需要什麼協助？</p>
-          </div>
-        </div>
-        <!-- Chat messages will be appended here -->
-      </div>
-
-      <!-- Input Area -->
-      <div class="p-4 bg-white border-t border-slate-200">
-        <div class="flex gap-2">
-          <input type="text" id="user-input" placeholder="輸入問題，例如：生成一個甲苯洩漏的演練腳本..." class="flex-1 border border-slate-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-          <button onclick="sendMessage()" class="bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-xl transition-colors shadow-md flex items-center justify-center min-w-[50px]">
-            <i data-lucide="send"></i>
-          </button>
-        </div>
-        <div class="mt-2 flex gap-2 overflow-x-auto pb-1 no-scrollbar">
-          <button onclick="setQuery('生成演練腳本')" class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-600 px-3 py-1.5 rounded-full whitespace-nowrap transition-colors">生成演練腳本</button>
-          <button onclick="setQuery('檢核應變計畫')" class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-600 px-3 py-1.5 rounded-full whitespace-nowrap transition-colors">檢核應變計畫</button>
-          <button onclick="setQuery('查詢化學品危害')" class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-600 px-3 py-1.5 rounded-full whitespace-nowrap transition-colors">查詢化學品危害</button>
-          <button onclick="setQuery('提供應變建議')" class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-600 px-3 py-1.5 rounded-full whitespace-nowrap transition-colors">提供應變建議</button>
-        </div>
-      </div>
-    </div>
-  </div>
 
   <!-- ================= Main Content ================= -->
   <main class="md:pr-20 transition-all duration-300">
@@ -231,8 +174,8 @@
           </div>
         </div>
 
-        <div class="mt-12 font-bold text-slate-400">
-          講師：何明信 (職安衛技師、中華製程學會、創贊公司、成大職衛所) | 2025年12月
+        <div class="mt-12 text-slate-400 text-sm">
+          講師：ERM (職業安全衛生管理專家) | 2025年12月
         </div>
       </div>
       
@@ -628,21 +571,21 @@
             </div>
 
             <div class="grid grid-cols-1 gap-4">
-              <div class="bg-blue-900/30 p-4 rounded-lg flex gap-4 items-start border border-blue-500/30 hover:bg-blue-800/40 transition-colors cursor-pointer" onclick="toggleAiModal()">
+              <div class="bg-blue-900/30 p-4 rounded-lg flex gap-4 items-start border border-blue-500/30 hover:bg-blue-800/40 transition-colors cursor-default">
                 <div class="bg-blue-500/20 p-2 rounded text-blue-300 font-mono text-xs">AI</div>
                 <div>
                   <h4 class="font-bold text-blue-200">情境生成</h4>
                   <p class="text-slate-400 text-sm">利用 AI 生成複合式災害腳本（如：強震 + 毒氣洩漏 + 道路中斷）。</p>
                 </div>
               </div>
-              <div class="bg-blue-900/30 p-4 rounded-lg flex gap-4 items-start border border-blue-500/30 hover:bg-blue-800/40 transition-colors cursor-pointer" onclick="toggleAiModal()">
+              <div class="bg-blue-900/30 p-4 rounded-lg flex gap-4 items-start border border-blue-500/30 hover:bg-blue-800/40 transition-colors cursor-default">
                 <div class="bg-blue-500/20 p-2 rounded text-blue-300 font-mono text-xs">AI</div>
                 <div>
                   <h4 class="font-bold text-blue-200">邏輯檢核</h4>
                   <p class="text-slate-400 text-sm">上傳 ERP 至封閉式 AI 模型，找出邏輯漏洞（如：疏散路線經過洩漏源）。</p>
                 </div>
               </div>
-              <div class="bg-blue-900/30 p-4 rounded-lg flex gap-4 items-start border border-blue-500/30 hover:bg-blue-800/40 transition-colors cursor-pointer" onclick="toggleAiModal()">
+              <div class="bg-blue-900/30 p-4 rounded-lg flex gap-4 items-start border border-blue-500/30 hover:bg-blue-800/40 transition-colors cursor-default">
                 <div class="bg-blue-500/20 p-2 rounded text-blue-300 font-mono text-xs">AI</div>
                 <div>
                   <h4 class="font-bold text-blue-200">演練評估</h4>
@@ -821,112 +764,6 @@
     window.addEventListener('scroll', updateActiveSection);
     renderNav();
     updateActiveSection();
-
-    /* ================= Gemini API Logic ================= */
-    const apiKey = ""; // API Key will be injected by the environment in a real app
-    const chatContainer = document.getElementById('chat-container');
-    const userInput = document.getElementById('user-input');
-    const aiModal = document.getElementById('ai-modal');
-
-    function toggleAiModal() {
-      aiModal.classList.toggle('hidden');
-      aiModal.classList.toggle('flex');
-    }
-
-    function setQuery(text) {
-      userInput.value = text;
-      sendMessage();
-    }
-
-    async function sendMessage() {
-      const text = userInput.value.trim();
-      if (!text) return;
-
-      // Add user message
-      appendMessage('user', text);
-      userInput.value = '';
-
-      // Add loading state
-      const loadingId = appendLoading();
-
-      // Prepare payload
-      const systemInstruction = `你是一位專業的職業安全衛生管理專家，專精於危險性化學物質的緊急應變規劃。
-      請根據使用者的提問，提供專業、具體且符合台灣法規（如職安法、消防法）及國際標準（如 OECD, CSB）的建議。
-      若使用者要求生成演練情境，請包含：情境描述、時間、地點、天氣、涉及化學品、初始狀況、演變過程及預期應變作為。
-      請使用繁體中文回答，語氣專業且令人安心。`;
-
-      try {
-        let responseText = "API Key 遺失或未設定。";
-        
-        if (apiKey) {
-          const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              contents: [{ parts: [{ text }] }],
-              systemInstruction: { parts: [{ text: systemInstruction }] }
-            })
-          });
-          const data = await response.json();
-          if (data.error) throw new Error(data.error.message);
-          responseText = data.candidates?.[0]?.content?.parts?.[0]?.text || "無法產生回應。";
-        }
-
-        removeLoading(loadingId);
-        appendMessage('assistant', responseText);
-
-      } catch (error) {
-        removeLoading(loadingId);
-        appendMessage('assistant', `發生錯誤: ${error.message}`);
-      }
-    }
-
-    function appendMessage(role, text) {
-      const div = document.createElement('div');
-      div.className = `flex ${role === 'user' ? 'justify-end' : 'justify-start'}`;
-      
-      const bubble = document.createElement('div');
-      bubble.className = `max-w-[85%] p-4 rounded-2xl shadow-sm ${
-        role === 'user' 
-          ? 'bg-blue-600 text-white chat-bubble-user' 
-          : 'bg-white border border-slate-200 text-slate-800 chat-bubble-ai'
-      }`;
-      
-      // Simple markdown-like formatting for bold text
-      const formattedText = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-      bubble.innerHTML = `<p class="whitespace-pre-wrap leading-relaxed">${formattedText}</p>`;
-      
-      div.appendChild(bubble);
-      chatContainer.appendChild(div);
-      chatContainer.scrollTop = chatContainer.scrollHeight;
-    }
-
-    function appendLoading() {
-      const id = 'loading-' + Date.now();
-      const div = document.createElement('div');
-      div.id = id;
-      div.className = 'flex justify-start';
-      div.innerHTML = `
-        <div class="bg-white border border-slate-200 p-4 rounded-2xl chat-bubble-ai shadow-sm flex items-center gap-2">
-          <i data-lucide="loader-2" class="animate-spin text-blue-600 w-5 h-5"></i>
-          <span class="text-slate-500 text-sm">AI 正在思考中...</span>
-        </div>
-      `;
-      chatContainer.appendChild(div);
-      chatContainer.scrollTop = chatContainer.scrollHeight;
-      lucide.createIcons();
-      return id;
-    }
-
-    function removeLoading(id) {
-      const el = document.getElementById(id);
-      if (el) el.remove();
-    }
-
-    // Enter key support
-    userInput.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') sendMessage();
-    });
 
   </script>
 </body>
